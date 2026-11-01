@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal IA y Salud | Clase María José (URV Foundations)</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --secondary: #0d9488;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 14px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 3rem;
+    }
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0369a1 100%);
+      color: white;
+      padding: 3rem 1.5rem 2.5rem;
+      text-align: center;
+      border-bottom: 4px solid var(--secondary);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      color: #38bdf8;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 0.85rem;
+    }
+    .header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .header p {
+      color: #cbd5e1;
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+    .container {
+      max-width: 1080px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .app-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .app-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px -3px rgba(0,0,0,0.1);
+    }
+    .card-top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+    }
+    .card-prompts .card-top-bar { background: linear-gradient(90deg, #0284c7, #38bdf8); }
+    .card-kmeans .card-top-bar { background: linear-gradient(90deg, #dc2626, #2563eb); }
+    .icon-badge {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .app-card h2 {
+      font-size: 1.4rem;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+    }
+    .app-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+    .feature-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+      color: #334155;
+    }
+    .feature-list li {
+      padding: 0.35rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.85rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+    .btn-prompts {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-prompts:hover { background: var(--primary-dark); }
+    .btn-kmeans {
+      background: #0f172a;
+      color: white;
+    }
+    .btn-kmeans:hover { background: #334155; }
+    .info-footer {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .info-footer strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="badge">Sesión Práctica • URV AI Foundations</div>
+    <h1>Plataforma Educativa de Inteligencia Artificial en Salud</h1>
+    <p>Materiales interactivos diseñados para la sesión con María José: ingeniería de prompts clínicos y aprendizaje automático con K-Means.</p>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      
+      <!-- Tarjeta 1: Laboratorio de Prompts -->
+      <article class="app-card card-prompts">
+        <div class="card-top-bar"></div>
+        <div>
+          <span class="icon-badge">🩺</span>
+          <h2>1. Laboratorio de Prompts Clínicos</h2>
+          <p>Aprende a transformar notas médicas desordenadas en tablas y resúmenes de alta fidelidad aplicando la regla de oro de los 5 elementos (RCTFR).</p>
+          <ul class="feature-list">
+            <li>✅ <strong>5 Actividades secuenciales:</strong> Desde el primer contacto hasta el desafío final.</li>
+            <li>✅ <strong>Constructor visual:</strong> Campos para Rol, Contexto, Tarea, Formato y Restricciones.</li>
+            <li>✅ <strong>Analizador de calidad:</strong> Evaluación pedagógica de 0 a 100% en tiempo real.</li>
+            <li>✅ <strong>Casos clínicos simulados:</strong> Con botón para copiar a ChatGPT o Claude.</li>
+          </ul>
+        </div>
+        <a href="aplicativo/index.html" class="btn btn-prompts">🚀 Abrir Laboratorio de Prompts</a>
+      </article>
+
+      <!-- Tarjeta 2: K-Means en Reumatología -->
+      <article class="app-card card-kmeans">
+        <div class="card-top-bar"></div>
+        <div>
+          <span class="icon-badge">📊</span>
+          <h2>2. Simulador K-Means en Reumatología</h2>
+          <p>Descubre cómo un algoritmo de agrupamiento aprende del criterio clínico de María José para diferenciar Artritis Reumatoide vs. Artrosis con 3 variables.</p>
+          <ul class="feature-list">
+            <li>✅ <strong>10 Pacientes de entrenamiento:</strong> Diagnóstica con Rigidez, PCR y Articulaciones.</li>
+            <li>✅ <strong>Centroides automáticos:</strong> Cálculo de centros geométricos en espacio 3D.</li>
+            <li>✅ <strong>Gráfico de dispersión interactivo:</strong> Proyección 2D en HTML5 Canvas.</li>
+            <li>✅ <strong>Paciente nuevo sorpresa:</strong> Comprueba cómo la IA replica tu juicio.</li>
+          </ul>
+        </div>
+        <a href="aplicativo_kmeans/index.html" class="btn btn-kmeans">🔬 Abrir Simulador K-Means</a>
+      </article>
+
+    </div>
+
+    <section class="info-footer">
+      <strong>Acerca de este proyecto:</strong> Todo el entorno es 100% interactivo, autónomo y ejecutable en el navegador sin dependencias ni conexión a servidores externos. Los datos clínicos y las notas médicas son simulaciones creadas con fines estrictamente didácticos.
+    </section>
+  </main>
+
+</body>
+</html>

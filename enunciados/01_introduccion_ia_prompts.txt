@@ -1,0 +1,66 @@
+================================================================================
+ACTIVIDAD 1: PRIMER CONTACTO CON LA IA Y ANATOMIA DE UN PROMPT
+Clase Particular - Maria Jose | Duracion estimada: 8 minutos
+Modulo: Fundamentos de Inteligencia Artificial Generativa y Salud (URV - Nivel Intro)
+================================================================================
+
+1. TITULO
+Descubriendo la IA Generativa: Del "Prompt Ambiguo" al "Prompt Profesional".
+
+2. CONTEXTO
+La Universitat Rovira i Virgili (URV) ofrece en su programa "Artificial Intelligence 
+Foundations" una base esencial: entender que los modelos de lenguaje (LLMs como 
+ChatGPT, Claude o Gemini) no "piensan" como un medico ni tienen conciencia clinica, 
+sino que son sistemas generativos entrenados para predecir y completar texto de forma 
+coherente segun las instrucciones exactas que reciben. 
+
+Una instruccion dada a una IA se denomina PROMPT.
+Si el prompt es vago o descuidado, la IA puede inventar datos ("alucinacion"), dar 
+respuestas peligrosas o responder con generalidades inutiles. Si el prompt esta 
+bien delimitado, la IA se convierte en un asistente extraordinario para ordenar 
+informacion y ahorrar tiempo administrativo.
+
+3. DATOS DE ENTRADA
+A continuacion se presentan dos instrucciones reales escritas para procesar la 
+misma situacion clinica simulada:
+
+---
+PROMPT A (Improvisado):
+"Dime que tiene este paciente."
+---
+
+---
+PROMPT B (Estructurado):
+"Actua como asistente de organizacion de informacion clinica. A partir de las notas 
+ficticias proporcionadas, identifica: 1) Sintomas principales, 2) Antecedentes 
+medicos y 3) Datos pendientes por confirmar. Presenta los resultados en una tabla 
+clara de tres columnas. Evita estrictamente emitir un diagnostico definitivo o 
+recomendar farmacos."
+---
+
+4. OBJETIVO PEDAGOGICO
+- Comprender con palabras sencillas que es una IA generativa y que es un prompt.
+- Diferenciar visualmente un prompt ambiguo de un prompt profesional delimitado.
+- Comprender el peligro clinico y etico de pedir diagnosticos directos a una IA.
+
+5. INSTRUCCIONES NUMERADAS
+Paso 1 (2 min): Lee con atencion el Prompt A y el Prompt B.
+Paso 2 (3 min): Responde mentalmente o en voz alta a las preguntas orientadoras del docente.
+Paso 3 (3 min): Identifica que elementos protegen al paciente y al profesional en el Prompt B.
+
+6. PREGUNTAS PARA LA ALUMNA (MARIA JOSE)
+a) Si un medico o investigador lee la respuesta que generaria el Prompt A frente al Prompt B, 
+   ¿cual de los dos le ahorra tiempo real y cual podria inducirle a error?
+b) ¿Por que en el ambito sanitario jamas debemos pedirle a una IA generativa: "dime que tiene 
+   este paciente"?
+c) En el Prompt B, ¿que palabras clave le indican a la maquina como debe comportarse y que limites 
+   tiene prohibido cruzar?
+
+7. TIEMPO ESTIMADO
+Total: 8 minutos (2 min introduccion teorica + 4 min analisis comparativo + 2 min puesta en comun).
+
+8. RESULTADO ESPERADO
+Al finalizar, Maria Jose debe ser capaz de explicar con sus propias palabras que un prompt 
+es la guia de navegacion de la IA, y que definir un rol ("Actua como...") y una restriccion 
+("Evita emitir diagnosticos...") es la clave para obtener respuestas seguras y estructuradas.
+================================================================================

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Means en Reumatología | Artritis vs. Artrosis</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Encabezado Principal -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div>
+        <div class="badge-tag">Machine Learning Clínico • URV AI Foundations</div>
+        <h1>Simulador K-Means en Reumatología</h1>
+        <p>Aprende cómo un algoritmo de agrupamiento (K=2) replica el juicio clínico usando únicamente 3 variables</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+        <a href="../index.html" class="btn btn-outline" style="background:rgba(255,255,255,0.15); color:white; border-color:rgba(255,255,255,0.3); text-decoration:none;" title="Volver al Portal Principal">
+          🏠 Portal Inicio
+        </a>
+        <a href="../aplicativo/index.html" class="btn btn-outline" style="background:rgba(255,255,255,0.15); color:white; border-color:rgba(255,255,255,0.3); text-decoration:none;" title="Ir al Laboratorio de Prompts">
+          🩺 Lab Prompts
+        </a>
+        <div class="k-badge">
+          <span>Número de Clústeres</span>
+          <strong>K = 2</strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+
+    <!-- Banner Pedagógico -->
+    <section class="intro-banner">
+      <div class="intro-icon">🩺</div>
+      <div class="intro-text">
+        <h2>El Reto de María José: Enseñar a una IA a Diferenciar Dos Patologías</h2>
+        <p>
+          En la práctica reumatológica, diferenciar un <strong>patrón inflamatorio sistémico (Artritis Reumatoide)</strong> de un <strong>patrón mecánico/degenerativo (Artrosis u Osteoartritis)</strong> suele depender con altísima probabilidad de tres variables cuantitativas clave:
+        </p>
+        <div class="vars-pill-row">
+          <span class="var-pill">⏱️ 1. Rigidez Matutina (minutos)</span>
+          <span class="var-pill">🧪 2. PCR - Proteína C Reactiva (mg/L)</span>
+          <span class="var-pill">🖐️ 3. Conteo de Articulaciones Tumefactas/Dolorosas</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PASO 1: EL JUICIO CLÍNICO DE MARÍA JOSÉ (10 PACIENTES) -->
+    <!-- ================================================================= -->
+    <section class="step-card" id="stepClassification">
+      <div class="step-header">
+        <div class="step-title-area">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Paso 1: Tu Criterio Médico (10 Pacientes Reales Simulados)</h3>
+            <p class="step-subtitle">Revisa los datos de cada paciente y clasifícalo pulsando si sospechas Artritis Reumatoide (AR) o Artrosis (OA).</p>
+          </div>
+        </div>
+
+        <div class="step-controls">
+          <button class="btn btn-outline" onclick="autoDiagnoseAll()" title="Completar los 10 con criterio médico estándar">
+            ⚡ Autodiagnóstico Rápido
+          </button>
+          <button class="btn btn-outline" onclick="resetAllDiagnoses()" title="Borrar selecciones">
+            🔄 Reiniciar
+          </button>
+        </div>
+      </div>
+
+      <!-- Cuadrícula con los 10 Pacientes -->
+      <div class="patients-grid" id="patientsGrid">
+        <!-- Generado dinámicamente vía app.js -->
+      </div>
+
+      <!-- Barra Inferior de Estado -->
+      <div class="classification-status-bar">
+        <div class="status-counter">
+          Pacientes clasificados: <strong id="classifiedCount">0 / 10</strong> (clasifica al menos 6 para entrenar la IA)
+        </div>
+        <button class="btn btn-primary" id="btnTrainKMeans" onclick="calculateKMeans(true)" disabled>
+          ⚡ Enseñar a la IA mediante K-Means (Calcular Centroides)
+        </button>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PASO 2: CÁLCULO DE CENTROIDES Y ESPACIO VECTORIAL -->
+    <!-- ================================================================= -->
+    <section class="step-card" id="stepCentroids" style="display: none;">
+      <div class="step-header">
+        <div class="step-title-area">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Paso 2: ¿Qué Aprendió la IA? Los Centroides Matemáticos</h3>
+            <p class="step-subtitle">La IA promedió tus decisiones en un espacio tridimensional para encontrar el "paciente representativo" (centroide) de cada enfermedad.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="kmeans-layout">
+        <!-- Panel de Centroides -->
+        <div class="centroids-panel">
+          <div class="centroid-card ar-cluster">
+            <h4>🔴 Centroide Artritis Reumatoide (μ₁)</h4>
+            <div style="font-size:0.8rem; color:#b91c1c;">Clúster Inflamatorio • <span id="arCount">5 pacientes</span></div>
+            <div class="centroid-metrics">
+              <div>Rigidez Matutina media: <span class="val" id="arRigidez">--</span></div>
+              <div>PCR media: <span class="val" id="arPcr">--</span></div>
+              <div>Articulaciones media: <span class="val" id="arArt">--</span></div>
+            </div>
+          </div>
+
+          <div class="centroid-card oa-cluster">
+            <h4>🔵 Centroide Artrosis (μ₂)</h4>
+            <div style="font-size:0.8rem; color:#1d4ed8;">Clúster Mecánico/Degenerativo • <span id="oaCount">5 pacientes</span></div>
+            <div class="centroid-metrics">
+              <div>Rigidez Matutina media: <span class="val" id="oaRigidez">--</span></div>
+              <div>PCR media: <span class="val" id="oaPcr">--</span></div>
+              <div>Articulaciones media: <span class="val" id="oaArt">--</span></div>
+            </div>
+          </div>
+
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-sm); padding:0.75rem; font-size:0.82rem; color:#475569;">
+            💡 <strong>Principio de K-Means:</strong> Cada nuevo paciente será clasificado midiendo a cuál de estos dos centros está más cerca en el espacio de 3 dimensiones normalizado.
+          </div>
+        </div>
+
+        <!-- Gráfico de Dispersión Interactivo -->
+        <div class="canvas-container">
+          <div class="canvas-header">
+            <h4>Visualizador de Dispersión (Proyección 2D del Espacio 3D)</h4>
+            <div class="axis-selector">
+              <button class="axis-btn active" data-axis="rigidez_pcr" onclick="setProjection('rigidez_pcr')">Rigidez vs PCR</button>
+              <button class="axis-btn" data-axis="rigidez_art" onclick="setProjection('rigidez_art')">Rigidez vs Artic.</button>
+              <button class="axis-btn" data-axis="pcr_art" onclick="setProjection('pcr_art')">PCR vs Artic.</button>
+            </div>
+          </div>
+
+          <canvas id="scatterCanvas"></canvas>
+
+          <div class="canvas-legend">
+            <span class="legend-item"><span class="legend-dot ar"></span> Artritis (AR)</span>
+            <span class="legend-item"><span class="legend-dot oa"></span> Artrosis (OA)</span>
+            <span class="legend-item"><span class="legend-dot new"></span> Paciente Nuevo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PASO 3: ¡LA SORPRESA! PACIENTE NUEVO ALEATORIO -->
+    <!-- ================================================================= -->
+    <section class="step-card" id="stepSurprise" style="display: none;">
+      <div class="step-header">
+        <div class="step-title-area">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Paso 3: ¡La Sorpresa! Comprueba cómo la IA Replica tu Juicio</h3>
+            <p class="step-subtitle">Introduce un paciente totalmente nuevo con medidas aleatorias y observa cómo la IA diagnostica al instante basándose en lo que le enseñaste.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="surprise-box">
+        <div class="surprise-grid">
+          
+          <!-- Controles del Paciente Nuevo -->
+          <div class="new-patient-input-box">
+            <h4 style="margin-bottom:0.75rem; font-size:1rem; color:#1e293b;">Datos del Paciente Inédito:</h4>
+
+            <div class="input-slider-group">
+              <label>
+                <span>Rigidez Matutina:</span>
+                <span class="slider-val" id="valRigidez">80 min</span>
+              </label>
+              <input type="range" id="sliderRigidez" class="slider-input" min="0" max="150" value="80" step="1">
+            </div>
+
+            <div class="input-slider-group">
+              <label>
+                <span>PCR en Sangre:</span>
+                <span class="slider-val" id="valPcr">42.0 mg/L</span>
+              </label>
+              <input type="range" id="sliderPcr" class="slider-input" min="0" max="80" value="42" step="0.5">
+            </div>
+
+            <div class="input-slider-group">
+              <label>
+                <span>Articulaciones Dolorosas:</span>
+                <span class="slider-val" id="valArt">10</span>
+              </label>
+              <input type="range" id="sliderArt" class="slider-input" min="0" max="20" value="10" step="1">
+            </div>
+
+            <div class="new-patient-actions">
+              <button class="btn btn-random" onclick="generateRandomPatient()">
+                🎲 Generar Paciente Aleatorio
+              </button>
+              <button class="btn btn-outline" onclick="loadBorderlinePatient()">
+                ⚖️ Probar Caso Límite / Dudoso
+              </button>
+            </div>
+          </div>
+
+          <!-- Veredicto de la IA -->
+          <div class="ai-verdict-box">
+            <div class="verdict-header">
+              <span class="verdict-label">Diagnóstico de la IA (Vía K-Means):</span>
+            </div>
+
+            <div class="verdict-badge ar" id="aiVerdictBadge">
+              🔴 Artritis Reumatoide (98.2%)
+            </div>
+
+            <div class="probability-bar-wrapper">
+              <div class="prob-labels">
+                <span id="probARText" style="color:var(--ar-color);">Artritis Reumatoide: 98.2%</span>
+                <span id="probOAText" style="color:var(--oa-color);">Artrosis: 1.8%</span>
+              </div>
+              <div class="prob-bar-bg">
+                <div class="prob-bar-fill-ar" id="probBarFillAR" style="width: 98.2%;"></div>
+              </div>
+            </div>
+
+            <div class="distance-math-box" id="distMathText">
+              <!-- Calculado dinámicamente -->
+            </div>
+
+            <div class="surprise-reveal-message">
+              🎉 <strong>¡Magia del Aprendizaje Automático para María José!</strong><br>
+              Observa que la IA nunca leyó un tratado de medicina: simplemente calculó la distancia en 3D entre este nuevo paciente y los dos centros geométricos que <em>TÚ creaste con tus 10 decisiones</em>. ¡El algoritmo ha replicado fielmente tu criterio clínico!
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.25rem;">
+        <a href="../aplicativo/index.html" class="btn btn-outline">
+          ⬅️ Volver al Laboratorio de Prompts Clínicos
+        </a>
+        <span style="font-size:0.85rem; color:#64748b;">
+          Diseñado para la sesión de María José • URV AI Foundations
+        </span>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="toastNotification" class="toast">Notificación</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

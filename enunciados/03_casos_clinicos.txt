@@ -1,0 +1,75 @@
+================================================================================
+ACTIVIDAD 3: LA IA COMO ASISTENTE CLINICO Y DE INVESTIGACION SANITARIA
+Clase Particular - Maria Jose | Duracion estimada: 15 minutos
+Modulo: Fundamentos de Inteligencia Artificial Generativa y Salud (URV - Nivel Intro)
+================================================================================
+
+1. TITULO
+Tres Retos del Mundo Real: Preparacion de Consulta, Sintesis de Evidencia y Razonamiento Diferencial.
+
+2. CONTEXTO
+En el trabajo diario de la salud y la investigacion clinica no usamos la IA para que tome 
+decisiones medicas, sino para amplificar la capacidad de analisis del profesional:
+- Situacion A: Preparar en 30 segundos el resumen clave antes de entrar a ver un paciente complejo.
+- Situacion B: Extraer de un articulo cientifico denso sus conclusiones, muestra y sesgos.
+- Situacion C: Idear preguntas anamnesicas profundas para no olvidar causas raras o secundarias.
+
+3. DATOS DE ENTRADA (TRES ESCENARIOS FICTICIOS)
+
+--- ESCENARIO A: PREPARACION DE CONSULTA (PACIENTE COMPLEJO EN URGENCIAS) ---
+Texto clinico (Javier G., 72 anos):
+"Paciente con Parkinson (6 anos) y diabetes tipo 2. Traido a urgencias por la familia. 
+Refieren cuadro confusional fluctuante de 48 horas de evolucion, desorientado temporo-espacialmente. 
+Sufrio caida casual en bano ayer sin TCE evidente. A la exploracion: TA 115/65, FC 68 lpm, 
+SatO2 96%, T 37.6C (febril leve). Marcha arrastrando pies mas acusada. Auscultacion pulmonar limpia. 
+Familia destaca orinas oscuras y de fuerte olor en los ultimos dias. Medicacion habitual: 
+levodopa/carbidopa, metformina, y analgesicos (paracetamol + tramadol) por gonalgia cronica."
+
+--- ESCENARIO B: SINTESIS DE INVESTIGACION SANITARIA (EXTRACTO DE ESTUDIO FICTICIO) ---
+Texto de investigacion:
+"Estudio preliminar multicentrico observacional (n = 142 pacientes entre 50 y 75 anos en 3 hospitales 
+comarcales de Cataluna). Se evaluo el impacto de una aplicacion movil con recordatorios automatizados 
+de medicacion sobre la adherencia terapeutica en pacientes con hipertension arterial no controlada 
+durante 6 meses. Los resultados mostraron un incremento del 28% en la adherencia autoreportada y una 
+reduccion media de 6 mmHg en la presion arterial sistolica (p < 0.05). Limitaciones: falta de grupo 
+control ciego, tamano muestral reducido y sesgo de seleccion (solo incluyo usuarios habituados al uso 
+de smartphones)."
+
+--- ESCENARIO C: RAZONAMIENTO CLINICO DIFERENCIAL (SINTOMAS MULTIPLES) ---
+Texto de caso (Lucia T., 29 anos):
+"Mujer joven de 29 anos sin antecedentes patologicos conocidos. Consulta por cuadro de 6 semanas 
+de astenia, artralgias simetricas dolorosas en articulaciones interfalangicas proximales de ambas manos 
+y eritema malar eritematoso tras exposicion solar de fin de semana. No fiebre cuantificada, no aftas orales, 
+no dolor toracico ni disnea. Analitica general normal pendiente de autoinmunidad."
+
+4. OBJETIVO PEDAGOGICO
+- Disenar tres prompts especializados aplicando los 5 elementos adaptados a cada situacion.
+- Entender como pedirle a la IA que identifique sesgos y limitaciones en investigacion medica.
+- Aprender a solicitar preguntas de indagacion clinica sin caer en el error de pedir diagnosticos finales.
+
+5. INSTRUCCIONES NUMERADAS
+Paso 1 (5 min) - Escenario A: Redacta un prompt para generar una nota de entrega de guardia 
+        (resumen SBAR o de 5 puntos clave) que priorice la sospecha de infeccion urinaria o 
+        toxicidad farmacologica sin asegurar el diagnostico.
+Paso 2 (5 min) - Escenario B: Construye un prompt para que la IA extraiga: Objetivo, Muestra, 
+        Resultado principal y, muy importante, las LIMITACIONES y SESGOS del estudio.
+Paso 3 (5 min) - Escenario C: Escribe un prompt que pida a la IA una lista de 4 preguntas de 
+        anamnesis dirigida y 3 lineas exploratorias para ayudar al medico a orientar el caso, 
+        con la restriccion expresa de NO calificar ninguna enfermedad como definitiva.
+
+6. PREGUNTAS PARA LA ALUMNA (MARIA JOSE)
+a) En el Escenario A, ¿por que es vital que el prompt pida destacar las "constantes vitales y 
+   medicacion actual" antes que el historial de hace anos?
+b) En el Escenario B, si no le exigimos a la IA que busque las limitaciones del estudio, 
+   ¿que tiende a hacer un modelo de lenguaje con los resultados positivos?
+c) En el Escenario C, ¿como le explicarias a un colega la diferencia entre "usar la IA para diagnosticar" 
+   y "usar la IA como asistente de lluvia de ideas clinicas"?
+
+7. TIEMPO ESTIMADO
+Total: 15 minutos (5 min por cada escenario clinico/investigativo).
+
+8. RESULTADO ESPERADO
+Maria Jose reconocera que los prompts clinicos deben guiar activamente el enfoque metodologico 
+y que el valor real de la IA radica en sintetizar, estructurar y cuestionar datos sin suplantar 
+la decision del facultativo.
+================================================================================

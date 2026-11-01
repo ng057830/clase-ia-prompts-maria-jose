@@ -1,0 +1,65 @@
+================================================================================
+ACTIVIDAD 2: CONSTRUCCION DEL PRIMER PROMPT CLINICO (METODO DE LOS 5 ELEMENTOS)
+Clase Particular - Maria Jose | Duracion estimada: 12 minutos
+Modulo: Fundamentos de Inteligencia Artificial Generativa y Salud (URV - Nivel Intro)
+================================================================================
+
+1. TITULO
+De la Nota Desordenada a la Tabla Estructurada: Dominando la Formula RCTFR.
+
+2. CONTEXTO
+En las consultas medicas, urgencias y centros de investigacion, los profesionales 
+redactan notas apresuradas llenas de abreviaturas, datos mezclados y frases sueltas. 
+Para que un modelo de lenguaje organice esta informacion de manera confiable sin 
+inventar nada, aplicamos la regla de oro de la ingenieria de prompts: EL MODELO DE LOS 
+5 ELEMENTOS (RCTFR):
+
+  1. ROL: ¿Quien simula ser la IA? (ej. "Actua como documentalista clinico...")
+  2. CONTEXTO: ¿Cual es el marco del trabajo? (ej. "Trabajas con notas rapidas de triage...")
+  3. TAREA: ¿Que accion concreta debe ejecutar? (ej. "Extrae y clasifica los sintomas...")
+  4. FORMATO: ¿Como debe lucir la respuesta? (ej. "Genera una tabla con 4 columnas...")
+  5. RESTRICCIONES: ¿Que NO debe hacer jamas? (ej. "No supongas datos, no diagnostiques...")
+
+3. DATOS DE ENTRADA (FICHA CLINICA SIMULADA - NOTA-101)
+--------------------------------------------------------------------------------
+"Paciente Elena R., 68 anos que viene por cansancio desde hace unas 3 semanas aprox 
+dice que le cuesta subir escaleras ahora tose un poco por las mananas pero no saca flemas. 
+Es exfumadora lo dejo hace 5 anos fumaba un paquete al dia desde joven. Tiene EPOC 
+diagnosticado y toma broncodilatadores aunque a veces se olvida. Tambien enalapril para la 
+tension. En triaje ta 135/82 fc 78 sat 94 por ciento aire ambiente. Murmullo disminuido. 
+Habria que pedir placa de torax y gasometria si empeora, no trajo su analitica de cabecera. 
+Citar en neumologia."
+--------------------------------------------------------------------------------
+
+4. OBJETIVO PEDAGOGICO
+- Aprender a aplicar de manera practica la formula de 5 elementos (RCTFR).
+- Transformar un texto libre clinico desordenado en informacion limpia y tabulada.
+- Aprender a instruir a la IA sobre que hacer cuando falta un dato (evitar alucinaciones).
+
+5. INSTRUCCIONES NUMERADAS
+Paso 1 (2 min): Lee la nota desordenada de Elena R. Subraya mentalmente que datos estan dispersos.
+Paso 2 (3 min): Imagina que le pedirias a un estudiante novato para que te pase esa nota en limpio.
+Paso 3 (4 min): Redacta tu propio prompt en una hoja o en el aplicativo interactivo completando:
+       - ROL:
+       - CONTEXTO:
+       - TAREA:
+       - FORMATO:
+       - RESTRICCIONES:
+Paso 4 (3 min): Contrasta tu propuesta con la solucion de referencia guiada por el profesor.
+
+6. PREGUNTAS PARA LA ALUMNA (MARIA JOSE)
+a) Si la nota no menciona si Elena tiene alergias a medicamentos, ¿que hara la IA si no le 
+   pones una restriccion sobre datos faltantes?
+b) ¿Cual es la diferencia entre pedirle a la IA: "resumelo" versus pedirle: "presenta una tabla 
+   con las columnas: Sintoma, Duracion, Antecedente relevante y Datos no registrados"?
+c) ¿Por que crees que es util indicarle a la IA que "actue como asistente de documentacion" en 
+   lugar de dejar que asuma cualquier rol libremente?
+
+7. TIEMPO ESTIMADO
+Total: 12 minutos (2 min lectura de caso + 5 min redaccion de prompt + 5 min analisis reflexivo).
+
+8. RESULTADO ESPERADO
+Maria Jose redactara un prompt que incluya al menos 4 de los 5 elementos (especialmente Rol, 
+Tarea, Formato de tabla y Restriccion de no inventar datos), comprobando que el resultado es 
+inmediatamente ordenado y libre de ambiguedades.
+================================================================================

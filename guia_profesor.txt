@@ -1,0 +1,155 @@
+================================================================================
+GUIA DEL PROFESOR: PLAN DE CLASE Y ESTRATEGIA PEDAGOGICA (50 MINUTOS)
+Alumna: Maria Jose | Perfil: Muy habladora, dispersa, interesada en IA clinica (URV)
+Fecha: 31 de Octubre de 2026
+Materia: Fundamentos de IA y Prompt Engineering Aplicados al Ambito Sanitario
+================================================================================
+
+--------------------------------------------------------------------------------
+0. ESTRATEGIA PARA MANEJAR LA DISPERSION Y EL RITMO DE MARIA JOSE
+--------------------------------------------------------------------------------
+Maria Jose tiene mucho entusiasmo, tiende a hablar extensamente y dispersarse con anecdotas 
+clinicas o personales. Si dejamos la conversacion abierta, se iran los 50 minutos sin 
+construir ningun prompt. 
+
+REGLAS DE ORO PARA EL DOCENTE:
+1. Tecnica del "Temporizador Amigable": Anuncia al inicio de cada actividad el tiempo:
+   "Maria Jose, tenemos exactamente 8 minutos para este primer reto, ¡vamos al grano!".
+2. Preguntas cerradas y operativas: No preguntes "¿Que opinas de la IA en los hospitales?" 
+   (hablara 20 minutos). Pregunta: "¿Cual de estos dos prompts tiene rol y cual no?".
+3. Apoyate en la pantalla y el Aplicativo Interactivo: Cada vez que empiece a divagar, 
+   redirigela fisicamente: "Excelente apunte, Maria Jose. Anotemos eso en el campo 
+   'Restricciones' de la aplicacion a ver como cambia el texto".
+4. Frase ancla de reorientacion: "Guardemos esa reflexion para el cafe final; ahora 
+   necesito que veas que hace la maquina cuando apretamos este boton".
+
+--------------------------------------------------------------------------------
+1. CRONOGRAMA MINUTO A MINUTO (50 MINUTOS)
+--------------------------------------------------------------------------------
+[00:00 - 08:00] Actividad 1: Primer contacto con la IA generativa y anatomia de prompts (8 min)
+[08:00 - 20:00] Actividad 2: Construir nuestro primer prompt (RCTFR) con nota clinica (12 min)
+[20:00 - 35:00] Actividad 3: IA como asistente en tres escenarios clinicos/investigacion (15 min)
+[35:00 - 45:00] Actividad 4: Laboratorio interactivo en el aplicativo web (10 min)
+[45:00 - 50:00] Actividad 5: Desafio final y cierre reflexivo (5 min)
+
+--------------------------------------------------------------------------------
+2. ACTIVIDAD 1 — SOLUCION Y GUIA DOCENTE (8 MINUTOS)
+--------------------------------------------------------------------------------
+CONCEPTO CLAVE A EXPLICAR EN 2 MINUTOS:
+"La IA generativa no es un doctor ni una base de datos de certezas. Es un autocompletador 
+probabilistico ultra-avanzado. Si le preguntas '¿Que tiene este paciente?', la IA adivinara 
+palabras verosimiles pero sin responsabilidad clinica. Si la programas con un buen prompt, 
+se comporta como tu secretaria tecnica".
+
+COMPARATIVA DE PROMPTS:
+- Prompt A: "Dime que tiene este paciente"
+  * Defecto: Ambigua, sin rol, pide diagnostico, induce alucinacion, riesgo medicolegal.
+- Prompt B: "Actua como asistente de organizacion de informacion clinica..."
+  * Virtud: Define ROL, TAREA concreta (clasificar), FORMATO (tabla 3 columnas) y RESTRICCION 
+    (no diagnosticar ni sugerir farmacos).
+
+RESPUESTAS ESPERADAS DE MARIA JOSE:
+- Ahorro de tiempo: El prompt B entrega datos tabulados listos para revisar. El A da un parrafo 
+  divagante.
+- Etica medica: Una IA no tiene licencia medica ni ha visto al paciente; no puede diagnosticar.
+
+--------------------------------------------------------------------------------
+3. ACTIVIDAD 2 — SOLUCION Y GUIA DOCENTE (12 MINUTOS)
+--------------------------------------------------------------------------------
+CASO: NOTA-101 (Elena R., 68 anos, disnea, EPOC, enalapril, constantes).
+
+METODO DE LOS 5 ELEMENTOS (RCTFR):
+1. ROL: "Actua como documentalista clinico de atencion primaria."
+2. CONTEXTO: "Trabajas revisando notas rapidas de triage de urgencias."
+3. TAREA: "Extrae de la nota: sintomas actuales, antecedentes conocidos, medicacion habitual, 
+   constantes vitales y pruebas complementarias solicitadas."
+4. FORMATO: "Presenta el resultado en una tabla Markdown con las columnas: [Categoria, Detalle, 
+   Estado / Valor]. Agrega una seccion final titulada 'Datos No Registrados'."
+5. RESTRICCIONES: "No asumas datos ausentes. Prohibido sugerir modificaciones de tratamiento 
+   o emitir diagnosticos. Si falta una medicacion o antecedente, escribe 'No consta'."
+
+SOLUCION ESPERADA EN EL TEXTO RESULTANTE:
+| Categoria | Detalle | Estado / Valor |
+|---|---|---|
+| Sintomas | Cansancio / Disnea de esfuerzo, tos matutina no productiva | 3 semanas de evolucion |
+| Antecedentes | EPOC, HTA, Exfumadora (1 paquete/dia hasta hace 5 anos) | Diagnosticado |
+| Medicacion | Broncodilatadores (adherencia irregular), Enalapril | En uso |
+| Constantes | TA 135/82 mmHg, FC 78 lpm, SatO2 94% ambiente | Estables |
+| Pruebas pendientes | Placa de torax, gasometria arterial (si empeora), cita neumologia | Pendiente |
+Datos No Registrados: No constan alergias medicamentosas ni analitica sanguinea reciente.
+
+PREGUNTA DE CONTROL SI SE DISPERSA:
+"Maria Jose, mira como la IA separo la sospecha de lo que realmente tomo la paciente. ¿Por que 
+es peligroso que un modelo junte 'medicacion que toma' con 'medicacion que se le olvido tomar'?"
+
+--------------------------------------------------------------------------------
+4. ACTIVIDAD 3 — TRES ESCENARIOS CLINICOS (15 MINUTOS)
+--------------------------------------------------------------------------------
+ESCENARIO A: PREPARACION DE CONSULTA (Javier G., 72 anos, Parkinson, confusional, orinas turbias)
+- Prompt de Referencia:
+  "Actua como asistente de triage medico. A partir de las notas de Javier G., resume en 
+  maximo 5 viñetas ejecutivas para el medico de guardia: 1) Sintoma de alarma principal, 
+  2) Constantes vitales actuales, 3) Medicacion en curso, 4) Sospecha de desencadenante 
+  infeccioso/farmacologico sin emitir diagnostico cerrado, y 5) Pruebas de laboratorio prioritarias."
+
+ESCENARIO B: SINTESIS DE ARTICULO CLINICO (Estudio app movil HTA, n=142)
+- Prompt de Referencia:
+  "Actua como revisor bibliografico sanitario. Analiza el extracto del estudio adjunto y 
+  responde exclusivamente con estos 4 puntos breves: 1. Diseno y muestra, 2. Hallazgo clinico 
+  significativo, 3. Sesgos y limitaciones declarados, 4. Nivel de aplicabilidad clinica real. 
+  Manten un tono critico y neutral."
+
+ESCENARIO C: RAZONAMIENTO CLINICO DIFERENCIAL (Lucia T., 29 anos, artralgias y eritema malar)
+- Prompt de Referencia:
+  "Actua como tutor de educacion medica. En base a los sintomas de artralgias simetricas y eritema 
+  malar en una paciente joven: 1) Formula 4 preguntas clave de anamnesis que el medico deba 
+  hacer para profundizar, 2) Sugiere 3 perfiles analiticos complementarios habituales, 
+  3) RESTRICCION ESTRICTA: No selecciones ni priorices una sola enfermedad como diagnostico."
+
+--------------------------------------------------------------------------------
+5. ACTIVIDAD 4 — LABORATORIO INTERACTIVO (10 MINUTOS)
+--------------------------------------------------------------------------------
+COMO CONDUCIR ESTA ETAPA EN EL APLICATIVO (`aplicativo/index.html`):
+1. Pide a Maria Jose que abra el aplicativo en su navegador.
+2. Indicale que seleccione en el panel superior uno de los casos (ej. Caso 2 o Caso 3).
+3. Haz que use los campos del "Constructor Visual" (Rol, Contexto, Tarea, Formato, Restriccion).
+4. Dale al boton "Generar Prompt Ensamblado" y luego "Analizar Calidad del Prompt".
+5. Muestrale como la lista de verificacion marca los 5 puntos en verde.
+6. Si ella quiere, puede copiarlo al portapapeles con el boton correspondiente y pegarlo 
+   en su ChatGPT/Claude para ver la respuesta inmediata.
+
+--------------------------------------------------------------------------------
+6. ACTIVIDAD 5 — DESAFIO FINAL Y RUBRICA (5 MINUTOS)
+--------------------------------------------------------------------------------
+CASO: Protocolo nutricional incompleto en ancianos.
+EVALUACION VELOZ:
+- ¿Puso rol de metodologo? (1 pt)
+- ¿Puso que es un borrador incompleto? (1 pt)
+- ¿Pidio tabla con datos faltantes? (1 pt)
+- ¿Exigio senalar riesgos de seguridad? (1 pt)
+- ¿Prohibio que la IA invente dosificaciones o datos ausentes? (1 pt)
+Meta: Que Maria Jose obtenga al menos 4 de 5 puntos.
+
+--------------------------------------------------------------------------------
+7. BANCO DE PREGUNTAS Y EJERCICIOS ADICIONALES (POR SI TERMINA ANTES)
+--------------------------------------------------------------------------------
+Si Maria Jose trabaja rapido y sobran 5-10 minutos, usa estas preguntas concretas:
+
+Pregunta Extra 1: "Maria Jose, imagina que introduces en un prompt el nombre real y el DNI de 
+un paciente. ¿Por que vulnera el RGPD y como deberiamos anonimizarlo siempre?"
+(Respuesta esperada: Nunca alimentar datos identificativos en nubes de IA publica; usar PAC-001 o pseudonimos).
+
+Pregunta Extra 2: "¿Que es una 'alucinacion' en IA y por que ocurre mas a menudo cuando hacemos 
+preguntas muy abiertas sin formato de salida?"
+(Respuesta: El modelo prioriza completar la frase con palabras probabilisticamente frecuentes antes 
+que decir la verdad si no se le obliga a admitir incertidumbre).
+
+Pregunta Extra 3: "¿Como cambia la respuesta de una IA si le decimos 'explicalo como para un 
+estudiante de medicina' versus 'explicalo como para el familiar de un paciente'?"
+(Respuesta: Cambia radicalmente el vocabulario, la empatia y la complejidad tecnica).
+
+Ejercicio Extra Rapido:
+"Escribe un prompt de 2 lineas para transformar una lista de analitica de laboratorio 
+(glucosa 140, hemoglobina glicosilada 7.8, creatinina 1.1) en un parrafo claro y cercano 
+para que un paciente comprenda sus resultados sin alarmarse."
+================================================================================

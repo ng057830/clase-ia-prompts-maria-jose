@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio de Prompts Clínicos | URV AI Foundations - María José</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Encabezado Principal -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <div class="badge-tag">URV • Formación en IA y Salud</div>
+        <h1>Laboratorio de Prompts e Inteligencia Artificial</h1>
+        <p class="subtitle">Sesión Práctica de 50 minutos: Fundamentos de IA Generativa aplicada a la Salud | Alumna: María José</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+        <a href="../index.html" class="btn btn-secondary" style="text-decoration:none; white-space:nowrap;" title="Volver al Portal Principal">
+          🏠 Portal Inicio
+        </a>
+        <div class="session-timer-box">
+          <div class="timer-label">Duración total</div>
+          <div class="timer-value">50 min</div>
+          <div class="timer-sub">5 Actividades Prácticas</div>
+        </div>
+        <a href="../aplicativo_kmeans/index.html" class="btn btn-success" style="text-decoration:none; white-space:nowrap;" title="Abrir Simulador K-Means Reumatológico">
+          📊 Simulador K-Means Reuma ➔
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de Navegación y Progreso -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <div class="progress-wrapper">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+        <span class="progress-text" id="progressText">Actividad 1 de 5 (20%)</span>
+      </div>
+
+      <div class="nav-tabs" id="navTabs">
+        <button class="nav-tab active" data-step="1">
+          <span class="tab-num">1</span>
+          <span class="tab-label">Primer Contacto</span>
+          <span class="tab-time">8 min</span>
+        </button>
+        <button class="nav-tab" data-step="2">
+          <span class="tab-num">2</span>
+          <span class="tab-label">Método 5 Elementos</span>
+          <span class="tab-time">12 min</span>
+        </button>
+        <button class="nav-tab" data-step="3">
+          <span class="tab-num">3</span>
+          <span class="tab-label">Casos Clínicos</span>
+          <span class="tab-time">15 min</span>
+        </button>
+        <button class="nav-tab" data-step="4">
+          <span class="tab-num">4</span>
+          <span class="tab-label">Laboratorio</span>
+          <span class="tab-time">10 min</span>
+        </button>
+        <button class="nav-tab" data-step="5">
+          <span class="tab-num">5</span>
+          <span class="tab-label">Desafío Final</span>
+          <span class="tab-time">5 min</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenedor Principal de la Aplicación -->
+  <main class="main-container">
+
+    <!-- Aviso Educativo y Ético -->
+    <aside class="alert-banner">
+      <div class="alert-icon">ℹ️</div>
+      <div class="alert-content">
+        <strong>Laboratorio Educativo Autónomo:</strong> Este entorno evalúa y optimiza la arquitectura de tus prompts mediante reglas pedagógicas transparentes sin conectar con APIs externas. Todos los datos clínicos son 100% sintéticos y simulados. Los modelos de IA no sustituyen el juicio clínico profesional.
+      </div>
+    </aside>
+
+    <!-- ================================================================= -->
+    <!-- ACTIVIDAD 1: PRIMER CONTACTO -->
+    <!-- ================================================================= -->
+    <section class="activity-section active" id="activity1">
+      <div class="card">
+        <div class="card-header">
+          <div class="tag-badge">Paso 1 • Fundamentos (8 minutos)</div>
+          <h2>Actividad 1: El Poder de un Prompt Bien Construido</h2>
+          <p class="description">Descubre por qué la forma en que redactas una instrucción a una IA generativa determina si obtienes una respuesta caótica o un informe clínico estructurado y seguro.</p>
+        </div>
+
+        <div class="grid-2-col">
+          <!-- Columna Izquierda: Concepto -->
+          <div class="info-box">
+            <h3>¿Qué es la IA Generativa en Salud?</h3>
+            <p>Un modelo de lenguaje grande (LLM) no "entiende" medicina como un facultativo. Es un motor probabilístico que predice las siguientes palabras en función de las instrucciones recibidas.</p>
+            <div class="key-callout">
+              <strong>El Prompt es tu bisturí intelectual:</strong> Si tu orden es ambigua, la IA intentará adivinar e incluso "alucinará" (inventar datos). Si le das límites claros, rol y formato, se convierte en un asistente documental impecable.
+            </div>
+
+            <div class="rule-box">
+              <h4>Regla Fundamental de Seguridad</h4>
+              <ul>
+                <li>❌ <strong>Nunca pidas diagnósticos definitivos:</strong> La IA carece de juicio y responsabilidad médica.</li>
+                <li>❌ <strong>Nunca introduzcas datos reales de pacientes:</strong> Respeta la privacidad y el RGPD.</li>
+                <li>✅ <strong>Úsala para estructurar, resumir y organizar:</strong> Clasificar datos clínicos ahorra horas de trabajo administrativo.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Columna Derecha: Comparativa Interactiva -->
+          <div class="interactive-box">
+            <h3>Comparativa: ¿Cuál instrucción usarías tú?</h3>
+            
+            <div class="comparison-card bad">
+              <div class="card-label bad-label">❌ Prompt A (Improvisado y Peligroso)</div>
+              <div class="prompt-text">"Dime qué tiene este paciente."</div>
+              <div class="eval-note">
+                <strong>¿Por qué falla?</strong> No define rol, no aporta contexto, fuerza a la IA a diagnosticar sin datos suficientes, genera respuestas verosímiles pero potencialmente erróneas.
+              </div>
+            </div>
+
+            <div class="comparison-card good">
+              <div class="card-label good-label">✅ Prompt B (Profesional y Estructurado)</div>
+              <div class="prompt-text">"Actúa como asistente de organización de información clínica. A partir de las notas ficticias proporcionadas, identifica: 1) Síntomas principales, 2) Antecedentes médicos y 3) Datos pendientes por confirmar. Presenta los resultados en una tabla clara de tres columnas. Evita estrictamente emitir un diagnóstico definitivo o recomendar fármacos."</div>
+              <div class="eval-note">
+                <strong>¿Por qué triunfa?</strong> Define rol, delimita la tarea, exige tabla y fija restricciones éticas explícitas.
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button class="btn btn-primary" onclick="copyText('Actúa como asistente de organización de información clínica. A partir de las notas ficticias proporcionadas, identifica: 1) Síntomas principales, 2) Antecedentes médicos y 3) Datos pendientes por confirmar. Presenta los resultados en una tabla clara de tres columnas. Evita estrictamente emitir un diagnóstico definitivo o recomendar fármacos.')">
+                📋 Copiar Prompt B para probar en ChatGPT / Claude
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-controls">
+          <button class="btn btn-secondary" onclick="toggleSolution('solucion1')">👁️ Ver Reflexión Pedagógica</button>
+          <button class="btn btn-success" onclick="goToStep(2)">Siguiente: Construir Nuestro Primer Prompt ➔</button>
+        </div>
+
+        <div class="solution-panel hidden" id="solucion1">
+          <h4>💡 Guía Docente para el Profesor:</h4>
+          <p><strong>Pregunta a María José:</strong> <em>"Si tú fueras la médica de guardia y recibes el resultado del Prompt A, ¿confiarías en él? ¿Qué ventaja tiene que el Prompt B te diga exactamente qué datos faltan?"</em></p>
+          <p>Haz que ella note que el Prompt B protege al profesional de salud y no compromete la seguridad del paciente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- ACTIVIDAD 2: CONSTRUCCIÓN DEL PRIMER PROMPT (RCTFR) -->
+    <!-- ================================================================= -->
+    <section class="activity-section" id="activity2">
+      <div class="card">
+        <div class="card-header">
+          <div class="tag-badge">Paso 2 • Técnica RCTFR (12 minutos)</div>
+          <h2>Actividad 2: De la Nota Desordenada a la Tabla Estructurada</h2>
+          <p class="description">Aprende la fórmula de 5 elementos que utilizan los profesionales para diseñar cualquier prompt sanitario de alta fidelidad.</p>
+        </div>
+
+        <!-- Explicación de los 5 elementos -->
+        <div class="elements-grid">
+          <div class="element-chip" data-el="R">
+            <span class="chip-letter">R</span>
+            <div class="chip-content">
+              <strong>1. Rol</strong>
+              <span>¿Quién simula ser la IA? (ej. Documentalista clínico)</span>
+            </div>
+          </div>
+          <div class="element-chip" data-el="C">
+            <span class="chip-letter">C</span>
+            <div class="chip-content">
+              <strong>2. Contexto</strong>
+              <span>¿Cuál es el escenario? (ej. Notas rápidas de triage)</span>
+            </div>
+          </div>
+          <div class="element-chip" data-el="T">
+            <span class="chip-letter">T</span>
+            <div class="chip-content">
+              <strong>3. Tarea</strong>
+              <span>¿Qué acción exacta debe hacer? (ej. Extraer y clasificar)</span>
+            </div>
+          </div>
+          <div class="element-chip" data-el="F">
+            <span class="chip-letter">F</span>
+            <div class="chip-content">
+              <strong>4. Formato</strong>
+              <span>¿Cómo debe lucir la salida? (ej. Tabla con 4 columnas)</span>
+            </div>
+          </div>
+          <div class="element-chip" data-el="Re">
+            <span class="chip-letter">R</span>
+            <div class="chip-content">
+              <strong>5. Restricción</strong>
+              <span>¿Qué límites NO puede cruzar? (ej. No inventar datos)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Caso de Trabajo: Nota Elena R. -->
+        <div class="case-study-box">
+          <div class="case-header">
+            <span class="case-id">CASO FICTICIO: PAC-001 (Elena R., 68 años)</span>
+            <span class="case-badge">Nota de Triage de Urgencias</span>
+          </div>
+          <div class="clinical-note-content">
+            "Paciente de 68 años que viene por cansancio desde hace unas 3 semanas aprox dice que le cuesta subir escaleras ahora tose un poco por las mañanas pero no saca flemas. Es exfumadora lo dejó hace 5 años fumaba un paquete al día desde joven. Tiene EPOC diagnosticado y toma broncodilatadores aunque a veces se olvida. También enalapril para la tensión. En triaje ta 135/82 fc 78 sat 94 por ciento aire ambiente. Murmullo disminuido. Habría que pedir placa de tórax y gasometría si empeora, no trajo su analítica de cabecera. Citar en neumología."
+          </div>
+        </div>
+
+        <!-- Constructor Visual de Prompt -->
+        <div class="builder-box">
+          <h3>Constructor Visual del Método RCTFR</h3>
+          <p class="builder-helper">Rellena los 5 campos o pulsa "Cargar Sugerencia" para ensamblar automáticamente tu instrucción.</p>
+          
+          <div class="builder-inputs">
+            <div class="input-group">
+              <label><span class="badge-mini">1. ROL</span> ¿Quién es la IA?</label>
+              <input type="text" id="builderRol" value="Actúa como asistente especialista en documentación sanitaria." placeholder="Ej: Actúa como documentalista clínico...">
+            </div>
+            <div class="input-group">
+              <label><span class="badge-mini">2. CONTEXTO</span> Situación clínica</label>
+              <input type="text" id="builderContexto" value="Trabajas analizando notas apresuradas de triage en el servicio de urgencias." placeholder="Ej: Recibes notas médicas no estructuradas...">
+            </div>
+            <div class="input-group">
+              <label><span class="badge-mini">3. TAREA</span> Acción solicitada</label>
+              <input type="text" id="builderTarea" value="Extrae y categoriza los síntomas, duración, antecedentes relevantes, medicación actual, constantes vitales y pruebas pendientes." placeholder="Ej: Extrae los datos clínicos principales...">
+            </div>
+            <div class="input-group">
+              <label><span class="badge-mini">4. FORMATO</span> Presentación del resultado</label>
+              <input type="text" id="builderFormato" value="Presenta la información en una tabla Markdown con las columnas: [Categoría, Detalle Clínico, Estado/Valor]. Incluye al final una lista de 'Datos No Registrados'." placeholder="Ej: Tabla Markdown con 3 columnas...">
+            </div>
+            <div class="input-group">
+              <label><span class="badge-mini">5. RESTRICCIONES</span> Reglas de seguridad</label>
+              <input type="text" id="builderRestricciones" value="No inventes información ausente. Prohibido sugerir tratamientos o emitir diagnósticos definitivos. Si un dato no consta, márcalo explícitamente como 'No registrado'." placeholder="Ej: No diagnostiques, no supongas...">
+            </div>
+          </div>
+
+          <div class="builder-actions">
+            <button class="btn btn-primary" onclick="assemblePrompt()">⚡ Ensamblar Prompt Completo</button>
+            <button class="btn btn-outline" onclick="loadDefaultBuilder()">🔄 Cargar Valores Iniciales</button>
+          </div>
+
+          <!-- Prompt Resultante Ensamblado -->
+          <div class="assembled-area">
+            <label><strong>Prompt Ensamblado Listo para Copiar:</strong></label>
+            <textarea id="assembledPromptText" class="prompt-textarea" rows="5" readonly></textarea>
+            <div class="assembled-controls">
+              <button class="btn btn-copy" onclick="copyAssembledPrompt()">📋 Copiar al Portapapeles</button>
+              <span class="copy-feedback" id="copyFeedbackText">¡Copiado con éxito!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-controls">
+          <button class="btn btn-secondary" onclick="toggleSolution('solucion2')">👁️ Ver Solución de la Tabla Esperada</button>
+          <button class="btn btn-success" onclick="goToStep(3)">Siguiente: Casos Clínicos del Mundo Real ➔</button>
+        </div>
+
+        <div class="solution-panel hidden" id="solucion2">
+          <h4>📊 Tabla de Salida Esperada que produciría la IA:</h4>
+          <table class="clinical-preview-table">
+            <thead>
+              <tr>
+                <th>Categoría</th>
+                <th>Detalle Clínico</th>
+                <th>Estado / Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Síntomas actuales</strong></td>
+                <td>Cansancio progresivo (cuesta subir escaleras), tos matutina seca</td>
+                <td>3 semanas de evolución</td>
+              </tr>
+              <tr>
+                <td><strong>Antecedentes</strong></td>
+                <td>EPOC moderada, HTA, Exfumadora (1 paquete/día hasta hace 5 años)</td>
+                <td>Conocidos</td>
+              </tr>
+              <tr>
+                <td><strong>Medicación</strong></td>
+                <td>Broncodilatadores (adherencia irregular), Enalapril</td>
+                <td>En uso</td>
+              </tr>
+              <tr>
+                <td><strong>Constantes vitales</strong></td>
+                <td>TA: 135/82 mmHg, FC: 78 lpm, SatO2: 94% ambiente, Murmullo disminuido</td>
+                <td>Registradas en triage</td>
+              </tr>
+              <tr>
+                <td><strong>Pruebas pendientes</strong></td>
+                <td>Rx de tórax, gasometría arterial si empeora, cita neumología</td>
+                <td>Por realizar</td>
+              </tr>
+              <tr>
+                <td><strong>Datos No Registrados</strong></td>
+                <td>Alergias a medicamentos, analítica de sangre de cabecera</td>
+                <td>Faltante en la nota</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- ACTIVIDAD 3: TRES ESCENARIOS CLÍNICOS Y DE INVESTIGACIÓN -->
+    <!-- ================================================================= -->
+    <section class="activity-section" id="activity3">
+      <div class="card">
+        <div class="card-header">
+          <div class="tag-badge">Paso 3 • Aplicación en Salud (15 minutos)</div>
+          <h2>Actividad 3: La IA en Tres Tareas Sanitarias Clave</h2>
+          <p class="description">Prueba cómo la ingeniería de prompts resuelve tres desafíos habituales: preparar una consulta compleja, sintetizar un artículo científico y razonar sin caer en sesgos.</p>
+        </div>
+
+        <!-- Selector de Escenario -->
+        <div class="scenario-selector">
+          <button class="scenario-btn active" onclick="selectScenario(1)">
+            🩺 1. Preparar Consulta (Paciente Complejo)
+          </button>
+          <button class="scenario-btn" onclick="selectScenario(2)">
+            🔬 2. Sintetizar Investigación (Artículo Clínico)
+          </button>
+          <button class="scenario-btn" onclick="selectScenario(3)">
+            🧠 3. Razonamiento Clínico Diferencial
+          </button>
+        </div>
+
+        <!-- Escenario 1 -->
+        <div class="scenario-content" id="scenario1">
+          <div class="scenario-grid">
+            <div class="scenario-data">
+              <h4>Caso: Javier G. (72 años) - Paciente Polimedicado</h4>
+              <div class="quote-text">
+                "Paciente con Parkinson (6 años) y diabetes tipo 2. Traído por la familia. Cuadro confusional fluctuante de 48 horas, desorientado. Caída en el baño ayer sin fracturas. TA 115/65, FC 68, Sat 96%, T 37.6ºC. Familia refiere orinas oscuras y con fuerte olor. Medicación: levodopa, metformina, paracetamol y tramadol."
+              </div>
+              <div class="prompt-goal">
+                <strong>Objetivo:</strong> Crear un resumen ejecutivo de entrega médica (método SBAR) priorizando la sospecha infecciosa o farmacológica sin diagnosticar.
+              </div>
+            </div>
+            <div class="scenario-prompt">
+              <h4>Prompt Optimizado Recomendado:</h4>
+              <div class="code-snippet" id="promptTextScen1">Actúa como asistente de triage médico. A partir de las notas de Javier G., resume en 5 puntos ejecutivos para el médico consultor:
+1. Motivo de alerta principal y tiempo de evolución.
+2. Constantes vitales actuales destacando anomalías.
+3. Fármacos en uso que puedan tener interacción.
+4. Factores desencadenantes sospechosos (infección o sobredosis) planteados como hipótesis a descartar.
+5. Pruebas prioritarias pendientes.
+Restricción: No emitas un diagnóstico cerrado. Formula los hallazgos en términos de vigilancia clínica.</div>
+              <button class="btn btn-primary" onclick="copySnippet('promptTextScen1')">📋 Copiar Prompt Escenario 1</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Escenario 2 -->
+        <div class="scenario-content hidden" id="scenario2">
+          <div class="scenario-grid">
+            <div class="scenario-data">
+              <h4>Investigación: Extracto de Ensayo Clínico Multicéntrico</h4>
+              <div class="quote-text">
+                "Estudio preliminar multicéntrico observacional (n=142 pacientes de 50-75 años). Se evaluó el impacto de una app móvil con recordatorios sobre la adherencia al tratamiento en hipertensión durante 6 meses. Resultados: +28% adherencia y reducción de 6 mmHg en presión sistólica (p < 0.05). Limitaciones: sin grupo control ciego, muestra reducida y sesgo al incluir solo usuarios de smartphones."
+              </div>
+              <div class="prompt-goal">
+                <strong>Objetivo:</strong> Extraer el diseño del estudio y forzar a la IA a destacar las limitaciones metodológicas antes de cantar victoria clínica.
+              </div>
+            </div>
+            <div class="scenario-prompt">
+              <h4>Prompt Optimizado Recomendado:</h4>
+              <div class="code-snippet" id="promptTextScen2">Actúa como revisor de literatura biomédica. Analiza el extracto del estudio clínico presentado y responde con 4 secciones breves:
+1. Objetivo y diseño metodológico (incluyendo tamaño muestral n).
+2. Resultados cuantificables reportados.
+3. Limitaciones del estudio y sesgos de selección (obligatorio).
+4. Grado de aplicabilidad clínica antes de recomendar la intervención.
+Restricción: Si los autores reconocen limitaciones, debes darles el mismo peso visual que a los resultados positivos. No exageres la eficacia de la app.</div>
+              <button class="btn btn-primary" onclick="copySnippet('promptTextScen2')">📋 Copiar Prompt Escenario 2</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Escenario 3 -->
+        <div class="scenario-content hidden" id="scenario3">
+          <div class="scenario-grid">
+            <div class="scenario-data">
+              <h4>Caso: Lucía T. (29 años) - Síntomas Sistémicos</h4>
+              <div class="quote-text">
+                "Mujer joven de 29 años sin antecedentes patológicos. 6 semanas de astenia, artralgias simétricas en interfalángicas proximales de ambas manos y eritema malar tras exposición solar. No fiebre cuantificada, no aftas, no disnea. Analítica general rutinaria normal, pendiente de perfil autoinmune."
+              </div>
+              <div class="prompt-goal">
+                <strong>Objetivo:</strong> Solicitar preguntas de anamnesis dirigida y batería de pruebas sin que la IA encasille un diagnóstico prematuro.
+              </div>
+            </div>
+            <div class="scenario-prompt">
+              <h4>Prompt Optimizado Recomendado:</h4>
+              <div class="code-snippet" id="promptTextScen3">Actúa como tutor de razonamiento clínico docente. Ante el cuadro de artralgias simétricas y eritema malar en una paciente de 29 años:
+1. Genera una lista de 4 preguntas anamnésicas profundas para identificar síntomas acompañantes (fenómeno de Raynaud, fotosensibilidad, alopecia, etc.).
+2. Enumera 3 categorías de pruebas diagnósticas complementarias pertinentes.
+3. RESTRICCIÓN OBLIGATORIA: Prohibido nombrar una única enfermedad como diagnóstico. Debes mantener el abanico sindrómico abierto para el razonamiento del médico.</div>
+              <button class="btn btn-primary" onclick="copySnippet('promptTextScen3')">📋 Copiar Prompt Escenario 3</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-controls">
+          <button class="btn btn-secondary" onclick="toggleSolution('solucion3')">👁️ Ver Preguntas Clave para María José</button>
+          <button class="btn btn-success" onclick="goToStep(4)">Siguiente: Laboratorio de Construcción y Análisis ➔</button>
+        </div>
+
+        <div class="solution-panel hidden" id="solucion3">
+          <h4>💡 Guía Docente para la Sesión:</h4>
+          <ul>
+            <li><strong>En el Escenario 1:</strong> Resalta cómo el formato ejecutivo de 5 puntos previene que la información crítica (como la fiebre de 37.6 o la retención de orina) se pierda en un párrafo largo.</li>
+            <li><strong>En el Escenario 2:</strong> Señala que los LLMs tienden al "optimismo de confirmación" a menos que en las restricciones les ordenes explícitamente buscar sesgos y limitaciones.</li>
+            <li><strong>En el Escenario 3:</strong> Demuestra que usar la IA para generar preguntas abre la mente del clínico en vez de cerrarla con una etiqueta diagnóstica prematura.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- ACTIVIDAD 4: LABORATORIO DE PROMPTS Y ANALIZADOR INTERACTIVO -->
+    <!-- ================================================================= -->
+    <section class="activity-section" id="activity4">
+      <div class="card">
+        <div class="card-header">
+          <div class="tag-badge">Paso 4 • Práctica Interactiva (10 minutos)</div>
+          <h2>Actividad 4: Laboratorio y Analizador de Calidad de Prompts</h2>
+          <p class="description">Selecciona un caso clínico simulado, redacta o perfecciona tu prompt y analiza en tiempo real si cumple con los criterios de seguridad, claridad y rigor metodológico.</p>
+        </div>
+
+        <!-- Selector de Caso Clínico Ficticio -->
+        <div class="case-selection-bar">
+          <label><strong>Seleccionar Caso Clínico Simulado:</strong></label>
+          <select id="caseSelector" onchange="onCaseChange()">
+            <option value="PAC-001">Caso 1: Elena R. (68 años) - Disnea, EPOC y Triage</option>
+            <option value="PAC-002">Caso 2: Carlos M. (45 años) - Dolor Torácico Atípico y Deporte</option>
+            <option value="PAC-003">Caso 3: Beatriz S. (54 años) - Cefalea Holocraneal Persistente</option>
+            <option value="PAC-004">Caso 4: Javier G. (72 años) - Desorientación en Paciente con Parkinson</option>
+            <option value="PAC-006">Caso 5: Antonio V. (61 años) - Epigastralgia y Consumo de AINEs</option>
+          </select>
+        </div>
+
+        <!-- Ficha de Datos del Caso Seleccionado -->
+        <div class="patient-card-box" id="patientDataCard">
+          <!-- Inyectado dinámicamente vía app.js -->
+        </div>
+
+        <!-- Editor y Analizador -->
+        <div class="editor-workspace">
+          <div class="editor-col">
+            <div class="editor-header">
+              <label><strong>Editor de Prompt Clínico:</strong></label>
+              <div class="template-dropdown">
+                <span>Cargar Plantilla:</span>
+                <select id="templateSelector" onchange="applyTemplate()">
+                  <option value="vacio">-- En blanco --</option>
+                  <option value="deficiente">Prompt Deficiente (Ambigua)</option>
+                  <option value="intermedio">Prompt Intermedio (Sin restricciones)</option>
+                  <option value="avanzado">Prompt Avanzado (5 Elementos Completo)</option>
+                </select>
+              </div>
+            </div>
+
+            <textarea id="promptEditorArea" class="prompt-textarea large" rows="8" placeholder="Escribe aquí tu prompt clínico para procesar los datos del paciente seleccionado..."></textarea>
+            
+            <div class="editor-stats">
+              <span id="charCount">0 caracteres</span> • <span id="wordCount">0 palabras</span>
+            </div>
+
+            <div class="editor-buttons">
+              <button class="btn btn-primary" onclick="analyzeCurrentPrompt()">🔍 Analizar Calidad del Prompt</button>
+              <button class="btn btn-copy" onclick="copyCurrentPrompt()">📋 Copiar Prompt</button>
+              <button class="btn btn-outline" onclick="loadReferencePrompt()">⭐ Cargar Propuesta de Referencia</button>
+            </div>
+          </div>
+
+          <!-- Panel de Resultados del Análisis -->
+          <div class="analysis-col">
+            <div class="score-card">
+              <div class="score-number" id="qualityScore">--</div>
+              <div class="score-details">
+                <h4 id="scoreTitle">Evaluación de Calidad</h4>
+                <p id="scoreSubtitle">Pulsa "Analizar Calidad" para evaluar la instrucción.</p>
+              </div>
+            </div>
+
+            <!-- Lista de Verificación de los 5 Elementos -->
+            <div class="checklist-box">
+              <h4>Lista de Verificación de Componentes (RCTFR):</h4>
+              <ul class="checklist-items">
+                <li id="checkRol" class="check-item"><span class="icon">⚪</span> <strong>Rol:</strong> ¿Define quién simula ser la IA?</li>
+                <li id="checkContexto" class="check-item"><span class="icon">⚪</span> <strong>Contexto:</strong> ¿Enmarca la situación clínica?</li>
+                <li id="checkTarea" class="check-item"><span class="icon">⚪</span> <strong>Tarea:</strong> ¿Especifica la acción exacta?</li>
+                <li id="checkFormato" class="check-item"><span class="icon">⚪</span> <strong>Formato:</strong> ¿Pide tabla, viñetas o SBAR?</li>
+                <li id="checkRestriccion" class="check-item"><span class="icon">⚪</span> <strong>Restricción:</strong> ¿Prohíbe diagnosticar o inventar?</li>
+              </ul>
+            </div>
+
+            <!-- Alertas Pedagógicas -->
+            <div class="feedback-card" id="analysisFeedback">
+              <strong>Consejo didáctico:</strong> Un buen prompt no solo dice qué hacer, sino también qué dejar intacto y qué evitar terminantemente.
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-controls">
+          <button class="btn btn-secondary" onclick="toggleSolution('solucion4')">👁️ Ver Criterios de Evaluación</button>
+          <button class="btn btn-success" onclick="goToStep(5)">Siguiente: Desafío Final ➔</button>
+        </div>
+
+        <div class="solution-panel hidden" id="solucion4">
+          <h4>💡 Criterios de Evaluación para el Docente:</h4>
+          <p>Observa si María José:</p>
+          <ol>
+            <li>Comprende por qué el rol de "asistente documental" es más seguro que "médico virtual".</li>
+            <li>Exige que la IA marque con "No consta" los datos no presentes en el CSV.</li>
+            <li>Aprende a ajustar el formato (ej. pedir tablas con columnas explícitas).</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- ACTIVIDAD 5: DESAFÍO FINAL -->
+    <!-- ================================================================= -->
+    <section class="activity-section" id="activity5">
+      <div class="card">
+        <div class="card-header">
+          <div class="tag-badge">Paso 5 • Evaluación y Cierre (5 minutos)</div>
+          <h2>Actividad 5: El Desafío Final del Prompt Maestro</h2>
+          <p class="description">Pon a prueba todo lo aprendido: redacta una instrucción impecable para evaluar un borrador de investigación incompleto sin dejar que la IA invente datos.</p>
+        </div>
+
+        <!-- Protocolo Incompleto -->
+        <div class="case-study-box challenge-box">
+          <div class="case-header">
+            <span class="case-id">BORRADOR INCOMPLETO DE PROTOCOLO CLÍNICO</span>
+            <span class="case-badge warning-badge">Información Parcial</span>
+          </div>
+          <div class="clinical-note-content">
+            "TITULO DEL PROYECTO: Eficacia de la intervención nutricional en pacientes geriátricos frágiles.
+RESUMEN: Se propone un seguimiento de 6 meses con suplemento hiperproteico oral. Participarán unos 80 pacientes mayores de 75 años ingresados en centros sociosanitarios. Se medirá la fuerza de prensión manual y la calidad de vida. No se especifica grupo control ni criterios claros de exclusión (demencia avanzada, disfagia o insuficiencia renal). Tampoco se define la pauta posológica exacta ni el análisis estadístico previsto."
+          </div>
+        </div>
+
+        <div class="challenge-workspace">
+          <div class="challenge-input-area">
+            <label><strong>Redacta el Prompt Definitivo de María José:</strong></label>
+            <textarea id="finalPromptInput" class="prompt-textarea large" rows="6" placeholder="Escribe aquí tu prompt profesional integrando Rol, Contexto, Tarea, Formato y Restricción sobre vacíos metodológicos e incertidumbre..."></textarea>
+            
+            <div class="action-row">
+              <button class="btn btn-primary" onclick="evaluateFinalChallenge()">🏆 Evaluar mi Desafío Final</button>
+              <button class="btn btn-outline" onclick="copyFinalPrompt()">📋 Copiar Prompt Final</button>
+            </div>
+          </div>
+
+          <!-- Rúbrica de Evaluación -->
+          <div class="rubric-box">
+            <h4>Rúbrica de los 5 Puntos Clave:</h4>
+            <div class="rubric-item" id="rubric1">
+              <span class="rubric-status">⚪</span>
+              <div><strong>1. Rol de metodólogo / revisor:</strong> ¿La IA adopta una postura crítica?</div>
+            </div>
+            <div class="rubric-item" id="rubric2">
+              <span class="rubric-status">⚪</span>
+              <div><strong>2. Identificación de vacíos:</strong> ¿Pide explicitar datos ausentes?</div>
+            </div>
+            <div class="rubric-item" id="rubric3">
+              <span class="rubric-status">⚪</span>
+              <div><strong>3. Evaluación de riesgos y sesgos:</strong> ¿Indaga en posibles daños o fallos de validez?</div>
+            </div>
+            <div class="rubric-item" id="rubric4">
+              <span class="rubric-status">⚪</span>
+              <div><strong>4. Formato de salida estructurado:</strong> ¿Exige tabla o listas concretas?</div>
+            </div>
+            <div class="rubric-item" id="rubric5">
+              <span class="rubric-status">⚪</span>
+              <div><strong>5. Control estricto de incertidumbre:</strong> ¿Prohíbe rellenar lagunas con invenciones?</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="solution-panel" id="finalSolutionBox">
+          <h4>🌟 Propuesta de Solución Maestra:</h4>
+          <div class="code-snippet">Actúa como evaluador senior de metodología en investigación clínica. A partir del borrador de protocolo sobre suplementación hiperproteica:
+1. Genera una tabla de dos columnas: 'Datos Metodológicos Disponibles' y 'Lagunas Críticas No Especificadas'.
+2. Enumera 3 riesgos de sesgo o de seguridad para los pacientes ancianos derivados de estas omisiones.
+3. RESTRICCIONES OBLIGATORIAS: No intentes rellenar los datos ausentes con supuestos ni inventes dosificaciones. Califica explícitamente el nivel de incertidumbre metodológica como ALTO.</div>
+          <button class="btn btn-copy" onclick="copyText('Actúa como evaluador senior de metodología en investigación clínica. A partir del borrador de protocolo sobre suplementación hiperproteica:\n1. Genera una tabla de dos columnas: \'Datos Metodológicos Disponibles\' y \'Lagunas Críticas No Especificadas\'.\n2. Enumera 3 riesgos de sesgo o de seguridad para los pacientes ancianos derivados de estas omisiones.\n3. RESTRICCIONES OBLIGATORIAS: No intentes rellenar los datos ausentes con supuestos ni inventes dosificaciones. Califica explícitamente el nivel de incertidumbre metodológica como ALTO.')">📋 Copiar Solución Maestra</button>
+        </div>
+
+        <div class="card-footer-controls">
+          <button class="btn btn-secondary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ Volver al Inicio</button>
+          <div class="congrats-tag">🎓 ¡Sesión de 50 minutos completada con éxito!</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notificación Toast Flotante -->
+  <div id="toastNotification" class="toast">Texto copiado al portapapeles</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+================================================================================
+ACTIVIDAD 5: DESAFIO FINAL - EL PROMPT CLINICO MAESTRO
+Clase Particular - Maria Jose | Duracion estimada: 5 minutos
+Modulo: Fundamentos de Inteligencia Artificial Generativa y Salud (URV - Nivel Intro)
+================================================================================
+
+1. TITULO
+Protocolo Incompleto de Investigacion: Evaluando Incertidumbre y Calidad de Prompts.
+
+2. CONTEXTO
+En proyectos de investigacion clinica y salud publica a menudo recibimos borradores con 
+datos fragmentados o metodologias incompletas. Una de las habilidades mas cotizadas de la 
+ingenieria de prompts moderna es lograr que la IA reconozca lo que NO sabe, identifique lagunas 
+y declare su nivel de incertidumbre en lugar de inventar coherencias falsas.
+
+3. DATOS DE ENTRADA (BORRADOR DE PROTOCOLO CLINICO INCOMPLETO)
+--------------------------------------------------------------------------------
+"TITULO DEL PROYECTO: Eficacia de la intervencion nutricional en pacientes geriatricos fragiles.
+RESUMEN: Se propone un seguimiento de 6 meses con suplemento hiperproteico oral. Participaran 
+unos 80 pacientes mayores de 75 anos ingresados en centros sociosanitarios. Se medira la fuerza 
+de prension manual y la calidad de vida. No se especifica grupo control ni criterios claros de 
+exclusion (demencia avanzada, disfagia o insuficiencia renal). Tampoco se define la pauta posologica 
+exacta ni el analisis estadistico previsto."
+--------------------------------------------------------------------------------
+
+4. OBJETIVO PEDAGOGICO
+- Demostrar el dominio integral de la tecnica de 5 elementos en un unico prompt profesional.
+- Exigir a la IA declaracion explicita de incertidumbre y senalamiento de datos faltantes.
+- Evaluar la calidad del prompt con una rubrica objetiva de 5 puntos.
+
+5. INSTRUCCIONES NUMERADAS
+Paso 1 (1 min): Lee el borrador de protocolo e identifica al menos dos datos metodologicos ausentes.
+Paso 2 (3 min): Escribe un UNICO prompt profesional que le pida a la IA:
+       a) Organizar la informacion disponible en una tabla comparativa (Disponible vs. Faltante).
+       b) Listar 3 riesgos metodologicos o de seguridad para los pacientes si se ejecuta tal cual.
+       c) Prohibir que la IA invente datos que no figuran en el borrador original.
+Paso 3 (1 min): Autoevalua tu prompt con la Rubrica de Calidad.
+
+6. RUBRICA SENCILLA DE AUTOEVALUACION (1 PUNTO POR ELEMENTO, TOTAL 5 PUNTOS)
+[ ] 1. Rol definido (ej. Especialista en metodologia de investigacion sanitaria).
+[ ] 2. Contexto claro (borrador preliminar con informacion incompleta).
+[ ] 3. Tarea especifica (identificar vacios, riesgos y estructurar tabla).
+[ ] 4. Formato de salida exigido (tabla de dos columnas y viñetas de riesgos).
+[ ] 5. Restriccion de incertidumbre (prohibido inventar datos ausentes, obligar a declarar dudas).
+
+7. PREGUNTAS PARA LA ALUMNA (MARIA JOSE)
+a) ¿Que habria hecho un prompt simple como "revisa este estudio" frente a las carencias del texto?
+b) ¿Por que en salud es preferible que la IA responda "Dato no disponible" a que genere una suposicion verosimil?
+
+8. TIEMPO ESTIMADO
+Total: 5 minutos (1 min lectura + 3 min elaboracion de prompt + 1 min autoevaluacion).
+
+9. RESULTADO ESPERADO Y PROPUESTA DE SOLUCION
+Maria Jose lograra un prompt de nivel avanzado que proteja la integridad cientifica del analisis:
+
+Ejemplo de solucion de referencia:
+"Actua como evaluador senior de metodologia de investigacion clinica. A partir del siguiente 
+borrador incompleto de protocolo, realiza lo siguiente:
+1) Genera una tabla de dos columnas: 'Datos Metodologicos Disponibles' y 'Lagunas Criticas Faltantes'.
+2) Enumera 3 riesgos concretos de sesgo o de seguridad derivados de estas carencias.
+3) Restricciones obligatorias: No intentes rellenar los vacios con supuestos ni inventes dosificaciones. 
+Si falta un dato, calificalo explicitamente como 'NO ESPECIFICADO'."
+================================================================================
