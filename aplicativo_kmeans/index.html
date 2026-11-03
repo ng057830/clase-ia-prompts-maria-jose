@@ -14,7 +14,7 @@
       <div>
         <div class="badge-tag">Machine Learning Clínico • URV AI Foundations</div>
         <h1>Simulador K-Means: Artritis vs. Artrosis en Bailarines (~30 años)</h1>
-        <p>Cohorte con desgaste óseo severo: aprende cómo el algoritmo K=2 diferencia artrosis mecánica de artritis autoinmune usando variables clínicas cuantitativas</p>
+        <p>Cohorte con desgaste óseo severo: incluye nuevos pacientes y categoriza lecturas espontáneas de electros (EMG/ECG)</p>
       </div>
       <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
         <a href="../index.html" class="btn btn-outline" style="background:rgba(255,255,255,0.15); color:white; border-color:rgba(255,255,255,0.3); text-decoration:none;" title="Volver al Portal Principal">
@@ -39,7 +39,7 @@
       <div class="intro-text">
         <h2>El Desafío Clínico: Bailarinas y Bailarines de ~30 años con Desgaste Óseo Severo</h2>
         <p>
-          En profesionales de la danza de alta exigencia, el microtraumatismo repetitivo genera un desgaste óseo y cartilaginoso masivo. ¿Cómo distinguir si el dolor de una bailarina de 30 años se debe a <strong>Artrosis Ocupacional por sobrecarga mecánica</strong> o al debut temprano de una <strong>Artritis Reumatoide Autoinmune</strong>? La respuesta está en 5 variables clínicas estandarizadas:
+          En profesionales de la danza de alta intensidad, el microtraumatismo repetitivo genera un desgaste articular y óseo temprano. ¿Cómo distinguir si el dolor de un/a bailarín/a de 30 años se debe a <strong>Artrosis Ocupacional por sobrecarga mecánica</strong> o al debut de una <strong>Artritis Reumatoide Autoinmune</strong>? Evaluamos 5 variables cuantitativas y la categorización de lecturas espontáneas en electros (EMG/ECG):
         </p>
         <div class="vars-pill-row">
           <span class="var-pill">⏱️ 1. Rigidez Matutina (min)</span>
@@ -47,6 +47,7 @@
           <span class="var-pill highlight-pill">⚖️ 3. Simetría Bilateral Mano Dcha/Izda (%)</span>
           <span class="var-pill highlight-pill">🔥 4. Score Inflamatorio Clínico (0-10)</span>
           <span class="var-pill highlight-pill">🎯 5. Anti-CCP (Citrulina) [Precoz]</span>
+          <span class="var-pill highlight-pill">⚡ 6. Observación Electros (EMG/ECG)</span>
         </div>
       </div>
     </section>
@@ -56,7 +57,7 @@
     <!-- ================================================================= -->
     <section class="clinical-reference-panel">
       <div class="reference-header" onclick="toggleClinicalNotes()">
-        <h3>📚 Guía de Anotaciones Clínicas y Criterios Reumatológicos</h3>
+        <h3>📚 Guía de Anotaciones Clínicas y Categorización de Electros</h3>
         <button class="reference-toggle-btn" id="btnToggleNotes">▲ Ocultar Anotaciones</button>
       </div>
 
@@ -68,11 +69,11 @@
             <strong>Índice de Simetría Bilateral (%) (Mano Dcha. e Izda.)</strong>
           </h4>
           <p>
-            Mide qué porcentaje de las articulaciones dolorosas tienen afectación idéntica en la extremidad contralateral:
+            Mide el porcentaje de articulaciones que presentan afectación idéntica contralateral:
           </p>
           <ul class="ref-bullets">
-            <li><strong>Artritis Reumatoide (AR):</strong> Afectación <strong>clásicamente en espejo (> 75% a 100%)</strong>. Si duele la 2ª MCF derecha, casi siempre duele la 2ª MCF izquierda.</li>
-            <li><strong>Artrosis del Bailarín (OA):</strong> Afectación <strong>marcadamente asimétrica (10% a 30%)</strong>, condicionada por el pie de batida, la pierna de apoyo en *arabesque* o giros repetidos.</li>
+            <li><strong>Artritis Reumatoide (AR):</strong> Afectación <strong>clásicamente en espejo (> 75% a 100%)</strong>. Afecta simultáneamente las mismas MCF, PIP o muñecas de ambos lados.</li>
+            <li><strong>Artrosis del Bailarín (OA):</strong> Afectación <strong>marcadamente asimétrica (10% a 30%)</strong>, condicionada por el pie de batida, la pierna de apoyo en saltos o caídas.</li>
           </ul>
         </div>
 
@@ -83,11 +84,11 @@
             <strong>Cuantificación del Tipo Inflamatorio (0 a 10 Puntos)</strong>
           </h4>
           <p>
-            Puntaje estandarizado que evalúa los signos cardinales clínicos locales (calor palpable, tumefacción sinovial esponjosa y derrame):
+            Score estandarizado que evalúa calor palpable, sinovitis blanda esponjosa y derrame:
           </p>
           <ul class="ref-bullets">
-            <li><strong>Score Alto (6.5 a 9.5 / 10) — Patrón Inflamatorio:</strong> Articulaciones "calientes" con sinovitis blanda en esponja y dolor que empeora con el reposo nocturno (AR).</li>
-            <li><strong>Score Bajo (0.5 a 2.5 / 10) — Patrón Mecánico Frío:</strong> Articulaciones duras por engrosamiento óseo cortical y osteofitos, sin hiperemia ni calor activo (Artrosis).</li>
+            <li><strong>Score Alto (6.5 a 9.5 / 10) — Sinovitis Caliente (AR):</strong> Articulaciones calientes, tumefacción sinovial en esponja y dolor que empeora en reposo nocturno.</li>
+            <li><strong>Score Bajo (0.5 a 2.5 / 10) — Articulación Fría Mecánica (Artrosis):</strong> Articulaciones duras por esclerosis ósea y osteofitos, sin calor local activo.</li>
           </ul>
         </div>
 
@@ -101,8 +102,25 @@
             Diferenciación crucial para casos críticos de bailarines jóvenes:
           </p>
           <ul class="ref-bullets">
-            <li><strong>Anti-CCP (Péptidos Citrulinados):</strong> Marcador de oro con >96% de especificidad para AR (&ge; 20 U/mL), negativo en la artrosis de los bailarines.</li>
-            <li><strong>Radiografía ósea:</strong> En Artrosis hay desgaste de cartílago con <strong>esclerosis de la corteza ósea</strong> y osteofitos; en AR el pannus destruye la corteza con <strong>erosiones marginales en muesca</strong> y desestructuración.</li>
+            <li><strong>Anti-CCP:</strong> Marcador con >96% de especificidad para AR (&ge; 20 U/mL), negativo en artrosis ocupacional.</li>
+            <li><strong>Radiografía ósea:</strong> En Artrosis hay desgaste de cartílago con <strong>esclerosis ósea subcondral</strong> y osteofitos; en AR hay <strong>rotura y erosiones marginales de la corteza</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- Tarjeta 4: CATEGORIZACIÓN DE ELECTROS (EMG / ECG) -->
+        <div class="ref-card" style="border-left: 4px solid #0284c7;">
+          <h4>
+            <span>⚡</span>
+            <strong>¿Cómo Categorizar las Lecturas Espontáneas de ELECTROS?</strong>
+          </h4>
+          <p>
+            En bailarines con dolor y rigidez se realizan estudios espontáneos de <strong>Electromiografía (EMG)</strong> y <strong>Electrocardiograma (ECG)</strong> que se categorizan en 4 niveles objetivos:
+          </p>
+          <ul class="ref-bullets">
+            <li><strong>Cat. 1 (Silente / Atleta):</strong> EMG en reposo silencioso (normal). ECG con bradicardia sinusal de bailarín (48-54 lpm) o repolarización precoz de deportista. <em>(Típico en Artrosis)</em>.</li>
+            <li><strong>Cat. 2 (Atrapamiento Mecánico Focal):</strong> EMG con latencia motora prolongada unilateral en túnel tarsiano o peroneo por osteofito/esclerosis ósea tras impacto de saltos. Sin denervación generalizada. <em>(Artrosis Ocupacional)</em>.</li>
+            <li><strong>Cat. 3 (Actividad Espontánea Patológica):</strong> EMG con <strong>fibrilaciones espontáneas en reposo (+2)</strong> y ondas agudas positivas por compresión del nervio mediano debido a pannus sinovial en muñecas (Túnel Carpiano bilateral inflamatorio). <em>(Artritis Reumatoide activa)</em>.</li>
+            <li><strong>Cat. 4 (Afectación Sistémica / Pericarditis):</strong> ECG con elevación cóncava difusa de ST de perfil inflamatorio (pericarditis autoinmune) o taquicardia refleja en reposo. <em>(Artritis Reumatoide sistémica)</em>.</li>
           </ul>
         </div>
       </div>
@@ -116,22 +134,25 @@
         <div class="step-title-area">
           <div class="step-number">1</div>
           <div>
-            <h3>Paso 1: Tu Criterio Médico (10 Casos Reales de Bailarines de ~30 años)</h3>
-            <p class="step-subtitle">Evalúa la rigidez, la simetría mano dcha/izda, el puntaje inflamatorio y el Anti-CCP para clasificar cada caso en Artrosis Mecánica o Artritis Reumatoide.</p>
+            <h3>Paso 1: Tu Criterio Médico (Muestra de Bailarines de ~30 años)</h3>
+            <p class="step-subtitle">Evalúa la rigidez, la simetría mano dcha/izda, el puntaje inflamatorio, el Anti-CCP y las lecturas espontáneas de electros para diagnosticar.</p>
           </div>
         </div>
 
         <div class="step-controls">
-          <button class="btn btn-outline" onclick="autoDiagnoseAll()" title="Completar los 10 con criterio médico estándar">
+          <button class="btn btn-outline" onclick="autoDiagnoseAll()" title="Completar con criterio médico estándar">
             ⚡ Autodiagnóstico Rápido
           </button>
           <button class="btn btn-outline" onclick="resetAllDiagnoses()" title="Borrar selecciones">
             🔄 Reiniciar
           </button>
+          <button class="btn btn-outline" onclick="resetToInitialCohort()" title="Restaurar muestra de los 10 bailarines originales">
+            👥 Restaurar 10 Originales
+          </button>
         </div>
       </div>
 
-      <!-- Cuadrícula con los 10 Pacientes -->
+      <!-- Cuadrícula con los Pacientes -->
       <div class="patients-grid" id="patientsGrid">
         <!-- Generado dinámicamente vía app.js -->
       </div>
@@ -139,7 +160,7 @@
       <!-- Barra Inferior de Estado -->
       <div class="classification-status-bar">
         <div class="status-counter">
-          Bailarines clasificados: <strong id="classifiedCount">0 / 10</strong> (clasifica al menos 6 para entrenar la IA)
+          Bailarines clasificados: <strong id="classifiedCount">0 / 10</strong>
         </div>
         <button class="btn btn-primary" id="btnTrainKMeans" onclick="calculateKMeans(true)" disabled>
           ⚡ Enseñar a la IA mediante K-Means (Calcular Centroides)
@@ -175,7 +196,7 @@
               <div>Anti-CCP Citrulina media: <span class="val" id="arAnticcp" style="color:#b91c1c;">--</span></div>
             </div>
             <div style="font-size:0.75rem; color:#7f1d1d; margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #fca5a5;">
-              <strong>Patrón radiológico/óseo:</strong> Erosiones marginales corticales, rotura destructiva y osteopenia yuxtaarticular en manos y pies.
+              <strong>Patrón electros / óseo:</strong> Actividad espontánea anormal en reposo (Cat. 3 - fibrilaciones / túnel carpiano bilateral) y rotura cortical articular.
             </div>
           </div>
 
@@ -190,7 +211,7 @@
               <div>Anti-CCP Citrulina media: <span class="val" id="oaAnticcp" style="color:#1d4ed8;">--</span></div>
             </div>
             <div style="font-size:0.75rem; color:#1e3a8a; margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #93c5fd;">
-              <strong>Patrón radiológico/óseo:</strong> Desgaste severo de cartílago articular, esclerosis ósea densa de la corteza y osteofitos en articulaciones de carga.
+              <strong>Patrón electros / óseo:</strong> Silente o atrapamiento focal mecánico (Cat. 1 / 2), esclerosis cortical ósea densa y osteofitos de tracción en articulaciones de carga.
             </div>
           </div>
 
@@ -224,15 +245,15 @@
     </section>
 
     <!-- ================================================================= -->
-    <!-- PASO 3: ¡LA SORPRESA! BAILARÍN NUEVO ALEATORIO -->
+    <!-- PASO 3: ¡LA SORPRESA! BAILARÍN NUEVO E INCLUSIÓN EN LA MUESTRA -->
     <!-- ================================================================= -->
     <section class="step-card" id="stepSurprise" style="display: none;">
       <div class="step-header">
         <div class="step-title-area">
           <div class="step-number">3</div>
           <div>
-            <h3>Paso 3: ¡La Sorpresa! Pon a Prueba a la IA con un Caso Inédito</h3>
-            <p class="step-subtitle">Introduce o genera medidas aleatorias para un/a nuevo/a bailarín/a y comprueba cómo la IA clasifica con precisión su desgaste óseo.</p>
+            <h3>Paso 3: ¡La Sorpresa! Pon a Prueba a la IA e Incluye Nuevos Pacientes</h3>
+            <p class="step-subtitle">Introduce medidas aleatorias para un/a nuevo/a bailarín/a, comprueba cómo la IA clasifica su caso e <strong>inclúyelo/a directamente en la muestra clínica</strong>.</p>
           </div>
         </div>
       </div>
@@ -242,7 +263,7 @@
           
           <!-- Controles del Paciente Nuevo -->
           <div class="new-patient-input-box">
-            <h4 style="margin-bottom:0.75rem; font-size:1rem; color:#1e293b;">Parámetros Clínicos del/la Bailarín/a:</h4>
+            <h4 style="margin-bottom:0.75rem; font-size:1rem; color:#1e293b;">Parámetros Clínicos del/la Bailarín/a Inédito/a:</h4>
 
             <div class="input-slider-group">
               <label>
@@ -260,17 +281,17 @@
               <input type="range" id="sliderArt" class="slider-input" min="0" max="20" value="12" step="1">
             </div>
 
-            <!-- Parámetro Clave: Simetría Bilateral -->
+            <!-- Parámetro: Simetría Bilateral -->
             <div class="input-slider-group" style="background:#eff6ff; border:1px solid #bfdbfe; padding:0.5rem; border-radius:var(--radius-sm);">
               <label>
                 <span style="color:#1d4ed8;">⚖️ Simetría Bilateral Mano Dcha/Izda:</span>
                 <span class="slider-val" id="valSimetria">90% (Simétrica Bilateral)</span>
               </label>
               <input type="range" id="sliderSimetria" class="slider-input" min="0" max="100" value="90" step="1" style="accent-color:#2563eb;">
-              <div style="font-size:0.7rem; color:#1e40af;">≥ 75%: Típico en espejo de Artritis | &le; 35%: Asimétrica de carga en danza</div>
+              <div style="font-size:0.7rem; color:#1e40af;">≥ 75%: En espejo de Artritis | &le; 35%: Asimétrica de carga en danza</div>
             </div>
 
-            <!-- Parámetro Clave: Score Inflamatorio -->
+            <!-- Parámetro: Score Inflamatorio -->
             <div class="input-slider-group" style="background:#fef2f2; border:1px solid #fecaca; padding:0.5rem; border-radius:var(--radius-sm); margin-top:0.5rem;">
               <label>
                 <span style="color:#dc2626;">🔥 Score Inflamatorio Clínico:</span>
@@ -280,7 +301,7 @@
               <div style="font-size:0.7rem; color:#991b1b;">Evalúa calor local, tumefacción sinovial esponjosa y derrame activo</div>
             </div>
 
-            <!-- Parámetro Anti-CCP -->
+            <!-- Parámetro: Anti-CCP -->
             <div class="input-slider-group" style="background:#fff7ed; border:1px solid #ffedd5; padding:0.5rem; border-radius:var(--radius-sm); margin-top:0.5rem;">
               <label>
                 <span style="color:#c2410c;">🎯 Ac. Anti-CCP (Citrulina):</span>
@@ -288,6 +309,19 @@
               </label>
               <input type="range" id="sliderAnticcp" class="slider-input" min="0" max="300" value="175" step="1" style="accent-color:#ea580c;">
               <div style="font-size:0.7rem; color:#9a3412;">Corte clínico de positividad: &ge; 20 U/mL (específico de AR)</div>
+            </div>
+
+            <!-- Parámetro: Lectura Espontánea de Electros (EMG/ECG) -->
+            <div class="input-slider-group" style="margin-top:0.6rem; background:#f0f9ff; border:1px solid #bae6fd; padding:0.5rem; border-radius:var(--radius-sm);">
+              <label>
+                <span style="color:#0369a1;">⚡ Lectura Espontánea de Electros (EMG/ECG):</span>
+              </label>
+              <select id="selectElectroFinding" style="width:100%; padding:0.45rem; border-radius:var(--radius-sm); border:1px solid var(--border-color); font-size:0.8rem;">
+                <option value="cat3">Cat. 3: Actividad Espontánea Patológica (EMG con fibrilaciones en reposo y túnel carpiano bilateral)</option>
+                <option value="cat1">Cat. 1: Silente / Atleta (Normal - EMG silente en reposo, ECG bradicardia de bailarín)</option>
+                <option value="cat2">Cat. 2: Atrapamiento Mecánico Focal (EMG con latencia en tobillo/tarso por osteofito de impacto)</option>
+                <option value="cat4">Cat. 4: Afectación Sistémica / Pericarditis (ECG con elevación cóncava de ST reactiva)</option>
+              </select>
             </div>
 
             <!-- Radiografía Ósea -->
@@ -303,10 +337,13 @@
 
             <div class="new-patient-actions">
               <button class="btn btn-random" onclick="generateRandomPatient()">
-                🎲 Generar Caso de Bailarín Aleatorio
+                🎲 Generar Caso Aleatorio
               </button>
               <button class="btn btn-outline" onclick="loadBorderlinePatient()">
-                ⚖️ Probar Caso Límite / Dudoso
+                ⚖️ Caso Límite / Dudoso
+              </button>
+              <button class="btn btn-success" onclick="addNewPatientToCohort()" style="width:100%; margin-top:0.5rem;" title="Añadir formalmente este nuevo paciente a la muestra">
+                ➕ Añadir este Bailarín/a a la Cohorte Oficial
               </button>
             </div>
           </div>
@@ -332,12 +369,12 @@
             </div>
 
             <div class="distance-math-box" id="distMathText">
-              <!-- Calculado dinámicamente -->
+              <!-- Calculado dinámicamente con detalles analíticos, de electros y de simetría -->
             </div>
 
             <div class="surprise-reveal-message">
               🎉 <strong>¡Magia del Aprendizaje Automático para María José!</strong><br>
-              A pesar de que todos los bailarines de la muestra presentan desgaste óseo severo por su profesión, la IA logró identificar si el caso corresponde a <strong>artrosis por impacto biomecánico</strong> (asimétrica, fría y Anti-CCP negativa) o a <strong>artritis reumatoide</strong> (simétrica en espejo, caliente y con rotura cortical). ¡El algoritmo replicó con exactitud tu criterio médico!
+              A pesar de que todos los bailarines de la muestra presentan desgaste óseo severo por su profesión, la IA logró identificar si el caso corresponde a <strong>artrosis por impacto biomecánico</strong> (asimétrica, fría y electros silentes o atrapamiento focal) o a <strong>artritis reumatoide</strong> (simétrica en espejo, caliente, con rotura cortical y actividad espontánea patológica en electros). ¡Pulsa el botón verde para integrarlo en la cuadrícula oficial!
             </div>
           </div>
 

@@ -4,7 +4,8 @@
  * Diagnóstico Diferencial: Artrosis Ocupacional vs. Artritis Reumatoide Autoinmune
  * Variables Clínicas Estandarizadas: Rigidez Matutina, Número de Articulaciones, 
  *                                    Índice de Simetría Bilateral (%), Puntaje Inflamatorio (0-10), Anti-CCP
- * (PCR eliminada según requerimiento clínico)
+ * Observación Especial: Categorización de Lecturas Espontáneas en Electros (EMG / ECG)
+ * Capacidad Dinámica: Inclusión de Nuevos Pacientes en la Cohorte
  * URV AI Foundations - Alumna: María José
  */
 
@@ -17,8 +18,8 @@ const SCALES = {
   anticcp: { min: 0, max: 300, label: "Ac. Anti-Citrulina Anti-CCP (U/mL)", unit: "U/mL" }
 };
 
-// 10 Pacientes de entrenamiento: Bailarinas y bailarines profesionales (~30 años) con desgaste óseo severo
-const PACIENTES_ENTRENAMIENTO = [
+// 10 Pacientes iniciales: Bailarinas y bailarines profesionales (~30 años) con desgaste óseo severo
+const PACIENTES_ENTRENAMIENTO_BASE = [
   {
     id: "PAC-01",
     nombre: "Sofía M. (29a, Ballet Clásico)",
@@ -27,6 +28,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 90,
     inflamacion: 8.5,
     anticcp: 195,
+    electroTipo: "cat3",
+    electroObs: "EMG: Fibrilaciones espontáneas (+2) en reposo; latencia distal bilateral prolongada en nervio mediano (Túnel Carpiano bilateral inflamatorio).",
     hallazgoRx: "Erosiones corticales marginales en carpos y osteopenia yuxtaarticular simétrica.",
     contextoDanza: "Incapacidad para calentar en la barra matutina; afectación bilateral en espejo de manos y tobillos.",
     dxReal: "AR",
@@ -40,6 +43,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 15,
     inflamacion: 1.5,
     anticcp: 3,
+    electroTipo: "cat1",
+    electroObs: "EMG: Reposo eléctrico silente fisiológico normal; ECG: Bradicardia sinusal benigna de atleta (50 lpm).",
     hallazgoRx: "Desgaste severo de cartílago articular, esclerosis ósea densa en corteza de astrágalo y osteofitos.",
     contextoDanza: "Sobrecarga asimétrica en tobillo derecho de batida tras caídas de saltos (grand jeté).",
     dxReal: "OA",
@@ -53,6 +58,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 95,
     inflamacion: 9.0,
     anticcp: 240,
+    electroTipo: "cat3",
+    electroObs: "EMG: Ondas agudas positivas espontáneas en musculatura interósea y carpos por compresión sinovial activa.",
     hallazgoRx: "Desestructuración y rotura cortical ósea en carpo; pinzamiento simétrico bilateral.",
     contextoDanza: "Tumefacción caliente esponjosa en ambas muñecas; dolor articular continuo que empeora en reposo.",
     dxReal: "AR",
@@ -66,6 +73,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 20,
     inflamacion: 1.8,
     anticcp: 4,
+    electroTipo: "cat2",
+    electroObs: "EMG: Atrapamiento focal de nervio tibial posterior en túnel del tarso derecho por osteofitos de tracción; sin denervación difusa.",
     hallazgoRx: "Hallux rigidus severo con osteofitos gigantes en 1ª MCF derecha y esclerosis subcondral marcada.",
     contextoDanza: "Desgaste focal mecánico por trabajo de puntas y relevé en pie derecho dominante.",
     dxReal: "OA",
@@ -79,6 +88,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 85,
     inflamacion: 7.8,
     anticcp: 165,
+    electroTipo: "cat3",
+    electroObs: "EMG: Actividad espontánea incipiente en eminencia tenar bilateral por túnel carpiano precoz autoinmune.",
     hallazgoRx: "Tumefacción sinovial difusa con sutil pérdida de la corteza ósea en estiloides cubital bilateral.",
     contextoDanza: "Sinovitis caliente en ambas manos y empeines; fatiga generalizada matutina.",
     dxReal: "AR",
@@ -92,6 +103,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 25,
     inflamacion: 2.2,
     anticcp: 5,
+    electroTipo: "cat1",
+    electroObs: "EMG: Conducción nerviosa normal sin actividad espontánea; ECG: Repolarización precoz típica de deportista.",
     hallazgoRx: "Pinzamiento femorotibial medial asimétrico y marcado reborde osteofítico sin erosiones.",
     contextoDanza: "Microtraumatismo de repetición por impacto de zapateo en rodilla izquierda de apoyo.",
     dxReal: "OA",
@@ -105,6 +118,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 100,
     inflamacion: 9.2,
     anticcp: 220,
+    electroTipo: "cat4",
+    electroObs: "ECG: Elevación cóncava difusa de ST (pericarditis reactiva autoinmune); EMG: Fibrilaciones activas en pies y manos.",
     hallazgoRx: "Pinzamiento articular simétrico bilateral con microgeodas y rotura cortical en falanges.",
     contextoDanza: "Afectación en espejo idéntica en manos y pies; impotencia funcional matutina severa.",
     dxReal: "AR",
@@ -118,6 +133,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 10,
     inflamacion: 1.2,
     anticcp: 2,
+    electroTipo: "cat2",
+    electroObs: "EMG: Atrapamiento mecánico focal del nervio peroneo común en cabeza de peroné izquierdo por hiperostosis ósea.",
     hallazgoRx: "Corteza ósea engrosada con osteofitos mecánicos en tobillo izquierdo y muñeca derecha.",
     contextoDanza: "Articulaciones duras y frías por traumatismo ocupacional crónico; sin calor local ni eritema.",
     dxReal: "OA",
@@ -131,6 +148,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 88,
     inflamacion: 8.0,
     anticcp: 180,
+    electroTipo: "cat3",
+    electroObs: "EMG: Fibrilaciones espontáneas (+2) y potenciales polifásicos de corta duración en manos.",
     hallazgoRx: "Erosiones marginales activas en articulaciones interfalángicas proximales de ambas manos.",
     contextoDanza: "Dolor nocturno pulsátil y calor articular sinovial bilateral en extremidades superiores.",
     dxReal: "AR",
@@ -144,6 +163,8 @@ const PACIENTES_ENTRENAMIENTO = [
     simetria: 18,
     inflamacion: 1.6,
     anticcp: 6,
+    electroTipo: "cat1",
+    electroObs: "EMG: Reposo muscular silente normal; ECG: Bradicardia de reposo fisiológica sin alteraciones.",
     hallazgoRx: "Pinzamiento coxofemoral superior asimétrico y osteofito cefálico por choque fémoro-acetabular.",
     contextoDanza: "Dolor mecánico en cadera derecha tras sobrecarga en saltos y giros repetitivos.",
     dxReal: "OA",
@@ -153,7 +174,7 @@ const PACIENTES_ENTRENAMIENTO = [
 
 // Estado global de la aplicación
 let appState = {
-  pacientes: JSON.parse(JSON.stringify(PACIENTES_ENTRENAMIENTO)),
+  pacientes: JSON.parse(JSON.stringify(PACIENTES_ENTRENAMIENTO_BASE)),
   centroides: null, // { AR: {...}, OA: {...} }
   pacienteNuevo: {
     rigidez: 90,
@@ -161,12 +182,13 @@ let appState = {
     simetria: 90,
     inflamacion: 8.2,
     anticcp: 175,
+    electroTipo: "cat3",
     rxTipo: "ar" // "ar" | "oa"
   },
-  proyeccionActual: "simetria_inflamacion" // "simetria_inflamacion" | "rigidez_simetria" | "anticcp_inflamacion" | "rigidez_inflamacion" | "articulaciones_simetria"
+  proyeccionActual: "simetria_inflamacion"
 };
 
-// Inicialización al cargar la página
+// Inicialización
 document.addEventListener("DOMContentLoaded", () => {
   renderPatientsGrid();
   initSliders();
@@ -174,7 +196,38 @@ document.addEventListener("DOMContentLoaded", () => {
   updateStatusCounter();
 });
 
-// Renderizar tarjetas de los 10 pacientes (Bailarines de ~30 años)
+// Obtener etiqueta y estilo según categoría de lecturas espontáneas en electros
+function getElectroBadgeHtml(tipo) {
+  switch (tipo) {
+    case "cat1":
+      return '<span class="badge-electro-normal">Cat. 1: Silente/Atleta (Normal)</span>';
+    case "cat2":
+      return '<span class="badge-electro-atrap">Cat. 2: Atrapamiento Mecánico</span>';
+    case "cat3":
+      return '<span class="badge-electro-inflam">Cat. 3: Actividad Espontánea Patológica</span>';
+    case "cat4":
+      return '<span class="badge-electro-sistem">Cat. 4: Afectación Sistémica / Pericarditis</span>';
+    default:
+      return '<span class="badge-electro-normal">Sin categorizar</span>';
+  }
+}
+
+function getElectroDescription(tipo) {
+  switch (tipo) {
+    case "cat1":
+      return "EMG: Silencio eléctrico en reposo normal. ECG: Bradicardia sinusal benigna de bailarín (48-54 lpm).";
+    case "cat2":
+      return "EMG: Latencia distal motora prolongada focal en túnel del tarso/peroneo por osteofito de impacto. Sin denervación difusa.";
+    case "cat3":
+      return "EMG: Fibrilaciones espontáneas (+2) en reposo y túnel carpiano bilateral por compresión de pannus sinovial inflamatorio.";
+    case "cat4":
+      return "ECG: Elevación cóncava difusa de ST (pericarditis autoinmune reactiva); EMG: Ondas agudas positivas espontáneas.";
+    default:
+      return "Estudio neurofisiológico dentro de límites normales para deportista.";
+  }
+}
+
+// Renderizar tarjetas de los pacientes
 function renderPatientsGrid() {
   const container = document.getElementById("patientsGrid");
   if (!container) return;
@@ -203,6 +256,9 @@ function renderPatientsGrid() {
     const ccpBadge = p.anticcp >= 20
       ? `<span class="badge-anticcp-pos">${p.anticcp} U/mL (Positivo)</span>`
       : `<span class="badge-anticcp-neg">${p.anticcp} U/mL (Negativo)</span>`;
+
+    // Badge de Electros
+    const electroBadge = getElectroBadgeHtml(p.electroTipo);
 
     card.innerHTML = `
       <div>
@@ -233,6 +289,14 @@ function renderPatientsGrid() {
             <span>Anti-CCP Citrulina:</span>
             <div>${ccpBadge}</div>
           </div>
+        </div>
+
+        <div class="p-electro-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.2rem;">
+            <strong style="color:#0369a1;">⚡ Lectura Electros (EMG/ECG):</strong>
+            ${electroBadge}
+          </div>
+          <div style="color:#475569;">${p.electroObs}</div>
         </div>
 
         <div class="p-rx-box">
@@ -275,7 +339,7 @@ function autoDiagnoseAll() {
   renderPatientsGrid();
   updateStatusCounter();
   calculateKMeans(true);
-  showToast("Todos los 10 bailarines diagnosticados con criterio clínico estándar.");
+  showToast(`Todos los ${appState.pacientes.length} bailarines diagnosticados con criterio clínico.`);
 }
 
 // Resetear diagnósticos
@@ -292,16 +356,29 @@ function resetAllDiagnoses() {
   showToast("Diagnósticos reiniciados.");
 }
 
+// Restaurar cohorte inicial de 10
+function resetToInitialCohort() {
+  appState.pacientes = JSON.parse(JSON.stringify(PACIENTES_ENTRENAMIENTO_BASE));
+  appState.centroides = null;
+  renderPatientsGrid();
+  updateStatusCounter();
+  document.getElementById("stepCentroids").style.display = "none";
+  document.getElementById("stepSurprise").style.display = "none";
+  drawScatter();
+  showToast("Cohorte restaurada a los 10 bailarines originales.");
+}
+
 // Actualizar contador de clasificados
 function updateStatusCounter() {
+  const total = appState.pacientes.length;
   const classifiedCount = appState.pacientes.filter(p => p.dxMariaJose !== null).length;
   const countEl = document.getElementById("classifiedCount");
   const trainBtn = document.getElementById("btnTrainKMeans");
   
-  if (countEl) countEl.textContent = `${classifiedCount} / 10`;
+  if (countEl) countEl.textContent = `${classifiedCount} / ${total}`;
   
   if (trainBtn) {
-    if (classifiedCount >= 6) {
+    if (classifiedCount >= Math.min(6, total)) {
       trainBtn.removeAttribute("disabled");
       trainBtn.classList.remove("btn-outline");
       trainBtn.classList.add("btn-success");
@@ -352,17 +429,12 @@ function calculateKMeans(showToastMessage = true) {
 
   appState.centroides = { AR: centroidAR, OA: centroidOA };
 
-  // Actualizar UI de centroides
   updateCentroidDisplay(centroidAR, centroidOA);
 
-  // Mostrar secciones siguientes
   document.getElementById("stepCentroids").style.display = "block";
   document.getElementById("stepSurprise").style.display = "block";
 
-  // Redibujar gráfico
   drawScatter();
-
-  // Evaluar paciente nuevo actual
   evaluateNewPatient();
 
   if (showToastMessage) {
@@ -414,11 +486,9 @@ function drawScatter() {
   const w = canvas.width;
   const h = canvas.height;
 
-  // Limpiar fondo
   ctx.fillStyle = "#1e293b";
   ctx.fillRect(0, 0, w, h);
 
-  // Ejes y márgenes
   const padLeft = 65;
   const padBottom = 48;
   const padRight = 30;
@@ -426,7 +496,6 @@ function drawScatter() {
   const plotW = w - padLeft - padRight;
   const plotH = h - padTop - padBottom;
 
-  // Selección de variables según proyección activa
   let xProp, yProp, xLabel, yLabel, xScale, yScale;
 
   if (appState.proyeccionActual === "simetria_inflamacion") {
@@ -451,12 +520,10 @@ function drawScatter() {
     xScale = SCALES.articulaciones; yScale = SCALES.simetria;
   }
 
-  // Cuadrícula suave
   ctx.strokeStyle = "#334155";
   ctx.lineWidth = 1;
 
   for (let i = 0; i <= 5; i++) {
-    // Eje X
     const x = padLeft + (plotW / 5) * i;
     ctx.beginPath();
     ctx.moveTo(x, padTop);
@@ -469,7 +536,6 @@ function drawScatter() {
     ctx.textAlign = "center";
     ctx.fillText(xVal, x, padTop + plotH + 16);
 
-    // Eje Y
     const y = padTop + plotH - (plotH / 5) * i;
     ctx.beginPath();
     ctx.moveTo(padLeft, y);
@@ -483,7 +549,6 @@ function drawScatter() {
     ctx.fillText(yVal, padLeft - 8, y + 4);
   }
 
-  // Línea de referencia clínica de simetría (umbral 50%)
   if (xProp === "simetria") {
     const xMid = mapX(50);
     ctx.save();
@@ -500,7 +565,6 @@ function drawScatter() {
     ctx.restore();
   }
 
-  // Títulos de ejes
   ctx.fillStyle = "#38bdf8";
   ctx.font = "bold 11px system-ui";
   ctx.textAlign = "center";
@@ -519,7 +583,6 @@ function drawScatter() {
     return padTop + plotH - ((val - yScale.min) / (yScale.max - yScale.min)) * plotH;
   }
 
-  // Puntos de los pacientes bailarines
   appState.pacientes.forEach(p => {
     const cx = mapX(p[xProp]);
     const cy = mapY(p[yProp]);
@@ -548,7 +611,6 @@ function drawScatter() {
     ctx.fillText(p.id.replace("PAC-", "P"), cx + 8, cy - 4);
   });
 
-  // Centroides
   if (appState.centroides) {
     const cAR = appState.centroides.AR;
     const arX = mapX(cAR[xProp]);
@@ -561,7 +623,6 @@ function drawScatter() {
     drawCentroidMarker(ctx, oaX, oaY, "#2563eb", "Centroide Artrosis (μ₂)");
   }
 
-  // Paciente Nuevo
   if (appState.pacienteNuevo) {
     const npX = mapX(appState.pacienteNuevo[xProp]);
     const npY = mapY(appState.pacienteNuevo[yProp]);
@@ -613,7 +674,7 @@ function drawCentroidMarker(ctx, x, y, color, label) {
 }
 
 // =========================================================================
-// PASO 3: PACIENTE NUEVO CON VARIABLES CLÍNICAS ESTANDARIZADAS
+// PASO 3: PACIENTE NUEVO CON VARIABLES CLÍNICAS Y LECTURAS DE ELECTROS
 // =========================================================================
 
 function initSliders() {
@@ -623,6 +684,7 @@ function initSliders() {
   const sInfla = document.getElementById("sliderInflamacion");
   const sAnticcp = document.getElementById("sliderAnticcp");
   const sRx = document.getElementById("selectRxFinding");
+  const sElectro = document.getElementById("selectElectroFinding");
 
   function onControlsChange() {
     appState.pacienteNuevo.rigidez = parseFloat(sRigidez.value);
@@ -631,21 +693,19 @@ function initSliders() {
     appState.pacienteNuevo.inflamacion = parseFloat(sInfla.value);
     appState.pacienteNuevo.anticcp = parseInt(sAnticcp.value);
     appState.pacienteNuevo.rxTipo = sRx.value;
+    appState.pacienteNuevo.electroTipo = sElectro.value;
 
     document.getElementById("valRigidez").textContent = `${appState.pacienteNuevo.rigidez} min`;
     document.getElementById("valArt").textContent = `${appState.pacienteNuevo.articulaciones} artic.`;
     
-    // Anotación dinámica de Simetría
     const simVal = appState.pacienteNuevo.simetria;
     const simNote = simVal >= 75 ? "(Bilateral Simétrica - AR)" : simVal >= 40 ? "(Intermedia)" : "(Asimétrica Focal - Danza)";
     document.getElementById("valSimetria").textContent = `${simVal}% ${simNote}`;
 
-    // Anotación dinámica de Inflamación
     const inflaVal = appState.pacienteNuevo.inflamacion;
     const inflaNote = inflaVal >= 6.0 ? "(Sinovitis Caliente Activa)" : inflaVal >= 3.5 ? "(Leve/Moderada)" : "(Articulación Fría / Mecánica)";
     document.getElementById("valInflamacion").textContent = `${inflaVal.toFixed(1)} / 10 ${inflaNote}`;
 
-    // Anotación dinámica de Anti-CCP
     const ccpVal = appState.pacienteNuevo.anticcp;
     const ccpNote = ccpVal >= 20 ? "(Positivo > 20)" : "(Negativo < 20)";
     document.getElementById("valAnticcp").textContent = `${ccpVal} U/mL ${ccpNote}`;
@@ -660,13 +720,14 @@ function initSliders() {
   sInfla?.addEventListener("input", onControlsChange);
   sAnticcp?.addEventListener("input", onControlsChange);
   sRx?.addEventListener("change", onControlsChange);
+  sElectro?.addEventListener("change", onControlsChange);
 }
 
 // Generar nuevo paciente bailarín aleatorio coherente
 function generateRandomPatient() {
   const isAR = Math.random() > 0.5;
 
-  let r, a, sim, infla, ccp, rx;
+  let r, a, sim, infla, ccp, rx, electro;
   if (isAR) {
     r = Math.floor(65 + Math.random() * 60);         // 65 a 125 min
     a = Math.floor(8 + Math.random() * 9);          // 8 a 16 artic.
@@ -674,6 +735,7 @@ function generateRandomPatient() {
     infla = parseFloat((6.5 + Math.random() * 3.2).toFixed(1)); // 6.5 a 9.7 (sinovitis caliente)
     ccp = Math.floor(110 + Math.random() * 150);     // 110 a 260 U/mL (muy específico)
     rx = "ar";
+    electro = Math.random() > 0.3 ? "cat3" : "cat4";
   } else {
     r = Math.floor(5 + Math.random() * 20);          // 5 a 25 min
     a = Math.floor(1 + Math.random() * 4);           // 1 a 4 artic.
@@ -681,6 +743,7 @@ function generateRandomPatient() {
     infla = parseFloat((0.8 + Math.random() * 2.0).toFixed(1)); // 0.8 a 2.8 (artritis fría mecánica)
     ccp = Math.floor(1 + Math.random() * 8);         // 1 a 8 U/mL (negativo)
     rx = "oa";
+    electro = Math.random() > 0.4 ? "cat1" : "cat2";
   }
 
   document.getElementById("sliderRigidez").value = r;
@@ -689,8 +752,9 @@ function generateRandomPatient() {
   document.getElementById("sliderInflamacion").value = infla;
   document.getElementById("sliderAnticcp").value = ccp;
   document.getElementById("selectRxFinding").value = rx;
+  document.getElementById("selectElectroFinding").value = electro;
 
-  appState.pacienteNuevo = { rigidez: r, articulaciones: a, simetria: sim, inflamacion: infla, anticcp: ccp, rxTipo: rx };
+  appState.pacienteNuevo = { rigidez: r, articulaciones: a, simetria: sim, inflamacion: infla, anticcp: ccp, rxTipo: rx, electroTipo: electro };
 
   document.getElementById("valRigidez").textContent = `${r} min`;
   document.getElementById("valArt").textContent = `${a} artic.`;
@@ -700,17 +764,18 @@ function generateRandomPatient() {
 
   drawScatter();
   evaluateNewPatient();
-  showToast("¡Nuevo caso clínico de bailarín/a generado al azar!");
+  showToast("¡Nuevo caso clínico espontáneo de bailarín generado!");
 }
 
 // Cargar caso clínico límite o de transición
 function loadBorderlinePatient() {
   const r = 35;
   const a = 5;
-  const sim = 50; // Al 50% de simetría
-  const infla = 4.5; // Inflamación moderada
-  const ccp = 35; // Débilmente positivo
+  const sim = 50;
+  const infla = 4.5;
+  const ccp = 35;
   const rx = "ar";
+  const electro = "cat2";
 
   document.getElementById("sliderRigidez").value = r;
   document.getElementById("sliderArt").value = a;
@@ -718,8 +783,9 @@ function loadBorderlinePatient() {
   document.getElementById("sliderInflamacion").value = infla;
   document.getElementById("sliderAnticcp").value = ccp;
   document.getElementById("selectRxFinding").value = rx;
+  document.getElementById("selectElectroFinding").value = electro;
 
-  appState.pacienteNuevo = { rigidez: r, articulaciones: a, simetria: sim, inflamacion: infla, anticcp: ccp, rxTipo: rx };
+  appState.pacienteNuevo = { rigidez: r, articulaciones: a, simetria: sim, inflamacion: infla, anticcp: ccp, rxTipo: rx, electroTipo: electro };
 
   document.getElementById("valRigidez").textContent = `${r} min`;
   document.getElementById("valArt").textContent = `${a} artic.`;
@@ -729,18 +795,62 @@ function loadBorderlinePatient() {
 
   drawScatter();
   evaluateNewPatient();
-  showToast("Caso límite de bailarín con síntomas mixtos cargado.");
+  showToast("Caso límite de bailarín con lecturas mixtas cargado.");
 }
 
-// Evaluación del paciente nuevo en el espacio multidimensional normalizado (K-Means)
-function evaluateNewPatient() {
-  if (!appState.centroides) return;
+// =========================================================================
+// INCLUIR PACIENTE NUEVO EN LA COHORTE OFICIAL (PAC-11, PAC-12...)
+// =========================================================================
+
+function addNewPatientToCohort() {
+  const nextNum = appState.pacientes.length + 1;
+  const nextId = `PAC-${nextNum < 10 ? '0' + nextNum : nextNum}`;
+  const np = appState.pacienteNuevo;
+
+  // Predecir diagnóstico vía centroides K-Means
+  const isAR = evaluateNewPatient(false);
+  const predictedDx = isAR ? "AR" : "OA";
+
+  const newPatient = {
+    id: nextId,
+    nombre: `Bailarín/a ${nextId} (~30a, Muestra Espontánea)`,
+    rigidez: np.rigidez,
+    articulaciones: np.articulaciones,
+    simetria: np.simetria,
+    inflamacion: np.inflamacion,
+    anticcp: np.anticcp,
+    electroTipo: np.electroTipo || (isAR ? "cat3" : "cat1"),
+    electroObs: getElectroDescription(np.electroTipo || (isAR ? "cat3" : "cat1")),
+    hallazgoRx: np.rxTipo === "ar"
+      ? "Erosiones óseas marginales en corteza, rotura articular y osteopenia yuxtaarticular."
+      : "Desgaste severo de cartílago por danza, esclerosis ósea subcondral y osteofitos sin rotura.",
+    contextoDanza: np.rxTipo === "ar"
+      ? "Presenta sinovitis bilateral en reposo nocturno; dolor continuo que no cede al descansar."
+      : "Sobrecarga biomecánica ocupacional por impacto de saltos en danza de alta intensidad.",
+    dxReal: predictedDx,
+    dxMariaJose: predictedDx
+  };
+
+  appState.pacientes.push(newPatient);
+  renderPatientsGrid();
+  updateStatusCounter();
+  calculateKMeans(false);
+  drawScatter();
+
+  showToast(`¡Bailarín/a ${nextId} incluido/a en la muestra clínica con diagnóstico ${predictedDx}!`);
+  
+  // Desplazar suavemente a la cuadrícula de pacientes para verlo
+  document.getElementById("stepClassification").scrollIntoView({ behavior: "smooth" });
+}
+
+// Evaluación del paciente nuevo en el espacio multidimensional (K-Means)
+function evaluateNewPatient(updateUI = true) {
+  if (!appState.centroides) return false;
 
   const np = appState.pacienteNuevo;
   const cAR = appState.centroides.AR;
   const cOA = appState.centroides.OA;
 
-  // Coordenadas normalizadas [0, 1]
   const npNorm = {
     r: normalizeVal(np.rigidez, SCALES.rigidez),
     a: normalizeVal(np.articulaciones, SCALES.articulaciones),
@@ -765,8 +875,6 @@ function evaluateNewPatient() {
     ccp: normalizeVal(cOA.anticcp, SCALES.anticcp)
   };
 
-  // Pesos clínicos ponderados:
-  // La simetría bilateral y el score inflamatorio son los discriminadores clínicos clave en deportistas/bailarines
   const wSim = 1.3;
   const wInf = 1.3;
   const wCCP = 1.4;
@@ -789,7 +897,6 @@ function evaluateNewPatient() {
     wCCP * Math.pow(npNorm.ccp - oaNorm.ccp, 2)
   );
 
-  // Softmax
   const tau = 0.22;
   const expAR = Math.exp(-distAR / tau);
   const expOA = Math.exp(-distOA / tau);
@@ -797,51 +904,61 @@ function evaluateNewPatient() {
   const probOA = (expOA / (expAR + expOA)) * 100;
 
   const isAR = distAR < distOA;
-  const verdictEl = document.getElementById("aiVerdictBadge");
-  const barFill = document.getElementById("probBarFillAR");
-  const probARText = document.getElementById("probARText");
-  const probOAText = document.getElementById("probOAText");
-  const distMathEl = document.getElementById("distMathText");
 
-  if (verdictEl) {
-    if (isAR) {
-      verdictEl.className = "verdict-badge ar";
-      verdictEl.textContent = `🔴 Artritis Reumatoide Autoinmune (${probAR.toFixed(1)}%)`;
-    } else {
-      verdictEl.className = "verdict-badge oa";
-      verdictEl.textContent = `🔵 Artrosis Ocupacional del Bailarín (${probOA.toFixed(1)}%)`;
+  if (updateUI) {
+    const verdictEl = document.getElementById("aiVerdictBadge");
+    const barFill = document.getElementById("probBarFillAR");
+    const probARText = document.getElementById("probARText");
+    const probOAText = document.getElementById("probOAText");
+    const distMathEl = document.getElementById("distMathText");
+
+    if (verdictEl) {
+      if (isAR) {
+        verdictEl.className = "verdict-badge ar";
+        verdictEl.textContent = `🔴 Artritis Reumatoide Autoinmune (${probAR.toFixed(1)}%)`;
+      } else {
+        verdictEl.className = "verdict-badge oa";
+        verdictEl.textContent = `🔵 Artrosis Ocupacional del Bailarín (${probOA.toFixed(1)}%)`;
+      }
+    }
+
+    if (barFill) barFill.style.width = `${probAR.toFixed(1)}%`;
+    if (probARText) probARText.textContent = `Artritis Reumatoide: ${probAR.toFixed(1)}%`;
+    if (probOAText) probOAText.textContent = `Artrosis Mecánica: ${probOA.toFixed(1)}%`;
+
+    if (distMathEl) {
+      const simAnalysis = np.simetria >= 75
+        ? `• <strong style="color:#b91c1c;">Simetría (${np.simetria}%):</strong> Afectación bilateral en espejo, característica cardinal de Artritis Reumatoide.`
+        : `• <strong style="color:#1d4ed8;">Simetría (${np.simetria}%):</strong> Asimétrica/unilateral, congruente con sobrecarga mecánica de apoyo en danza.`;
+
+      const inflaAnalysis = np.inflamacion >= 6.0
+        ? `• <strong style="color:#b91c1c;">Score Inflamatorio (${np.inflamacion.toFixed(1)}/10):</strong> Sinovitis esponjosa con calor local y derrame articular activo.`
+        : `• <strong style="color:#1d4ed8;">Score Inflamatorio (${np.inflamacion.toFixed(1)}/10):</strong> Articulaciones frías/duras por osteofitos y esclerosis cortical sin calor.`;
+
+      const ccpAnalysis = np.anticcp >= 20
+        ? `• <strong style="color:#b91c1c;">Anti-CCP (${np.anticcp} U/mL):</strong> Positivo (especificidad >96% confirmando proceso autoinmune).`
+        : `• <strong style="color:#1d4ed8;">Anti-CCP (${np.anticcp} U/mL):</strong> Negativo (descarta patología autoinmune sistémica).`;
+
+      const electroDesc = getElectroDescription(np.electroTipo);
+      const electroAnalysis = (np.electroTipo === "cat3" || np.electroTipo === "cat4")
+        ? `• <strong style="color:#b91c1c;">Lectura Espontánea de Electros:</strong> ${electroDesc}`
+        : `• <strong style="color:#1d4ed8;">Lectura Espontánea de Electros:</strong> ${electroDesc}`;
+
+      distMathEl.innerHTML = `
+        <strong>Análisis Multidimensional del Bailarín/a:</strong><br>
+        ${simAnalysis}<br>
+        ${inflaAnalysis}<br>
+        ${ccpAnalysis}<br>
+        ${electroAnalysis}<br>
+        <div style="margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #cbd5e1;">
+          <strong>Distancias vectoriales ponderadas K-Means:</strong><br>
+          • Distancia a Centroide AR (μ₁): <code>${distAR.toFixed(3)}</code> | Distancia a Centroide Artrosis (μ₂): <code>${distOA.toFixed(3)}</code>
+        </div>
+      `;
     }
   }
 
-  if (barFill) barFill.style.width = `${probAR.toFixed(1)}%`;
-  if (probARText) probARText.textContent = `Artritis Reumatoide: ${probAR.toFixed(1)}%`;
-  if (probOAText) probOAText.textContent = `Artrosis Mecánica: ${probOA.toFixed(1)}%`;
-
-  // Explicación clínica matemática detallada
-  if (distMathEl) {
-    const simAnalysis = np.simetria >= 75
-      ? `• <strong style="color:#b91c1c;">Simetría (${np.simetria}%):</strong> Alta afectación bilateral en espejo, característica cardinal de Artritis Reumatoide.`
-      : `• <strong style="color:#1d4ed8;">Simetría (${np.simetria}%):</strong> Asimétrica/unilateral, congruente con sobrecarga mecánica de apoyo en danza.`;
-
-    const inflaAnalysis = np.inflamacion >= 6.0
-      ? `• <strong style="color:#b91c1c;">Score Inflamatorio (${np.inflamacion.toFixed(1)}/10):</strong> Sinovitis esponjosa con calor local y derrame articular activo.`
-      : `• <strong style="color:#1d4ed8;">Score Inflamatorio (${np.inflamacion.toFixed(1)}/10):</strong> Articulaciones frías/duras por osteofitos y esclerosis cortical sin calor.`;
-
-    const ccpAnalysis = np.anticcp >= 20
-      ? `• <strong style="color:#b91c1c;">Anti-CCP (${np.anticcp} U/mL):</strong> Positivo (especificidad >96% confirmando proceso autoinmune).`
-      : `• <strong style="color:#1d4ed8;">Anti-CCP (${np.anticcp} U/mL):</strong> Negativo (descarta patología autoinmune sistémica).`;
-
-    distMathEl.innerHTML = `
-      <strong>Análisis Multidimensional del Bailarín/a:</strong><br>
-      ${simAnalysis}<br>
-      ${inflaAnalysis}<br>
-      ${ccpAnalysis}<br>
-      <div style="margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #cbd5e1;">
-        <strong>Distancias vectoriales ponderadas K-Means:</strong><br>
-        • Distancia a Centroide AR (μ₁): <code>${distAR.toFixed(3)}</code> | Distancia a Centroide Artrosis (μ₂): <code>${distOA.toFixed(3)}</code>
-      </div>
-    `;
-  }
+  return isAR;
 }
 
 // Alternar panel de anotaciones clínicas
