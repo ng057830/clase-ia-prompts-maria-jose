@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>K-Means en Reumatología | Artritis vs. Artrosis</title>
+  <title>K-Means en Reumatología | Bailarines: Artrosis vs. Artritis</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,8 +13,8 @@
     <div class="header-inner">
       <div>
         <div class="badge-tag">Machine Learning Clínico • URV AI Foundations</div>
-        <h1>Simulador K-Means en Reumatología Avanzado</h1>
-        <p>Aprende cómo un algoritmo de agrupamiento replica el juicio clínico usando variables clínicas, analíticas (Anti-CCP), radiografía y densitometría (T-score)</p>
+        <h1>Simulador K-Means: Artritis vs. Artrosis en Bailarines (~30 años)</h1>
+        <p>Cohorte con desgaste óseo severo: aprende cómo el algoritmo K=2 diferencia artrosis mecánica de artritis autoinmune usando variables clínicas cuantitativas</p>
       </div>
       <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
         <a href="../index.html" class="btn btn-outline" style="background:rgba(255,255,255,0.15); color:white; border-color:rgba(255,255,255,0.3); text-decoration:none;" title="Volver al Portal Principal">
@@ -35,19 +35,18 @@
 
     <!-- Banner Pedagógico de Introducción -->
     <section class="intro-banner">
-      <div class="intro-icon">🩺</div>
+      <div class="intro-icon">🩰</div>
       <div class="intro-text">
-        <h2>Diferenciación Reumatológica: Artritis Reumatoide (AR) vs. Artrosis / Osteoartritis (OA)</h2>
+        <h2>El Desafío Clínico: Bailarinas y Bailarines de ~30 años con Desgaste Óseo Severo</h2>
         <p>
-          Para diferenciar un <strong>patrón inflamatorio sistémico (Artritis Reumatoide)</strong> de un <strong>patrón mecánico/degenerativo (Artrosis)</strong>, la reumatología moderna combina parámetros clínicos, marcadores inmunológicos de alta especificidad, radiografía articular y densitometría ósea:
+          En profesionales de la danza de alta exigencia, el microtraumatismo repetitivo genera un desgaste óseo y cartilaginoso masivo. ¿Cómo distinguir si el dolor de una bailarina de 30 años se debe a <strong>Artrosis Ocupacional por sobrecarga mecánica</strong> o al debut temprano de una <strong>Artritis Reumatoide Autoinmune</strong>? La respuesta está en 5 variables clínicas estandarizadas:
         </p>
         <div class="vars-pill-row">
-          <span class="var-pill">⏱️ 1. Rigidez Matutina</span>
-          <span class="var-pill">🧪 2. PCR en Sangre</span>
-          <span class="var-pill">🖐️ 3. Articulaciones Afectadas</span>
-          <span class="var-pill highlight-pill">🎯 4. Anti-CCP (Citrulina) [Precoz]</span>
-          <span class="var-pill highlight-pill">🦴 5. Rx: Desgaste vs. Erosión Cortical</span>
-          <span class="var-pill highlight-pill">📉 6. DEXA: T-Score ≤ -2.5</span>
+          <span class="var-pill">⏱️ 1. Rigidez Matutina (min)</span>
+          <span class="var-pill">🖐️ 2. Nº Articulaciones Afectadas</span>
+          <span class="var-pill highlight-pill">⚖️ 3. Simetría Bilateral Mano Dcha/Izda (%)</span>
+          <span class="var-pill highlight-pill">🔥 4. Score Inflamatorio Clínico (0-10)</span>
+          <span class="var-pill highlight-pill">🎯 5. Anti-CCP (Citrulina) [Precoz]</span>
         </div>
       </div>
     </section>
@@ -62,66 +61,63 @@
       </div>
 
       <div class="ref-grid" id="clinicalNotesGrid">
-        <!-- Tarjeta 1: Anti-CCP -->
+        <!-- Tarjeta 1: Simetría Cuantitativa -->
         <div class="ref-card">
           <h4>
-            <span>🎯</span>
-            <strong>Anticuerpos Anti-CCP (Péptidos Citrulinados)</strong>
+            <span>⚖️</span>
+            <strong>Índice de Simetría Bilateral (%) (Mano Dcha. e Izda.)</strong>
           </h4>
           <p>
-            Son el biomarcador serológico de referencia por su <strong>altísima especificidad (>96% - 98%)</strong> para Artritis Reumatoide y su rol clave en el <strong>diagnóstico precoz</strong>:
+            Mide qué porcentaje de las articulaciones dolorosas tienen afectación idéntica en la extremidad contralateral:
           </p>
           <ul class="ref-bullets">
-            <li><strong>Aparición temprana:</strong> Se positivizan meses o años antes de que aparezcan las lesiones óseas visibles.</li>
-            <li><strong>Valor normal:</strong> &lt; 20 U/mL (Negativo).</li>
-            <li><strong>Artritis Reumatoide:</strong> Títulos elevados (&gt; 50 - 250+ U/mL).</li>
-            <li><strong>Artrosis:</strong> Siempre negativos (&lt; 20 U/mL), al no tener base autoinmune.</li>
+            <li><strong>Artritis Reumatoide (AR):</strong> Afectación <strong>clásicamente en espejo (> 75% a 100%)</strong>. Si duele la 2ª MCF derecha, casi siempre duele la 2ª MCF izquierda.</li>
+            <li><strong>Artrosis del Bailarín (OA):</strong> Afectación <strong>marcadamente asimétrica (10% a 30%)</strong>, condicionada por el pie de batida, la pierna de apoyo en *arabesque* o giros repetidos.</li>
           </ul>
         </div>
 
-        <!-- Tarjeta 2: Radiografía Ósea y Corteza -->
+        <!-- Tarjeta 2: Score Inflamatorio Clínico -->
+        <div class="ref-card">
+          <h4>
+            <span>🔥</span>
+            <strong>Cuantificación del Tipo Inflamatorio (0 a 10 Puntos)</strong>
+          </h4>
+          <p>
+            Puntaje estandarizado que evalúa los signos cardinales clínicos locales (calor palpable, tumefacción sinovial esponjosa y derrame):
+          </p>
+          <ul class="ref-bullets">
+            <li><strong>Score Alto (6.5 a 9.5 / 10) — Patrón Inflamatorio:</strong> Articulaciones "calientes" con sinovitis blanda en esponja y dolor que empeora con el reposo nocturno (AR).</li>
+            <li><strong>Score Bajo (0.5 a 2.5 / 10) — Patrón Mecánico Frío:</strong> Articulaciones duras por engrosamiento óseo cortical y osteofitos, sin hiperemia ni calor activo (Artrosis).</li>
+          </ul>
+        </div>
+
+        <!-- Tarjeta 3: Anti-CCP y Desgaste Óseo en Danza -->
         <div class="ref-card">
           <h4>
             <span>🦴</span>
-            <strong>Radiografía: Desgaste vs. Erosión y Rotura Cortical</strong>
+            <strong>Anti-CCP y Desgaste de la Corteza Ósea</strong>
           </h4>
           <p>
-            La imagen ósea refleja los dos mecanismos fisiopatológicos opuestos:
+            Diferenciación crucial para casos críticos de bailarines jóvenes:
           </p>
           <ul class="ref-bullets">
-            <li><strong>Artrosis (Desgaste Mecánico):</strong> Pérdida del cartílago articular, <strong>esclerosis ósea subcondral</strong> (la corteza ósea se engruesa y compacta por la fricción), <strong>osteofitos</strong> ("picos de loro") y pinzamiento articular asimétrico. No hay rotura destructiva.</li>
-            <li><strong>Artritis Reumatoide (Inflamación Activa):</strong> El pannus sinovial destruye la corteza del hueso causando <strong>erosiones marginales</strong> ("mordeduras corticales"), osteopenia yuxtaarticular y articulaciones desestructuradas y desviadas.</li>
-          </ul>
-        </div>
-
-        <!-- Tarjeta 3: Densitometría Ósea (DEXA) y Parámetro -2.5 -->
-        <div class="ref-card">
-          <h4>
-            <span>📉</span>
-            <strong>Densitometría Ósea DEXA: Parámetro T-Score ≤ -2.5</strong>
-          </h4>
-          <p>
-            La densitometría se evalúa principalmente en el <strong>cuello del fémur</strong> y la <strong>columna lumbar (L1-L4)</strong>:
-          </p>
-          <ul class="ref-bullets">
-            <li><strong>Criterio diagnóstico OMS:</strong> Un <strong>T-score ≤ -2.5 Desviaciones Estándar</strong> define formalmente <strong>OSTEOPOROSIS</strong>.</li>
-            <li><strong>Artritis Reumatoide:</strong> Riesgo muy elevado de osteoporosis precoz (T-score típicamente ≤ -2.5) debido a las citoquinas inflamatorias (TNF-α, IL-6) y al uso frecuente de corticoides.</li>
-            <li><strong>Artrosis:</strong> Masa ósea generalmente normal o con osteopenia moderada; en columna lumbar el T-score puede incluso estar falsamente elevado por los osteofitos y la esclerosis ósea.</li>
+            <li><strong>Anti-CCP (Péptidos Citrulinados):</strong> Marcador de oro con >96% de especificidad para AR (&ge; 20 U/mL), negativo en la artrosis de los bailarines.</li>
+            <li><strong>Radiografía ósea:</strong> En Artrosis hay desgaste de cartílago con <strong>esclerosis de la corteza ósea</strong> y osteofitos; en AR el pannus destruye la corteza con <strong>erosiones marginales en muesca</strong> y desestructuración.</li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- ================================================================= -->
-    <!-- PASO 1: EL JUICIO CLÍNICO DE MARÍA JOSÉ (10 PACIENTES) -->
+    <!-- PASO 1: EL JUICIO CLÍNICO DE MARÍA JOSÉ (10 BAILARINES) -->
     <!-- ================================================================= -->
     <section class="step-card" id="stepClassification">
       <div class="step-header">
         <div class="step-title-area">
           <div class="step-number">1</div>
           <div>
-            <h3>Paso 1: Tu Criterio Médico (10 Pacientes con Datos Analíticos y Radiológicos)</h3>
-            <p class="step-subtitle">Revisa los síntomas, la analítica de Anti-CCP, la radiografía ósea y la densitometría de cada paciente para emitir tu diagnóstico.</p>
+            <h3>Paso 1: Tu Criterio Médico (10 Casos Reales de Bailarines de ~30 años)</h3>
+            <p class="step-subtitle">Evalúa la rigidez, la simetría mano dcha/izda, el puntaje inflamatorio y el Anti-CCP para clasificar cada caso en Artrosis Mecánica o Artritis Reumatoide.</p>
           </div>
         </div>
 
@@ -143,7 +139,7 @@
       <!-- Barra Inferior de Estado -->
       <div class="classification-status-bar">
         <div class="status-counter">
-          Pacientes clasificados: <strong id="classifiedCount">0 / 10</strong> (clasifica al menos 6 para entrenar la IA)
+          Bailarines clasificados: <strong id="classifiedCount">0 / 10</strong> (clasifica al menos 6 para entrenar la IA)
         </div>
         <button class="btn btn-primary" id="btnTrainKMeans" onclick="calculateKMeans(true)" disabled>
           ⚡ Enseñar a la IA mediante K-Means (Calcular Centroides)
@@ -160,7 +156,7 @@
           <div class="step-number">2</div>
           <div>
             <h3>Paso 2: ¿Qué Aprendió la IA? Los Centroides Matemáticos</h3>
-            <p class="step-subtitle">La IA promedió tus decisiones para definir los dos perfiles centroides con todas sus variables analíticas y óseas.</p>
+            <p class="step-subtitle">La IA calculó el promedio multidimensional de tus decisiones, definiendo los dos polos clínicos en la danza.</p>
           </div>
         </div>
       </div>
@@ -170,73 +166,73 @@
         <div class="centroids-panel">
           <div class="centroid-card ar-cluster">
             <h4>🔴 Centroide Artritis Reumatoide (μ₁)</h4>
-            <div style="font-size:0.8rem; color:#b91c1c; font-weight:700;">Clúster Inflamatorio • <span id="arCount">5 pacientes</span></div>
+            <div style="font-size:0.8rem; color:#b91c1c; font-weight:700;">Clúster Inflamatorio Autoinmune • <span id="arCount">5 bailarines</span></div>
             <div class="centroid-metrics">
               <div>Rigidez Matutina media: <span class="val" id="arRigidez">--</span></div>
-              <div>PCR en sangre media: <span class="val" id="arPcr">--</span></div>
               <div>Articulaciones media: <span class="val" id="arArt">--</span></div>
+              <div>Simetría Bilateral media: <span class="val" id="arSimetria" style="color:#b91c1c;">--</span></div>
+              <div>Score Inflamatorio medio: <span class="val" id="arInflamacion" style="color:#b91c1c;">--</span></div>
               <div>Anti-CCP Citrulina media: <span class="val" id="arAnticcp" style="color:#b91c1c;">--</span></div>
-              <div>DEXA T-score medio: <span class="val" id="arTscore" style="color:#b91c1c;">--</span></div>
             </div>
             <div style="font-size:0.75rem; color:#7f1d1d; margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #fca5a5;">
-              <strong>Patrón radiológico asociado:</strong> Erosión cortical marginal activa, osteopenia periarticular y desestructuración articular.
+              <strong>Patrón radiológico/óseo:</strong> Erosiones marginales corticales, rotura destructiva y osteopenia yuxtaarticular en manos y pies.
             </div>
           </div>
 
           <div class="centroid-card oa-cluster">
-            <h4>🔵 Centroide Artrosis / Osteoartritis (μ₂)</h4>
-            <div style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">Clúster Mecánico/Degenerativo • <span id="oaCount">5 pacientes</span></div>
+            <h4>🔵 Centroide Artrosis del Bailarín (μ₂)</h4>
+            <div style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">Clúster Mecánico Ocupacional • <span id="oaCount">5 bailarines</span></div>
             <div class="centroid-metrics">
               <div>Rigidez Matutina media: <span class="val" id="oaRigidez">--</span></div>
-              <div>PCR en sangre media: <span class="val" id="oaPcr">--</span></div>
               <div>Articulaciones media: <span class="val" id="oaArt">--</span></div>
+              <div>Simetría Bilateral media: <span class="val" id="oaSimetria" style="color:#1d4ed8;">--</span></div>
+              <div>Score Inflamatorio medio: <span class="val" id="oaInflamacion" style="color:#1d4ed8;">--</span></div>
               <div>Anti-CCP Citrulina media: <span class="val" id="oaAnticcp" style="color:#1d4ed8;">--</span></div>
-              <div>DEXA T-score medio: <span class="val" id="oaTscore" style="color:#1d4ed8;">--</span></div>
             </div>
             <div style="font-size:0.75rem; color:#1e3a8a; margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #93c5fd;">
-              <strong>Patrón radiológico asociado:</strong> Desgaste de cartílago, esclerosis cortical subcondral densa y osteofitos sin osteopenia.
+              <strong>Patrón radiológico/óseo:</strong> Desgaste severo de cartílago articular, esclerosis ósea densa de la corteza y osteofitos en articulaciones de carga.
             </div>
           </div>
 
           <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-sm); padding:0.75rem; font-size:0.82rem; color:#475569;">
-            💡 <strong>Principio K-Means:</strong> El algoritmo ubica cada centroide en el centro geométrico de los pacientes diagnosticados por María José, midiendo la distancia vectorial a ambos polos.
+            💡 <strong>Principio K-Means:</strong> El algoritmo ubica cada centroide en el centro de gravedad de las 5 variables normalizadas para cada grupo de bailarines diagnosticados por María José.
           </div>
         </div>
 
         <!-- Gráfico de Dispersión Interactivo -->
         <div class="canvas-container">
           <div class="canvas-header">
-            <h4>Proyecciones 2D del Espacio Clínico</h4>
+            <h4>Proyecciones 2D del Espacio Clínico en Danza</h4>
             <div class="axis-selector">
-              <button class="axis-btn active" data-axis="anticcp_pcr" onclick="setProjection('anticcp_pcr')">Anti-CCP vs PCR</button>
-              <button class="axis-btn" data-axis="rigidez_pcr" onclick="setProjection('rigidez_pcr')">Rigidez vs PCR</button>
-              <button class="axis-btn" data-axis="rigidez_anticcp" onclick="setProjection('rigidez_anticcp')">Rigidez vs Anti-CCP</button>
-              <button class="axis-btn" data-axis="tscore_pcr" onclick="setProjection('tscore_pcr')">T-Score vs PCR</button>
-              <button class="axis-btn" data-axis="rigidez_art" onclick="setProjection('rigidez_art')">Rigidez vs Artic.</button>
+              <button class="axis-btn active" data-axis="simetria_inflamacion" onclick="setProjection('simetria_inflamacion')">Simetría vs Inflamación</button>
+              <button class="axis-btn" data-axis="rigidez_simetria" onclick="setProjection('rigidez_simetria')">Rigidez vs Simetría</button>
+              <button class="axis-btn" data-axis="anticcp_inflamacion" onclick="setProjection('anticcp_inflamacion')">Anti-CCP vs Inflamación</button>
+              <button class="axis-btn" data-axis="rigidez_inflamacion" onclick="setProjection('rigidez_inflamacion')">Rigidez vs Inflamación</button>
+              <button class="axis-btn" data-axis="articulaciones_simetria" onclick="setProjection('articulaciones_simetria')">Artic. vs Simetría</button>
             </div>
           </div>
 
           <canvas id="scatterCanvas"></canvas>
 
           <div class="canvas-legend">
-            <span class="legend-item"><span class="legend-dot ar"></span> Artritis (AR)</span>
-            <span class="legend-item"><span class="legend-dot oa"></span> Artrosis (OA)</span>
-            <span class="legend-item"><span class="legend-dot new"></span> Paciente Nuevo</span>
+            <span class="legend-item"><span class="legend-dot ar"></span> Artritis Reumatoide</span>
+            <span class="legend-item"><span class="legend-dot oa"></span> Artrosis del Bailarín</span>
+            <span class="legend-item"><span class="legend-dot new"></span> Bailarín/a Nuevo</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ================================================================= -->
-    <!-- PASO 3: ¡LA SORPRESA! PACIENTE NUEVO CON PARÁMETROS COMPLETOS -->
+    <!-- PASO 3: ¡LA SORPRESA! BAILARÍN NUEVO ALEATORIO -->
     <!-- ================================================================= -->
     <section class="step-card" id="stepSurprise" style="display: none;">
       <div class="step-header">
         <div class="step-title-area">
           <div class="step-number">3</div>
           <div>
-            <h3>Paso 3: ¡La Sorpresa! Pon a Prueba a la IA con un Paciente Nuevo</h3>
-            <p class="step-subtitle">Introduce o genera medidas aleatorias (incluyendo Anti-CCP, Radiografía y Densitometría) y observa cómo la IA replica tu juicio clínico.</p>
+            <h3>Paso 3: ¡La Sorpresa! Pon a Prueba a la IA con un Caso Inédito</h3>
+            <p class="step-subtitle">Introduce o genera medidas aleatorias para un/a nuevo/a bailarín/a y comprueba cómo la IA clasifica con precisión su desgaste óseo.</p>
           </div>
         </div>
       </div>
@@ -246,66 +242,68 @@
           
           <!-- Controles del Paciente Nuevo -->
           <div class="new-patient-input-box">
-            <h4 style="margin-bottom:0.75rem; font-size:1rem; color:#1e293b;">Parámetros del Paciente Inédito:</h4>
+            <h4 style="margin-bottom:0.75rem; font-size:1rem; color:#1e293b;">Parámetros Clínicos del/la Bailarín/a:</h4>
 
             <div class="input-slider-group">
               <label>
                 <span>Rigidez Matutina:</span>
-                <span class="slider-val" id="valRigidez">85 min</span>
+                <span class="slider-val" id="valRigidez">90 min</span>
               </label>
-              <input type="range" id="sliderRigidez" class="slider-input" min="0" max="150" value="85" step="1">
+              <input type="range" id="sliderRigidez" class="slider-input" min="0" max="150" value="90" step="1">
             </div>
 
             <div class="input-slider-group">
               <label>
-                <span>PCR en Sangre:</span>
-                <span class="slider-val" id="valPcr">42.0 mg/L</span>
+                <span>Nº Articulaciones Afectadas:</span>
+                <span class="slider-val" id="valArt">12 artic.</span>
               </label>
-              <input type="range" id="sliderPcr" class="slider-input" min="0" max="80" value="42" step="0.5">
+              <input type="range" id="sliderArt" class="slider-input" min="0" max="20" value="12" step="1">
             </div>
 
-            <div class="input-slider-group">
+            <!-- Parámetro Clave: Simetría Bilateral -->
+            <div class="input-slider-group" style="background:#eff6ff; border:1px solid #bfdbfe; padding:0.5rem; border-radius:var(--radius-sm);">
               <label>
-                <span>Articulaciones Dolorosas:</span>
-                <span class="slider-val" id="valArt">10</span>
+                <span style="color:#1d4ed8;">⚖️ Simetría Bilateral Mano Dcha/Izda:</span>
+                <span class="slider-val" id="valSimetria">90% (Simétrica Bilateral)</span>
               </label>
-              <input type="range" id="sliderArt" class="slider-input" min="0" max="20" value="10" step="1">
+              <input type="range" id="sliderSimetria" class="slider-input" min="0" max="100" value="90" step="1" style="accent-color:#2563eb;">
+              <div style="font-size:0.7rem; color:#1e40af;">≥ 75%: Típico en espejo de Artritis | &le; 35%: Asimétrica de carga en danza</div>
             </div>
 
-            <!-- Nuevo parámetro: Anti-CCP -->
-            <div class="input-slider-group" style="background:#fff7ed; border:1px solid #ffedd5; padding:0.5rem; border-radius:var(--radius-sm);">
+            <!-- Parámetro Clave: Score Inflamatorio -->
+            <div class="input-slider-group" style="background:#fef2f2; border:1px solid #fecaca; padding:0.5rem; border-radius:var(--radius-sm); margin-top:0.5rem;">
+              <label>
+                <span style="color:#dc2626;">🔥 Score Inflamatorio Clínico:</span>
+                <span class="slider-val" id="valInflamacion">8.2 / 10 (Sinovitis Caliente)</span>
+              </label>
+              <input type="range" id="sliderInflamacion" class="slider-input" min="0" max="10" value="8.2" step="0.1" style="accent-color:#dc2626;">
+              <div style="font-size:0.7rem; color:#991b1b;">Evalúa calor local, tumefacción sinovial esponjosa y derrame activo</div>
+            </div>
+
+            <!-- Parámetro Anti-CCP -->
+            <div class="input-slider-group" style="background:#fff7ed; border:1px solid #ffedd5; padding:0.5rem; border-radius:var(--radius-sm); margin-top:0.5rem;">
               <label>
                 <span style="color:#c2410c;">🎯 Ac. Anti-CCP (Citrulina):</span>
-                <span class="slider-val" id="valAnticcp">170 U/mL (Positivo)</span>
+                <span class="slider-val" id="valAnticcp">175 U/mL (Positivo)</span>
               </label>
-              <input type="range" id="sliderAnticcp" class="slider-input" min="0" max="300" value="170" step="1" style="accent-color:#ea580c;">
-              <div style="font-size:0.7rem; color:#9a3412;">Corte clínico de positividad: ≥ 20 U/mL (específico de AR)</div>
+              <input type="range" id="sliderAnticcp" class="slider-input" min="0" max="300" value="175" step="1" style="accent-color:#ea580c;">
+              <div style="font-size:0.7rem; color:#9a3412;">Corte clínico de positividad: &ge; 20 U/mL (específico de AR)</div>
             </div>
 
-            <!-- Nuevo parámetro: DEXA T-Score -->
-            <div class="input-slider-group" style="background:#f0fdf4; border:1px solid #dcfce7; padding:0.5rem; border-radius:var(--radius-sm); margin-top:0.5rem;">
-              <label>
-                <span style="color:#15803d;">📉 DEXA T-Score (Fémur/Columna):</span>
-                <span class="slider-val" id="valTscore">-2.7 DS (Osteoporosis ≤ -2.5)</span>
-              </label>
-              <input type="range" id="sliderTscore" class="slider-input" min="-4.0" max="1.0" value="-2.7" step="0.1" style="accent-color:#16a34a;">
-              <div style="font-size:0.7rem; color:#166534;">Umbral OMS: T-score ≤ -2.5 DS marca Osteoporosis</div>
-            </div>
-
-            <!-- Nuevo parámetro: Radiografía -->
+            <!-- Radiografía Ósea -->
             <div class="input-slider-group" style="margin-top:0.6rem;">
               <label>
                 <span>🦴 Hallazgo Radiográfico:</span>
               </label>
               <select id="selectRxFinding" style="width:100%; padding:0.45rem; border-radius:var(--radius-sm); border:1px solid var(--border-color); font-size:0.8rem;">
-                <option value="ar">Erosiones óseas corticales + osteopenia yuxtaarticular (Patrón AR)</option>
-                <option value="oa">Desgaste de cartílago + esclerosis subcondral + osteofitos (Patrón Artrosis)</option>
+                <option value="ar">Erosiones óseas corticales + rotura y osteopenia yuxtaarticular (Patrón AR)</option>
+                <option value="oa">Desgaste severo de cartílago + esclerosis ósea densa + osteofitos (Patrón Artrosis)</option>
               </select>
             </div>
 
             <div class="new-patient-actions">
               <button class="btn btn-random" onclick="generateRandomPatient()">
-                🎲 Generar Paciente Aleatorio
+                🎲 Generar Caso de Bailarín Aleatorio
               </button>
               <button class="btn btn-outline" onclick="loadBorderlinePatient()">
                 ⚖️ Probar Caso Límite / Dudoso
@@ -320,13 +318,13 @@
             </div>
 
             <div class="verdict-badge ar" id="aiVerdictBadge">
-              🔴 Artritis Reumatoide (98.2%)
+              🔴 Artritis Reumatoide Autoinmune (98.2%)
             </div>
 
             <div class="probability-bar-wrapper">
               <div class="prob-labels">
                 <span id="probARText" style="color:var(--ar-color);">Artritis Reumatoide: 98.2%</span>
-                <span id="probOAText" style="color:var(--oa-color);">Artrosis: 1.8%</span>
+                <span id="probOAText" style="color:var(--oa-color);">Artrosis del Bailarín: 1.8%</span>
               </div>
               <div class="prob-bar-bg">
                 <div class="prob-bar-fill-ar" id="probBarFillAR" style="width: 98.2%;"></div>
@@ -334,12 +332,12 @@
             </div>
 
             <div class="distance-math-box" id="distMathText">
-              <!-- Calculado dinámicamente con detalles analíticos y óseos -->
+              <!-- Calculado dinámicamente -->
             </div>
 
             <div class="surprise-reveal-message">
               🎉 <strong>¡Magia del Aprendizaje Automático para María José!</strong><br>
-              Observa cómo la combinación de los <strong>Anti-CCP positivos</strong>, el <strong>T-score ≤ -2.5 en fémur/columna</strong> y las <strong>erosiones en la corteza ósea</strong> permitieron a la IA confirmar de forma matemática el patrón inflamatorio que tú misma le enseñaste con tus 10 decisiones.
+              A pesar de que todos los bailarines de la muestra presentan desgaste óseo severo por su profesión, la IA logró identificar si el caso corresponde a <strong>artrosis por impacto biomecánico</strong> (asimétrica, fría y Anti-CCP negativa) o a <strong>artritis reumatoide</strong> (simétrica en espejo, caliente y con rotura cortical). ¡El algoritmo replicó con exactitud tu criterio médico!
             </div>
           </div>
 

@@ -388,6 +388,42 @@ body {
 }
 
 /* Badges específicos clínicos */
+.badge-simetria-alta {
+  background: #fee2e2;
+  color: #dc2626;
+  font-weight: 800;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
+.badge-simetria-baja {
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
+.badge-infla-alta {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 800;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
+.badge-infla-baja {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
 .badge-anticcp-pos {
   background: #fee2e2;
   color: #dc2626;

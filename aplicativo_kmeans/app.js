@@ -1,137 +1,151 @@
 /**
- * Simulador K-Means Reumatológico Avanzado: Artritis Reumatoide vs. Artrosis
- * Parámetros Clínicos: Rigidez, PCR, Articulaciones, Anti-CCP, Radiografía y Densitometría DEXA (T-score)
+ * Simulador K-Means Reumatológico en Bailarines (~30 años)
+ * Cohorte Específica: Desgaste Óseo Severo en Bailarines de Alta Exigencia
+ * Diagnóstico Diferencial: Artrosis Ocupacional vs. Artritis Reumatoide Autoinmune
+ * Variables Clínicas Estandarizadas: Rigidez Matutina, Número de Articulaciones, 
+ *                                    Índice de Simetría Bilateral (%), Puntaje Inflamatorio (0-10), Anti-CCP
+ * (PCR eliminada según requerimiento clínico)
  * URV AI Foundations - Alumna: María José
  */
 
 // Rangos de normalización clínica para el espacio multidimensional [0, 1]
 const SCALES = {
   rigidez: { min: 0, max: 150, label: "Rigidez Matutina (min)", unit: "min" },
-  pcr: { min: 0, max: 80, label: "PCR en Sangre (mg/L)", unit: "mg/L" },
   articulaciones: { min: 0, max: 20, label: "Articulaciones Dolorosas", unit: "art." },
-  anticcp: { min: 0, max: 300, label: "Anti-CCP Citrulina (U/mL)", unit: "U/mL" },
-  tscore: { min: -4.0, max: 1.0, label: "DEXA T-Score (Fémur/Columna)", unit: "DS" }
+  simetria: { min: 0, max: 100, label: "Índice de Simetría Bilateral (%)", unit: "%" },
+  inflamacion: { min: 0, max: 10, label: "Puntaje Inflamatorio Clínico (0-10)", unit: "pts" },
+  anticcp: { min: 0, max: 300, label: "Ac. Anti-Citrulina Anti-CCP (U/mL)", unit: "U/mL" }
 };
 
-// 10 Pacientes de entrenamiento con perfil clínico y analítico completo
+// 10 Pacientes de entrenamiento: Bailarinas y bailarines profesionales (~30 años) con desgaste óseo severo
 const PACIENTES_ENTRENAMIENTO = [
   {
     id: "PAC-01",
-    nombre: "Carmen S. (58a)",
-    rigidez: 90,
-    pcr: 48,
+    nombre: "Sofía M. (29a, Ballet Clásico)",
+    rigidez: 95,
     articulaciones: 12,
-    anticcp: 185,
-    tscore: -2.8,
-    hallazgoRx: "Erosiones marginales en corteza de MCP-2/3 y osteopenia yuxtaarticular.",
+    simetria: 90,
+    inflamacion: 8.5,
+    anticcp: 195,
+    hallazgoRx: "Erosiones corticales marginales en carpos y osteopenia yuxtaarticular simétrica.",
+    contextoDanza: "Incapacidad para calentar en la barra matutina; afectación bilateral en espejo de manos y tobillos.",
     dxReal: "AR",
     dxMariaJose: null
   },
   {
     id: "PAC-02",
-    nombre: "Manuel G. (67a)",
+    nombre: "Mateo G. (31a, Contemporáneo)",
     rigidez: 15,
-    pcr: 2.1,
     articulaciones: 2,
+    simetria: 15,
+    inflamacion: 1.5,
     anticcp: 3,
-    tscore: -1.1,
-    hallazgoRx: "Pinzamiento femorotibial medial asimétrico, esclerosis ósea subcondral y osteofitos.",
+    hallazgoRx: "Desgaste severo de cartílago articular, esclerosis ósea densa en corteza de astrágalo y osteofitos.",
+    contextoDanza: "Sobrecarga asimétrica en tobillo derecho de batida tras caídas de saltos (grand jeté).",
     dxReal: "OA",
     dxMariaJose: null
   },
   {
     id: "PAC-03",
-    nombre: "Teresa L. (62a)",
+    nombre: "Elena R. (28a, Danza Moderna)",
     rigidez: 110,
-    pcr: 62,
     articulaciones: 14,
+    simetria: 95,
+    inflamacion: 9.0,
     anticcp: 240,
-    tscore: -3.1,
-    hallazgoRx: "Desestructuración y pinzamiento simétrico en carpo; rotura de corteza ósea.",
+    hallazgoRx: "Desestructuración y rotura cortical ósea en carpo; pinzamiento simétrico bilateral.",
+    contextoDanza: "Tumefacción caliente esponjosa en ambas muñecas; dolor articular continuo que empeora en reposo.",
     dxReal: "AR",
     dxMariaJose: null
   },
   {
     id: "PAC-04",
-    nombre: "Antonio R. (71a)",
+    nombre: "Lucas B. (33a, Solista Clásico)",
     rigidez: 10,
-    pcr: 1.5,
-    articulaciones: 1,
-    anticcp: 2,
-    tscore: -0.9,
-    hallazgoRx: "Rizoartrosis pulgar con osteofitos trapezometacarpianos marcados, sin erosión.",
+    articulaciones: 3,
+    simetria: 20,
+    inflamacion: 1.8,
+    anticcp: 4,
+    hallazgoRx: "Hallux rigidus severo con osteofitos gigantes en 1ª MCF derecha y esclerosis subcondral marcada.",
+    contextoDanza: "Desgaste focal mecánico por trabajo de puntas y relevé en pie derecho dominante.",
     dxReal: "OA",
     dxMariaJose: null
   },
   {
     id: "PAC-05",
-    nombre: "Isabel V. (44a)",
-    rigidez: 75,
-    pcr: 35,
-    articulaciones: 9,
-    anticcp: 140,
-    tscore: -2.6,
-    hallazgoRx: "Tumefacción de partes blandas con sutil pérdida de la corteza ósea en estiloides cubital.",
+    nombre: "Valentina C. (30a, Neoclásico)",
+    rigidez: 80,
+    articulaciones: 10,
+    simetria: 85,
+    inflamacion: 7.8,
+    anticcp: 165,
+    hallazgoRx: "Tumefacción sinovial difusa con sutil pérdida de la corteza ósea en estiloides cubital bilateral.",
+    contextoDanza: "Sinovitis caliente en ambas manos y empeines; fatiga generalizada matutina.",
     dxReal: "AR",
     dxMariaJose: null
   },
   {
     id: "PAC-06",
-    nombre: "Vicente M. (69a)",
+    nombre: "Julián P. (32a, Flamenco y Danza Española)",
     rigidez: 20,
-    pcr: 3.8,
-    articulaciones: 3,
+    articulaciones: 2,
+    simetria: 25,
+    inflamacion: 2.2,
     anticcp: 5,
-    tscore: -1.4,
-    hallazgoRx: "Nódulos de Heberden (IFD) y Bouchard; esclerosis ósea densa y osteofitos sin osteopenia.",
+    hallazgoRx: "Pinzamiento femorotibial medial asimétrico y marcado reborde osteofítico sin erosiones.",
+    contextoDanza: "Microtraumatismo de repetición por impacto de zapateo en rodilla izquierda de apoyo.",
     dxReal: "OA",
     dxMariaJose: null
   },
   {
     id: "PAC-07",
-    nombre: "Rosa P. (53a)",
-    rigidez: 120,
-    pcr: 55,
+    nombre: "Camila H. (27a, Ballet Clásico)",
+    rigidez: 125,
     articulaciones: 16,
-    anticcp: 210,
-    tscore: -2.9,
-    hallazgoRx: "Pinzamiento simétrico bilateral, microgeodas y múltiples erosiones corticales activas.",
+    simetria: 100,
+    inflamacion: 9.2,
+    anticcp: 220,
+    hallazgoRx: "Pinzamiento articular simétrico bilateral con microgeodas y rotura cortical en falanges.",
+    contextoDanza: "Afectación en espejo idéntica en manos y pies; impotencia funcional matutina severa.",
     dxReal: "AR",
     dxMariaJose: null
   },
   {
     id: "PAC-08",
-    nombre: "Francisco D. (75a)",
+    nombre: "Daniel T. (34a, Danza Acrobática)",
     rigidez: 8,
-    pcr: 0.9,
-    articulaciones: 2,
-    anticcp: 4,
-    tscore: -0.6,
-    hallazgoRx: "Gonartrosis tricompartimental con desgaste de cartílago y marcada esclerosis subcondral.",
+    articulaciones: 3,
+    simetria: 10,
+    inflamacion: 1.2,
+    anticcp: 2,
+    hallazgoRx: "Corteza ósea engrosada con osteofitos mecánicos en tobillo izquierdo y muñeca derecha.",
+    contextoDanza: "Articulaciones duras y frías por traumatismo ocupacional crónico; sin calor local ni eritema.",
     dxReal: "OA",
     dxMariaJose: null
   },
   {
     id: "PAC-09",
-    nombre: "Dolores B. (49a)",
-    rigidez: 85,
-    pcr: 40,
+    nombre: "Martina F. (29a, Danza Contemporánea)",
+    rigidez: 90,
     articulaciones: 11,
-    anticcp: 160,
-    tscore: -2.7,
-    hallazgoRx: "Erosiones óseas corticales en articulaciones interfalángicas proximales de ambas manos.",
+    simetria: 88,
+    inflamacion: 8.0,
+    anticcp: 180,
+    hallazgoRx: "Erosiones marginales activas en articulaciones interfalángicas proximales de ambas manos.",
+    contextoDanza: "Dolor nocturno pulsátil y calor articular sinovial bilateral en extremidades superiores.",
     dxReal: "AR",
     dxMariaJose: null
   },
   {
     id: "PAC-10",
-    nombre: "Juan C. (64a)",
+    nombre: "Andrés V. (30a, Teatro Musical)",
     rigidez: 12,
-    pcr: 2.4,
-    articulaciones: 4,
+    articulaciones: 2,
+    simetria: 18,
+    inflamacion: 1.6,
     anticcp: 6,
-    tscore: -1.3,
-    hallazgoRx: "Coxartrosis con pinzamiento superoexterno y reborde osteofítico periacetabular.",
+    hallazgoRx: "Pinzamiento coxofemoral superior asimétrico y osteofito cefálico por choque fémoro-acetabular.",
+    contextoDanza: "Dolor mecánico en cadera derecha tras sobrecarga en saltos y giros repetitivos.",
     dxReal: "OA",
     dxMariaJose: null
   }
@@ -142,14 +156,14 @@ let appState = {
   pacientes: JSON.parse(JSON.stringify(PACIENTES_ENTRENAMIENTO)),
   centroides: null, // { AR: {...}, OA: {...} }
   pacienteNuevo: {
-    rigidez: 85,
-    pcr: 42.0,
-    articulaciones: 10,
-    anticcp: 170,
-    tscore: -2.7,
+    rigidez: 90,
+    articulaciones: 12,
+    simetria: 90,
+    inflamacion: 8.2,
+    anticcp: 175,
     rxTipo: "ar" // "ar" | "oa"
   },
-  proyeccionActual: "anticcp_pcr" // "anticcp_pcr" | "rigidez_pcr" | "rigidez_anticcp" | "tscore_pcr" | "rigidez_art"
+  proyeccionActual: "simetria_inflamacion" // "simetria_inflamacion" | "rigidez_simetria" | "anticcp_inflamacion" | "rigidez_inflamacion" | "articulaciones_simetria"
 };
 
 // Inicialización al cargar la página
@@ -160,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateStatusCounter();
 });
 
-// Renderizar tarjetas de los 10 pacientes enriquecidas
+// Renderizar tarjetas de los 10 pacientes (Bailarines de ~30 años)
 function renderPatientsGrid() {
   const container = document.getElementById("patientsGrid");
   if (!container) return;
@@ -173,16 +187,22 @@ function renderPatientsGrid() {
     
     let badgeHtml = '<span class="p-badge badge-unassigned">Pendiente</span>';
     if (p.dxMariaJose === "AR") badgeHtml = '<span class="p-badge badge-ar">AR (Inflamatorio)</span>';
-    if (p.dxMariaJose === "OA") badgeHtml = '<span class="p-badge badge-oa">Artrosis (Mecánico)</span>';
+    if (p.dxMariaJose === "OA") badgeHtml = '<span class="p-badge badge-oa">Artrosis Mecánica</span>';
 
-    // Badges específicos
-    const anticcpBadge = p.anticcp >= 20
-      ? `<span class="badge-anticcp-pos">Anti-CCP: ${p.anticcp} U/mL (Positivo Alto)</span>`
-      : `<span class="badge-anticcp-neg">Anti-CCP: ${p.anticcp} U/mL (Negativo &lt;20)</span>`;
+    // Badge de simetría
+    const simetriaBadge = p.simetria >= 75
+      ? `<span class="badge-simetria-alta">${p.simetria}% (Simétrica Bilateral)</span>`
+      : `<span class="badge-simetria-baja">${p.simetria}% (Asimétrica Focal)</span>`;
 
-    const tscoreBadge = p.tscore <= -2.5
-      ? `<span class="badge-tscore-osteo">T: ${p.tscore.toFixed(1)} (Osteoporosis &le; -2.5)</span>`
-      : `<span class="badge-tscore-normal">T: ${p.tscore.toFixed(1)} (Normal/Osteopenia)</span>`;
+    // Badge de inflamación clínica
+    const inflaBadge = p.inflamacion >= 6.0
+      ? `<span class="badge-infla-alta">${p.inflamacion.toFixed(1)}/10 (Sinovitis Caliente)</span>`
+      : `<span class="badge-infla-baja">${p.inflamacion.toFixed(1)}/10 (Articulación Fría)</span>`;
+
+    // Badge de Anti-CCP
+    const ccpBadge = p.anticcp >= 20
+      ? `<span class="badge-anticcp-pos">${p.anticcp} U/mL (Positivo)</span>`
+      : `<span class="badge-anticcp-neg">${p.anticcp} U/mL (Negativo)</span>`;
 
     card.innerHTML = `
       <div>
@@ -190,7 +210,7 @@ function renderPatientsGrid() {
           <span class="p-id">${p.id}</span>
           ${badgeHtml}
         </div>
-        <div style="font-size:0.75rem; color:#64748b; margin-bottom:0.35rem; font-weight:600;">${p.nombre}</div>
+        <div style="font-size:0.75rem; color:#0284c7; font-weight:700; margin-bottom:0.25rem;">🩰 ${p.nombre}</div>
 
         <div class="p-metrics">
           <div class="metric-row">
@@ -198,34 +218,36 @@ function renderPatientsGrid() {
             <span class="metric-val">${p.rigidez} min</span>
           </div>
           <div class="metric-row">
-            <span>PCR en sangre:</span>
-            <span class="metric-val">${p.pcr} mg/L</span>
-          </div>
-          <div class="metric-row">
             <span>Artic. dolorosas:</span>
             <span class="metric-val">${p.articulaciones}</span>
           </div>
           <div class="metric-row">
-            <span>Ac. Anti-Citrulina:</span>
-            <div>${anticcpBadge}</div>
+            <span>Índice de Simetría:</span>
+            <div>${simetriaBadge}</div>
           </div>
           <div class="metric-row">
-            <span>DEXA (Fémur/Columna):</span>
-            <div>${tscoreBadge}</div>
+            <span>Score Inflamatorio:</span>
+            <div>${inflaBadge}</div>
+          </div>
+          <div class="metric-row">
+            <span>Anti-CCP Citrulina:</span>
+            <div>${ccpBadge}</div>
           </div>
         </div>
 
         <div class="p-rx-box">
-          <strong>Rx Ósea y Articular:</strong> ${p.hallazgoRx}
+          <div style="font-weight:700; color:#1e293b; margin-bottom:0.2rem;">🦴 Hallazgo Óseo / Radiológico:</div>
+          <div>${p.hallazgoRx}</div>
+          <div style="font-style:italic; color:#64748b; margin-top:0.3rem;"><strong>Danza:</strong> ${p.contextoDanza}</div>
         </div>
       </div>
 
       <div class="p-buttons">
         <button class="btn-diagnose ar-btn ${p.dxMariaJose === 'AR' ? 'active' : ''}" onclick="setDiagnosis(${index}, 'AR')">
-          🔴 Artritis (AR)
+          🔴 Artritis Reumatoide
         </button>
         <button class="btn-diagnose oa-btn ${p.dxMariaJose === 'OA' ? 'active' : ''}" onclick="setDiagnosis(${index}, 'OA')">
-          🔵 Artrosis (OA)
+          🔵 Artrosis del Bailarín
         </button>
       </div>
     `;
@@ -253,7 +275,7 @@ function autoDiagnoseAll() {
   renderPatientsGrid();
   updateStatusCounter();
   calculateKMeans(true);
-  showToast("Todos los pacientes diagnosticados según criterio clínico estándar.");
+  showToast("Todos los 10 bailarines diagnosticados con criterio clínico estándar.");
 }
 
 // Resetear diagnósticos
@@ -292,7 +314,7 @@ function updateStatusCounter() {
 }
 
 // =========================================================================
-// CÁLCULO DE CENTROIDES K-MEANS EN ESPACIO MULTIDIMENSIONAL
+// CÁLCULO DE CENTROIDES K-MEANS EN ESPACIO CLÍNICO MULTIDIMENSIONAL
 // =========================================================================
 
 function normalizeVal(val, scale) {
@@ -304,27 +326,27 @@ function calculateKMeans(showToastMessage = true) {
   const oaList = appState.pacientes.filter(p => p.dxMariaJose === "OA");
 
   if (arList.length === 0 || oaList.length === 0) {
-    alert("Para que el algoritmo de K-Means funcione, María José debe asignar al menos un paciente a Artritis Reumatoide (AR) y al menos uno a Artrosis (OA).");
+    alert("Para que el algoritmo de K-Means funcione, María José debe asignar al menos un paciente a Artritis Reumatoide (AR) y al menos uno a Artrosis del Bailarín (OA).");
     return;
   }
 
   // Centroide Artritis Reumatoide
   const centroidAR = {
     rigidez: arList.reduce((acc, p) => acc + p.rigidez, 0) / arList.length,
-    pcr: arList.reduce((acc, p) => acc + p.pcr, 0) / arList.length,
     articulaciones: arList.reduce((acc, p) => acc + p.articulaciones, 0) / arList.length,
+    simetria: arList.reduce((acc, p) => acc + p.simetria, 0) / arList.length,
+    inflamacion: arList.reduce((acc, p) => acc + p.inflamacion, 0) / arList.length,
     anticcp: arList.reduce((acc, p) => acc + p.anticcp, 0) / arList.length,
-    tscore: arList.reduce((acc, p) => acc + p.tscore, 0) / arList.length,
     count: arList.length
   };
 
   // Centroide Artrosis
   const centroidOA = {
     rigidez: oaList.reduce((acc, p) => acc + p.rigidez, 0) / oaList.length,
-    pcr: oaList.reduce((acc, p) => acc + p.pcr, 0) / oaList.length,
     articulaciones: oaList.reduce((acc, p) => acc + p.articulaciones, 0) / oaList.length,
+    simetria: oaList.reduce((acc, p) => acc + p.simetria, 0) / oaList.length,
+    inflamacion: oaList.reduce((acc, p) => acc + p.inflamacion, 0) / oaList.length,
     anticcp: oaList.reduce((acc, p) => acc + p.anticcp, 0) / oaList.length,
-    tscore: oaList.reduce((acc, p) => acc + p.tscore, 0) / oaList.length,
     count: oaList.length
   };
 
@@ -344,25 +366,25 @@ function calculateKMeans(showToastMessage = true) {
   evaluateNewPatient();
 
   if (showToastMessage) {
-    showToast("¡Centroides calculados! La IA ha sintetizado tu juicio clínico.");
+    showToast("¡Centroides calculados! La IA ha aprendido tu criterio clínico en bailarines.");
     document.getElementById("stepCentroids").scrollIntoView({ behavior: "smooth" });
   }
 }
 
 function updateCentroidDisplay(ar, oa) {
-  document.getElementById("arCount").textContent = `${ar.count} pacientes`;
+  document.getElementById("arCount").textContent = `${ar.count} bailarines`;
   document.getElementById("arRigidez").textContent = `${ar.rigidez.toFixed(1)} min`;
-  document.getElementById("arPcr").textContent = `${ar.pcr.toFixed(1)} mg/L`;
   document.getElementById("arArt").textContent = `${ar.articulaciones.toFixed(1)}`;
-  document.getElementById("arAnticcp").textContent = `${ar.anticcp.toFixed(0)} U/mL`;
-  document.getElementById("arTscore").textContent = `${ar.tscore.toFixed(2)} (Osteoporosis activa)`;
+  document.getElementById("arSimetria").textContent = `${ar.simetria.toFixed(1)}% (Alta simetría bilateral)`;
+  document.getElementById("arInflamacion").textContent = `${ar.inflamacion.toFixed(1)} / 10 (Sinovitis activa)`;
+  document.getElementById("arAnticcp").textContent = `${ar.anticcp.toFixed(0)} U/mL (Positivo)`;
 
-  document.getElementById("oaCount").textContent = `${oa.count} pacientes`;
+  document.getElementById("oaCount").textContent = `${oa.count} bailarines`;
   document.getElementById("oaRigidez").textContent = `${oa.rigidez.toFixed(1)} min`;
-  document.getElementById("oaPcr").textContent = `${oa.pcr.toFixed(1)} mg/L`;
   document.getElementById("oaArt").textContent = `${oa.articulaciones.toFixed(1)}`;
+  document.getElementById("oaSimetria").textContent = `${oa.simetria.toFixed(1)}% (Asimétrica focal de carga)`;
+  document.getElementById("oaInflamacion").textContent = `${oa.inflamacion.toFixed(1)} / 10 (Fría / mecánica)`;
   document.getElementById("oaAnticcp").textContent = `${oa.anticcp.toFixed(0)} U/mL (Negativo)`;
-  document.getElementById("oaTscore").textContent = `${oa.tscore.toFixed(2)} (Masa ósea conservada)`;
 }
 
 // =========================================================================
@@ -407,26 +429,26 @@ function drawScatter() {
   // Selección de variables según proyección activa
   let xProp, yProp, xLabel, yLabel, xScale, yScale;
 
-  if (appState.proyeccionActual === "anticcp_pcr") {
-    xProp = "anticcp"; yProp = "pcr";
-    xLabel = "Anti-CCP Citrulina (U/mL)"; yLabel = "PCR en Sangre (mg/L)";
-    xScale = SCALES.anticcp; yScale = SCALES.pcr;
-  } else if (appState.proyeccionActual === "rigidez_pcr") {
-    xProp = "rigidez"; yProp = "pcr";
-    xLabel = "Rigidez Matutina (min)"; yLabel = "PCR (mg/L)";
-    xScale = SCALES.rigidez; yScale = SCALES.pcr;
-  } else if (appState.proyeccionActual === "rigidez_anticcp") {
-    xProp = "rigidez"; yProp = "anticcp";
-    xLabel = "Rigidez Matutina (min)"; yLabel = "Anti-CCP Citrulina (U/mL)";
-    xScale = SCALES.rigidez; yScale = SCALES.anticcp;
-  } else if (appState.proyeccionActual === "tscore_pcr") {
-    xProp = "tscore"; yProp = "pcr";
-    xLabel = "DEXA T-Score (Fémur/Columna)"; yLabel = "PCR (mg/L)";
-    xScale = SCALES.tscore; yScale = SCALES.pcr;
+  if (appState.proyeccionActual === "simetria_inflamacion") {
+    xProp = "simetria"; yProp = "inflamacion";
+    xLabel = "Índice de Simetría Bilateral (%)"; yLabel = "Score Inflamatorio (0-10)";
+    xScale = SCALES.simetria; yScale = SCALES.inflamacion;
+  } else if (appState.proyeccionActual === "rigidez_simetria") {
+    xProp = "rigidez"; yProp = "simetria";
+    xLabel = "Rigidez Matutina (min)"; yLabel = "Índice de Simetría (%)";
+    xScale = SCALES.rigidez; yScale = SCALES.simetria;
+  } else if (appState.proyeccionActual === "anticcp_inflamacion") {
+    xProp = "anticcp"; yProp = "inflamacion";
+    xLabel = "Anti-CCP Citrulina (U/mL)"; yLabel = "Score Inflamatorio (0-10)";
+    xScale = SCALES.anticcp; yScale = SCALES.inflamacion;
+  } else if (appState.proyeccionActual === "rigidez_inflamacion") {
+    xProp = "rigidez"; yProp = "inflamacion";
+    xLabel = "Rigidez Matutina (min)"; yLabel = "Score Inflamatorio (0-10)";
+    xScale = SCALES.rigidez; yScale = SCALES.inflamacion;
   } else {
-    xProp = "rigidez"; yProp = "articulaciones";
-    xLabel = "Rigidez Matutina (min)"; yLabel = "Articulaciones Dolorosas";
-    xScale = SCALES.rigidez; yScale = SCALES.articulaciones;
+    xProp = "articulaciones"; yProp = "simetria";
+    xLabel = "Articulaciones Afectadas"; yLabel = "Índice de Simetría (%)";
+    xScale = SCALES.articulaciones; yScale = SCALES.simetria;
   }
 
   // Cuadrícula suave
@@ -441,8 +463,7 @@ function drawScatter() {
     ctx.lineTo(x, padTop + plotH);
     ctx.stroke();
 
-    let xVal = xScale.min + ((xScale.max - xScale.min) / 5) * i;
-    xVal = xProp === "tscore" ? xVal.toFixed(1) : Math.round(xVal);
+    let xVal = Math.round(xScale.min + ((xScale.max - xScale.min) / 5) * i);
     ctx.fillStyle = "#94a3b8";
     ctx.font = "10px monospace";
     ctx.textAlign = "center";
@@ -455,39 +476,27 @@ function drawScatter() {
     ctx.lineTo(padLeft + plotW, y);
     ctx.stroke();
 
-    const yVal = Math.round(yScale.min + ((yScale.max - yScale.min) / 5) * i);
+    let yVal = yScale.max <= 10 
+      ? (yScale.min + ((yScale.max - yScale.min) / 5) * i).toFixed(1)
+      : Math.round(yScale.min + ((yScale.max - yScale.min) / 5) * i);
     ctx.textAlign = "right";
     ctx.fillText(yVal, padLeft - 8, y + 4);
   }
 
-  // Línea de referencia clínica especial (Corte de Anti-CCP en 20 U/mL o T-Score en -2.5)
-  if (xProp === "anticcp") {
-    const xThreshold = mapX(20);
+  // Línea de referencia clínica de simetría (umbral 50%)
+  if (xProp === "simetria") {
+    const xMid = mapX(50);
     ctx.save();
-    ctx.strokeStyle = "#f59e0b";
+    ctx.strokeStyle = "#0284c7";
     ctx.setLineDash([4, 4]);
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(xThreshold, padTop);
-    ctx.lineTo(xThreshold, padTop + plotH);
+    ctx.moveTo(xMid, padTop);
+    ctx.lineTo(xMid, padTop + plotH);
     ctx.stroke();
-    ctx.fillStyle = "#f59e0b";
+    ctx.fillStyle = "#38bdf8";
     ctx.font = "9px system-ui";
-    ctx.fillText("Corte 20 U/mL", xThreshold + 4, padTop + 14);
-    ctx.restore();
-  } else if (xProp === "tscore") {
-    const xThreshold = mapX(-2.5);
-    ctx.save();
-    ctx.strokeStyle = "#ef4444";
-    ctx.setLineDash([4, 4]);
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    ctx.moveTo(xThreshold, padTop);
-    ctx.lineTo(xThreshold, padTop + plotH);
-    ctx.stroke();
-    ctx.fillStyle = "#ef4444";
-    ctx.font = "9px system-ui";
-    ctx.fillText("Osteoporosis ≤ -2.5", xThreshold + 4, padTop + 14);
+    ctx.fillText("Umbral Simetría 50%", xMid + 4, padTop + 14);
     ctx.restore();
   }
 
@@ -510,7 +519,7 @@ function drawScatter() {
     return padTop + plotH - ((val - yScale.min) / (yScale.max - yScale.min)) * plotH;
   }
 
-  // Puntos de los pacientes
+  // Puntos de los pacientes bailarines
   appState.pacientes.forEach(p => {
     const cx = mapX(p[xProp]);
     const cy = mapY(p[yProp]);
@@ -549,7 +558,7 @@ function drawScatter() {
     const cOA = appState.centroides.OA;
     const oaX = mapX(cOA[xProp]);
     const oaY = mapY(cOA[yProp]);
-    drawCentroidMarker(ctx, oaX, oaY, "#2563eb", "Centroide OA (μ₂)");
+    drawCentroidMarker(ctx, oaX, oaY, "#2563eb", "Centroide Artrosis (μ₂)");
   }
 
   // Paciente Nuevo
@@ -604,122 +613,126 @@ function drawCentroidMarker(ctx, x, y, color, label) {
 }
 
 // =========================================================================
-// PASO 3: PACIENTE NUEVO CON PARÁMETROS COMPLETOS Y EVALUACIÓN
+// PASO 3: PACIENTE NUEVO CON VARIABLES CLÍNICAS ESTANDARIZADAS
 // =========================================================================
 
 function initSliders() {
   const sRigidez = document.getElementById("sliderRigidez");
-  const sPcr = document.getElementById("sliderPcr");
   const sArt = document.getElementById("sliderArt");
+  const sSimetria = document.getElementById("sliderSimetria");
+  const sInfla = document.getElementById("sliderInflamacion");
   const sAnticcp = document.getElementById("sliderAnticcp");
-  const sTscore = document.getElementById("sliderTscore");
   const sRx = document.getElementById("selectRxFinding");
 
   function onControlsChange() {
     appState.pacienteNuevo.rigidez = parseFloat(sRigidez.value);
-    appState.pacienteNuevo.pcr = parseFloat(sPcr.value);
     appState.pacienteNuevo.articulaciones = parseInt(sArt.value);
+    appState.pacienteNuevo.simetria = parseInt(sSimetria.value);
+    appState.pacienteNuevo.inflamacion = parseFloat(sInfla.value);
     appState.pacienteNuevo.anticcp = parseInt(sAnticcp.value);
-    appState.pacienteNuevo.tscore = parseFloat(sTscore.value);
     appState.pacienteNuevo.rxTipo = sRx.value;
 
     document.getElementById("valRigidez").textContent = `${appState.pacienteNuevo.rigidez} min`;
-    document.getElementById("valPcr").textContent = `${appState.pacienteNuevo.pcr.toFixed(1)} mg/L`;
-    document.getElementById("valArt").textContent = `${appState.pacienteNuevo.articulaciones}`;
+    document.getElementById("valArt").textContent = `${appState.pacienteNuevo.articulaciones} artic.`;
     
+    // Anotación dinámica de Simetría
+    const simVal = appState.pacienteNuevo.simetria;
+    const simNote = simVal >= 75 ? "(Bilateral Simétrica - AR)" : simVal >= 40 ? "(Intermedia)" : "(Asimétrica Focal - Danza)";
+    document.getElementById("valSimetria").textContent = `${simVal}% ${simNote}`;
+
+    // Anotación dinámica de Inflamación
+    const inflaVal = appState.pacienteNuevo.inflamacion;
+    const inflaNote = inflaVal >= 6.0 ? "(Sinovitis Caliente Activa)" : inflaVal >= 3.5 ? "(Leve/Moderada)" : "(Articulación Fría / Mecánica)";
+    document.getElementById("valInflamacion").textContent = `${inflaVal.toFixed(1)} / 10 ${inflaNote}`;
+
     // Anotación dinámica de Anti-CCP
     const ccpVal = appState.pacienteNuevo.anticcp;
-    const ccpNote = ccpVal >= 60 ? "(Positivo Alto)" : ccpVal >= 20 ? "(Positivo)" : "(Negativo <20)";
+    const ccpNote = ccpVal >= 20 ? "(Positivo > 20)" : "(Negativo < 20)";
     document.getElementById("valAnticcp").textContent = `${ccpVal} U/mL ${ccpNote}`;
-
-    // Anotación dinámica de T-Score DEXA
-    const tVal = appState.pacienteNuevo.tscore;
-    const tNote = tVal <= -2.5 ? "(Osteoporosis ≤ -2.5)" : tVal <= -1.0 ? "(Osteopenia)" : "(Normal)";
-    document.getElementById("valTscore").textContent = `${tVal.toFixed(1)} DS ${tNote}`;
 
     drawScatter();
     evaluateNewPatient();
   }
 
   sRigidez?.addEventListener("input", onControlsChange);
-  sPcr?.addEventListener("input", onControlsChange);
   sArt?.addEventListener("input", onControlsChange);
+  sSimetria?.addEventListener("input", onControlsChange);
+  sInfla?.addEventListener("input", onControlsChange);
   sAnticcp?.addEventListener("input", onControlsChange);
-  sTscore?.addEventListener("input", onControlsChange);
   sRx?.addEventListener("change", onControlsChange);
 }
 
-// Generar paciente nuevo aleatorio coherente
+// Generar nuevo paciente bailarín aleatorio coherente
 function generateRandomPatient() {
   const isAR = Math.random() > 0.5;
 
-  let r, p, a, ccp, t, rx;
+  let r, a, sim, infla, ccp, rx;
   if (isAR) {
     r = Math.floor(65 + Math.random() * 60);         // 65 a 125 min
-    p = parseFloat((25 + Math.random() * 45).toFixed(1)); // 25 a 70 mg/L
     a = Math.floor(8 + Math.random() * 9);          // 8 a 16 artic.
-    ccp = Math.floor(100 + Math.random() * 160);    // 100 a 260 U/mL (muy específico)
-    t = parseFloat((-2.5 - Math.random() * 0.9).toFixed(1)); // -2.5 a -3.4 (Osteoporosis)
+    sim = Math.floor(78 + Math.random() * 22);       // 78% a 100% (altamente simétrica)
+    infla = parseFloat((6.5 + Math.random() * 3.2).toFixed(1)); // 6.5 a 9.7 (sinovitis caliente)
+    ccp = Math.floor(110 + Math.random() * 150);     // 110 a 260 U/mL (muy específico)
     rx = "ar";
   } else {
     r = Math.floor(5 + Math.random() * 20);          // 5 a 25 min
-    p = parseFloat((0.8 + Math.random() * 3.5).toFixed(1)); // 0.8 a 4.3 mg/L
     a = Math.floor(1 + Math.random() * 4);           // 1 a 4 artic.
+    sim = Math.floor(5 + Math.random() * 25);        // 5% a 30% (asimétrico)
+    infla = parseFloat((0.8 + Math.random() * 2.0).toFixed(1)); // 0.8 a 2.8 (artritis fría mecánica)
     ccp = Math.floor(1 + Math.random() * 8);         // 1 a 8 U/mL (negativo)
-    t = parseFloat((-0.5 - Math.random() * 1.3).toFixed(1)); // -0.5 a -1.8 (Normal/Osteopenia)
     rx = "oa";
   }
 
   document.getElementById("sliderRigidez").value = r;
-  document.getElementById("sliderPcr").value = p;
   document.getElementById("sliderArt").value = a;
+  document.getElementById("sliderSimetria").value = sim;
+  document.getElementById("sliderInflamacion").value = infla;
   document.getElementById("sliderAnticcp").value = ccp;
-  document.getElementById("sliderTscore").value = t;
   document.getElementById("selectRxFinding").value = rx;
 
-  appState.pacienteNuevo = { rigidez: r, pcr: p, articulaciones: a, anticcp: ccp, tscore: t, rxTipo: rx };
+  appState.pacienteNuevo = { rigidez: r, articulaciones: a, simetria: sim, inflamacion: infla, anticcp: ccp, rxTipo: rx };
 
   document.getElementById("valRigidez").textContent = `${r} min`;
-  document.getElementById("valPcr").textContent = `${p} mg/L`;
-  document.getElementById("valArt").textContent = `${a}`;
+  document.getElementById("valArt").textContent = `${a} artic.`;
+  document.getElementById("valSimetria").textContent = `${sim}% ${sim >= 75 ? '(Simétrica Bilateral)' : '(Asimétrica)'}`;
+  document.getElementById("valInflamacion").textContent = `${infla.toFixed(1)} / 10 ${infla >= 6.0 ? '(Sinovitis Caliente)' : '(Mecánica Fría)'}`;
   document.getElementById("valAnticcp").textContent = `${ccp} U/mL ${ccp >= 20 ? '(Positivo)' : '(Negativo)'}`;
-  document.getElementById("valTscore").textContent = `${t.toFixed(1)} DS ${t <= -2.5 ? '(Osteoporosis ≤ -2.5)' : '(Normal)'}`;
 
   drawScatter();
   evaluateNewPatient();
-  showToast("¡Nuevo paciente simulado con analítica y radiografía generado!");
+  showToast("¡Nuevo caso clínico de bailarín/a generado al azar!");
 }
 
-// Cargar caso límite / dudoso para debate pedagógico
+// Cargar caso clínico límite o de transición
 function loadBorderlinePatient() {
   const r = 35;
-  const p = 12.0;
   const a = 5;
-  const ccp = 38; // Débilmente positivo
-  const t = -2.3; // Osteopenia límite
+  const sim = 50; // Al 50% de simetría
+  const infla = 4.5; // Inflamación moderada
+  const ccp = 35; // Débilmente positivo
   const rx = "ar";
 
   document.getElementById("sliderRigidez").value = r;
-  document.getElementById("sliderPcr").value = p;
   document.getElementById("sliderArt").value = a;
+  document.getElementById("sliderSimetria").value = sim;
+  document.getElementById("sliderInflamacion").value = infla;
   document.getElementById("sliderAnticcp").value = ccp;
-  document.getElementById("sliderTscore").value = t;
   document.getElementById("selectRxFinding").value = rx;
 
-  appState.pacienteNuevo = { rigidez: r, pcr: p, articulaciones: a, anticcp: ccp, tscore: t, rxTipo: rx };
+  appState.pacienteNuevo = { rigidez: r, articulaciones: a, simetria: sim, inflamacion: infla, anticcp: ccp, rxTipo: rx };
 
   document.getElementById("valRigidez").textContent = `${r} min`;
-  document.getElementById("valPcr").textContent = `${p} mg/L`;
-  document.getElementById("valArt").textContent = `${a}`;
-  document.getElementById("valAnticcp").textContent = `${ccp} U/mL (Débilmente Positivo)`;
-  document.getElementById("valTscore").textContent = `${t.toFixed(1)} DS (Osteopenia límite)`;
+  document.getElementById("valArt").textContent = `${a} artic.`;
+  document.getElementById("valSimetria").textContent = `50% (Zona de incertidumbre)`;
+  document.getElementById("valInflamacion").textContent = `4.5 / 10 (Moderada)`;
+  document.getElementById("valAnticcp").textContent = `35 U/mL (Débilmente Positivo)`;
 
   drawScatter();
   evaluateNewPatient();
-  showToast("Caso clínico dudoso cargado.");
+  showToast("Caso límite de bailarín con síntomas mixtos cargado.");
 }
 
-// Evaluación del paciente nuevo en el espacio multidimensional normalizado
+// Evaluación del paciente nuevo en el espacio multidimensional normalizado (K-Means)
 function evaluateNewPatient() {
   if (!appState.centroides) return;
 
@@ -730,49 +743,50 @@ function evaluateNewPatient() {
   // Coordenadas normalizadas [0, 1]
   const npNorm = {
     r: normalizeVal(np.rigidez, SCALES.rigidez),
-    p: normalizeVal(np.pcr, SCALES.pcr),
     a: normalizeVal(np.articulaciones, SCALES.articulaciones),
-    ccp: normalizeVal(np.anticcp, SCALES.anticcp),
-    t: normalizeVal(np.tscore, SCALES.tscore)
+    sim: normalizeVal(np.simetria, SCALES.simetria),
+    inf: normalizeVal(np.inflamacion, SCALES.inflamacion),
+    ccp: normalizeVal(np.anticcp, SCALES.anticcp)
   };
 
   const arNorm = {
     r: normalizeVal(cAR.rigidez, SCALES.rigidez),
-    p: normalizeVal(cAR.pcr, SCALES.pcr),
     a: normalizeVal(cAR.articulaciones, SCALES.articulaciones),
-    ccp: normalizeVal(cAR.anticcp, SCALES.anticcp),
-    t: normalizeVal(cAR.tscore, SCALES.tscore)
+    sim: normalizeVal(cAR.simetria, SCALES.simetria),
+    inf: normalizeVal(cAR.inflamacion, SCALES.inflamacion),
+    ccp: normalizeVal(cAR.anticcp, SCALES.anticcp)
   };
 
   const oaNorm = {
     r: normalizeVal(cOA.rigidez, SCALES.rigidez),
-    p: normalizeVal(cOA.pcr, SCALES.pcr),
     a: normalizeVal(cOA.articulaciones, SCALES.articulaciones),
-    ccp: normalizeVal(cOA.anticcp, SCALES.anticcp),
-    t: normalizeVal(cOA.tscore, SCALES.tscore)
+    sim: normalizeVal(cOA.simetria, SCALES.simetria),
+    inf: normalizeVal(cOA.inflamacion, SCALES.inflamacion),
+    ccp: normalizeVal(cOA.anticcp, SCALES.anticcp)
   };
 
-  // Ponderación de pesos clínicos: Anti-CCP tiene gran peso por especificidad (>96%)
-  const wCCP = 1.5;
-  const wPCR = 1.0;
+  // Pesos clínicos ponderados:
+  // La simetría bilateral y el score inflamatorio son los discriminadores clínicos clave en deportistas/bailarines
+  const wSim = 1.3;
+  const wInf = 1.3;
+  const wCCP = 1.4;
   const wRig = 1.0;
   const wArt = 1.0;
-  const wT = 0.8;
 
   const distAR = Math.sqrt(
     wRig * Math.pow(npNorm.r - arNorm.r, 2) +
-    wPCR * Math.pow(npNorm.p - arNorm.p, 2) +
     wArt * Math.pow(npNorm.a - arNorm.a, 2) +
-    wCCP * Math.pow(npNorm.ccp - arNorm.ccp, 2) +
-    wT * Math.pow(npNorm.t - arNorm.t, 2)
+    wSim * Math.pow(npNorm.sim - arNorm.sim, 2) +
+    wInf * Math.pow(npNorm.inf - arNorm.inf, 2) +
+    wCCP * Math.pow(npNorm.ccp - arNorm.ccp, 2)
   );
 
   const distOA = Math.sqrt(
     wRig * Math.pow(npNorm.r - oaNorm.r, 2) +
-    wPCR * Math.pow(npNorm.p - oaNorm.p, 2) +
     wArt * Math.pow(npNorm.a - oaNorm.a, 2) +
-    wCCP * Math.pow(npNorm.ccp - oaNorm.ccp, 2) +
-    wT * Math.pow(npNorm.t - oaNorm.t, 2)
+    wSim * Math.pow(npNorm.sim - oaNorm.sim, 2) +
+    wInf * Math.pow(npNorm.inf - oaNorm.inf, 2) +
+    wCCP * Math.pow(npNorm.ccp - oaNorm.ccp, 2)
   );
 
   // Softmax
@@ -792,39 +806,39 @@ function evaluateNewPatient() {
   if (verdictEl) {
     if (isAR) {
       verdictEl.className = "verdict-badge ar";
-      verdictEl.textContent = `🔴 Artritis Reumatoide (${probAR.toFixed(1)}%)`;
+      verdictEl.textContent = `🔴 Artritis Reumatoide Autoinmune (${probAR.toFixed(1)}%)`;
     } else {
       verdictEl.className = "verdict-badge oa";
-      verdictEl.textContent = `🔵 Artrosis / Osteoartritis (${probOA.toFixed(1)}%)`;
+      verdictEl.textContent = `🔵 Artrosis Ocupacional del Bailarín (${probOA.toFixed(1)}%)`;
     }
   }
 
   if (barFill) barFill.style.width = `${probAR.toFixed(1)}%`;
   if (probARText) probARText.textContent = `Artritis Reumatoide: ${probAR.toFixed(1)}%`;
-  if (probOAText) probOAText.textContent = `Artrosis: ${probOA.toFixed(1)}%`;
+  if (probOAText) probOAText.textContent = `Artrosis Mecánica: ${probOA.toFixed(1)}%`;
 
   // Explicación clínica matemática detallada
   if (distMathEl) {
-    const ccpAnalysis = np.anticcp >= 20 
-      ? `• <strong style="color:#b91c1c;">Anti-CCP (${np.anticcp} U/mL):</strong> Positivo (especificidad >96% Artritis Reumatoide).`
-      : `• <strong style="color:#1d4ed8;">Anti-CCP (${np.anticcp} U/mL):</strong> Negativo (típico de Artrosis).`;
+    const simAnalysis = np.simetria >= 75
+      ? `• <strong style="color:#b91c1c;">Simetría (${np.simetria}%):</strong> Alta afectación bilateral en espejo, característica cardinal de Artritis Reumatoide.`
+      : `• <strong style="color:#1d4ed8;">Simetría (${np.simetria}%):</strong> Asimétrica/unilateral, congruente con sobrecarga mecánica de apoyo en danza.`;
 
-    const dexaAnalysis = np.tscore <= -2.5
-      ? `• <strong style="color:#b91c1c;">DEXA T-score (${np.tscore.toFixed(1)}):</strong> Cumple criterio OMS de Osteoporosis (≤ -2.5), fuertemente asociada a inflamación crónica sistémica (AR).`
-      : `• <strong style="color:#1d4ed8;">DEXA T-score (${np.tscore.toFixed(1)}):</strong> Sin osteoporosis severa, congruente con Artrosis.`;
+    const inflaAnalysis = np.inflamacion >= 6.0
+      ? `• <strong style="color:#b91c1c;">Score Inflamatorio (${np.inflamacion.toFixed(1)}/10):</strong> Sinovitis esponjosa con calor local y derrame articular activo.`
+      : `• <strong style="color:#1d4ed8;">Score Inflamatorio (${np.inflamacion.toFixed(1)}/10):</strong> Articulaciones frías/duras por osteofitos y esclerosis cortical sin calor.`;
 
-    const rxAnalysis = np.rxTipo === "ar"
-      ? `• <strong style="color:#b91c1c;">Radiografía:</strong> Rotura y erosión cortical marginal + desestructuración (patrón AR).`
-      : `• <strong style="color:#1d4ed8;">Radiografía:</strong> Desgaste con esclerosis subcondral y osteofitos (patrón Artrosis).`;
+    const ccpAnalysis = np.anticcp >= 20
+      ? `• <strong style="color:#b91c1c;">Anti-CCP (${np.anticcp} U/mL):</strong> Positivo (especificidad >96% confirmando proceso autoinmune).`
+      : `• <strong style="color:#1d4ed8;">Anti-CCP (${np.anticcp} U/mL):</strong> Negativo (descarta patología autoinmune sistémica).`;
 
     distMathEl.innerHTML = `
-      <strong>Análisis Multidimensional Integrado:</strong><br>
+      <strong>Análisis Multidimensional del Bailarín/a:</strong><br>
+      ${simAnalysis}<br>
+      ${inflaAnalysis}<br>
       ${ccpAnalysis}<br>
-      ${dexaAnalysis}<br>
-      ${rxAnalysis}<br>
       <div style="margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #cbd5e1;">
         <strong>Distancias vectoriales ponderadas K-Means:</strong><br>
-        • Distancia a Centroide AR (μ₁): <code>${distAR.toFixed(3)}</code> | Distancia a Centroide OA (μ₂): <code>${distOA.toFixed(3)}</code>
+        • Distancia a Centroide AR (μ₁): <code>${distAR.toFixed(3)}</code> | Distancia a Centroide Artrosis (μ₂): <code>${distOA.toFixed(3)}</code>
       </div>
     `;
   }
