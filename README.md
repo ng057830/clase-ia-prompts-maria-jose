@@ -13,9 +13,9 @@
    Haz doble clic sobre [`aplicativo/index.html`](file:///g:/My%20Drive/Folios/Beamer/2026-05-25/MARIA%20JOSE/Clase_IA_Prompts_Maria_Jose_20261031/aplicativo/index.html).  
    *No requiere instalación, ni servidor, ni internet, ni API keys.*
 
-2. **Abre el simulador interactivo de K-Means (Reumatología):**  
+2. **Abre el simulador interactivo de K-Means (Reumatología Avanzado):**  
    Haz doble clic sobre [`aplicativo_kmeans/index.html`](file:///g:/My%20Drive/Folios/Beamer/2026-05-25/MARIA%20JOSE/Clase_IA_Prompts_Maria_Jose_20261031/aplicativo_kmeans/index.html).  
-   *Demuestra cómo un modelo K=2 aprende el juicio médico de María José usando 3 variables (Rigidez matutina, PCR y Articulaciones tumefactas).*
+   *Demuestra cómo un modelo K=2 aprende el juicio médico de María José usando clínica, analítica específica (Anti-CCP citrulina), radiografía (desgaste vs. rotura cortical) y densitometría ósea DEXA (T-score ≤ -2.5).*
 
 3. **Abre la guía docente:**  
    Consulta [`guia_profesor.txt`](file:///g:/My%20Drive/Folios/Beamer/2026-05-25/MARIA%20JOSE/Clase_IA_Prompts_Maria_Jose_20261031/guia_profesor.txt) en tu editor o en una ventana secundaria para tener las respuestas exactas, tiempos de control y estrategias para gestionar el ritmo de María José.
@@ -47,9 +47,9 @@ Clase_IA_Prompts_Maria_Jose_20261031/
 │   └── app.js                         <- Lógica interactiva y evaluador pedagógico transparente
 │
 └── aplicativo_kmeans/                 <- Simulador de Machine Learning Clínico (K=2)
-    ├── index.html                     <- Simulador Artritis Reumatoide vs. Artrosis con 3 variables
+    ├── index.html                     <- Simulador AR vs. Artrosis con Anti-CCP, Rx ósea y DEXA (T-score)
     ├── styles.css                     <- Estilos modernos para gráficos y fichas clínicas
-    └── app.js                         <- Algoritmo K-Means, centroides 3D, proyecciones y paciente sorpresa
+    └── app.js                         <- Algoritmo K-Means multidimensional, centroides, proyecciones y paciente sorpresa
 ```
 
 ---

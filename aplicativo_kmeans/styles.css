@@ -1,6 +1,6 @@
 /* ==========================================================================
    Simulador K-Means en Reumatología | URV AI Foundations
-   Estilos CSS Clínicos, Modernos y Visuales
+   Estilos CSS Clínicos, Modernos y Visuales (Con Parámetros Avanzados)
    ========================================================================== */
 
 :root {
@@ -49,7 +49,7 @@ body {
 }
 
 .header-inner {
-  max-width: 1200px;
+  max-width: 1250px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -103,7 +103,7 @@ body {
 
 /* Contenedor Principal */
 .main-wrapper {
-  max-width: 1200px;
+  max-width: 1250px;
   margin: 1.5rem auto;
   padding: 0 1rem;
 }
@@ -139,7 +139,7 @@ body {
 
 .vars-pill-row {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.5rem;
   margin-top: 0.75rem;
   flex-wrap: wrap;
 }
@@ -147,11 +147,106 @@ body {
 .var-pill {
   background: #f1f5f9;
   border: 1px solid #cbd5e1;
-  padding: 0.25rem 0.6rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 9999px;
   font-size: 0.8rem;
   font-weight: 600;
   color: #334155;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.var-pill.highlight-pill {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+/* Panel de Anotaciones Clínicas */
+.clinical-reference-panel {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.reference-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.reference-header h3 {
+  font-size: 1.15rem;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reference-toggle-btn {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 700;
+  background: var(--bg-page);
+  border: 1px solid var(--border-color);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.ref-card {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+}
+
+.ref-card h4 {
+  font-size: 0.95rem;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ref-card p {
+  font-size: 0.84rem;
+  color: #475569;
+  margin-bottom: 0.6rem;
+}
+
+.ref-bullets {
+  list-style: none;
+  font-size: 0.82rem;
+  color: #334155;
+}
+
+.ref-bullets li {
+  padding: 0.25rem 0;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.ref-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
 }
 
 /* Secciones de Pasos */
@@ -205,18 +300,17 @@ body {
   color: var(--text-muted);
 }
 
-/* Controles de Acción en Encabezado */
 .step-controls {
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
 
-/* Grilla de 10 Pacientes */
+/* Grilla de 10 Pacientes Enriquecida */
 .patients-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.15rem;
   margin-bottom: 1.25rem;
 }
 
@@ -224,7 +318,7 @@ body {
   background: #f8fafc;
   border: 2px solid #e2e8f0;
   border-radius: var(--radius-md);
-  padding: 0.85rem;
+  padding: 0.95rem;
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -250,7 +344,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .p-id {
@@ -267,25 +361,14 @@ body {
   text-transform: uppercase;
 }
 
-.badge-unassigned {
-  background: #e2e8f0;
-  color: #64748b;
-}
-
-.badge-ar {
-  background: #fee2e2;
-  color: var(--ar-color);
-}
-
-.badge-oa {
-  background: #dbeafe;
-  color: var(--oa-color);
-}
+.badge-unassigned { background: #e2e8f0; color: #64748b; }
+.badge-ar { background: #fee2e2; color: var(--ar-color); }
+.badge-oa { background: #dbeafe; color: var(--oa-color); }
 
 .p-metrics {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: #334155;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.65rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -294,13 +377,66 @@ body {
 .metric-row {
   display: flex;
   justify-content: space-between;
-  padding: 0.15rem 0;
+  align-items: center;
+  padding: 0.2rem 0;
   border-bottom: 1px dashed rgba(0,0,0,0.06);
 }
 
 .metric-val {
   font-family: var(--font-mono);
   font-weight: 700;
+}
+
+/* Badges específicos clínicos */
+.badge-anticcp-pos {
+  background: #fee2e2;
+  color: #dc2626;
+  font-weight: 800;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
+.badge-anticcp-neg {
+  background: #e2e8f0;
+  color: #475569;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
+.badge-tscore-osteo {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 800;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
+.badge-tscore-normal {
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+}
+
+.p-rx-box {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.6rem;
+  font-size: 0.75rem;
+  color: #334155;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.p-rx-box strong {
+  color: #0f172a;
 }
 
 .p-buttons {
@@ -411,10 +547,10 @@ body {
 }
 
 .centroid-metrics {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.3rem;
   margin-top: 0.5rem;
 }
 
@@ -452,22 +588,25 @@ body {
 .axis-selector {
   display: flex;
   gap: 0.3rem;
+  flex-wrap: wrap;
 }
 
 .axis-btn {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #e2e8f0;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   padding: 0.25rem 0.55rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .axis-btn.active {
   background: var(--primary);
   border-color: var(--primary);
   color: white;
+  font-weight: 700;
 }
 
 #scatterCanvas {
@@ -482,6 +621,7 @@ body {
   gap: 1.25rem;
   font-size: 0.8rem;
   margin-top: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .legend-item {
@@ -512,9 +652,9 @@ body {
 
 .surprise-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1.3fr;
+  grid-template-columns: 1.15fr 1.25fr;
   gap: 1.5rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 @media (max-width: 850px) {
@@ -532,16 +672,16 @@ body {
 }
 
 .input-slider-group {
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
 .input-slider-group label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: #334155;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
 }
 
 .slider-val {
@@ -560,6 +700,7 @@ body {
   display: flex;
   gap: 0.5rem;
   margin-top: 1rem;
+  flex-wrap: wrap;
 }
 
 /* Tarjeta del Resultado de la IA */
@@ -638,9 +779,10 @@ body {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
-  padding: 0.65rem;
+  padding: 0.75rem;
   font-size: 0.8rem;
   color: #475569;
+  line-height: 1.45;
 }
 
 .surprise-reveal-message {

@@ -13,8 +13,8 @@
     <div class="header-inner">
       <div>
         <div class="badge-tag">Machine Learning Clínico • URV AI Foundations</div>
-        <h1>Simulador K-Means en Reumatología</h1>
-        <p>Aprende cómo un algoritmo de agrupamiento (K=2) replica el juicio clínico usando únicamente 3 variables</p>
+        <h1>Simulador K-Means en Reumatología Avanzado</h1>
+        <p>Aprende cómo un algoritmo de agrupamiento replica el juicio clínico usando variables clínicas, analíticas (Anti-CCP), radiografía y densitometría (T-score)</p>
       </div>
       <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
         <a href="../index.html" class="btn btn-outline" style="background:rgba(255,255,255,0.15); color:white; border-color:rgba(255,255,255,0.3); text-decoration:none;" title="Volver al Portal Principal">
@@ -33,18 +33,81 @@
 
   <main class="main-wrapper">
 
-    <!-- Banner Pedagógico -->
+    <!-- Banner Pedagógico de Introducción -->
     <section class="intro-banner">
       <div class="intro-icon">🩺</div>
       <div class="intro-text">
-        <h2>El Reto de María José: Enseñar a una IA a Diferenciar Dos Patologías</h2>
+        <h2>Diferenciación Reumatológica: Artritis Reumatoide (AR) vs. Artrosis / Osteoartritis (OA)</h2>
         <p>
-          En la práctica reumatológica, diferenciar un <strong>patrón inflamatorio sistémico (Artritis Reumatoide)</strong> de un <strong>patrón mecánico/degenerativo (Artrosis u Osteoartritis)</strong> suele depender con altísima probabilidad de tres variables cuantitativas clave:
+          Para diferenciar un <strong>patrón inflamatorio sistémico (Artritis Reumatoide)</strong> de un <strong>patrón mecánico/degenerativo (Artrosis)</strong>, la reumatología moderna combina parámetros clínicos, marcadores inmunológicos de alta especificidad, radiografía articular y densitometría ósea:
         </p>
         <div class="vars-pill-row">
-          <span class="var-pill">⏱️ 1. Rigidez Matutina (minutos)</span>
-          <span class="var-pill">🧪 2. PCR - Proteína C Reactiva (mg/L)</span>
-          <span class="var-pill">🖐️ 3. Conteo de Articulaciones Tumefactas/Dolorosas</span>
+          <span class="var-pill">⏱️ 1. Rigidez Matutina</span>
+          <span class="var-pill">🧪 2. PCR en Sangre</span>
+          <span class="var-pill">🖐️ 3. Articulaciones Afectadas</span>
+          <span class="var-pill highlight-pill">🎯 4. Anti-CCP (Citrulina) [Precoz]</span>
+          <span class="var-pill highlight-pill">🦴 5. Rx: Desgaste vs. Erosión Cortical</span>
+          <span class="var-pill highlight-pill">📉 6. DEXA: T-Score ≤ -2.5</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PANEL DE ANOTACIONES CLÍNICAS Y CRITERIOS MÉDICOS CLAVE -->
+    <!-- ================================================================= -->
+    <section class="clinical-reference-panel">
+      <div class="reference-header" onclick="toggleClinicalNotes()">
+        <h3>📚 Guía de Anotaciones Clínicas y Criterios Reumatológicos</h3>
+        <button class="reference-toggle-btn" id="btnToggleNotes">▲ Ocultar Anotaciones</button>
+      </div>
+
+      <div class="ref-grid" id="clinicalNotesGrid">
+        <!-- Tarjeta 1: Anti-CCP -->
+        <div class="ref-card">
+          <h4>
+            <span>🎯</span>
+            <strong>Anticuerpos Anti-CCP (Péptidos Citrulinados)</strong>
+          </h4>
+          <p>
+            Son el biomarcador serológico de referencia por su <strong>altísima especificidad (>96% - 98%)</strong> para Artritis Reumatoide y su rol clave en el <strong>diagnóstico precoz</strong>:
+          </p>
+          <ul class="ref-bullets">
+            <li><strong>Aparición temprana:</strong> Se positivizan meses o años antes de que aparezcan las lesiones óseas visibles.</li>
+            <li><strong>Valor normal:</strong> &lt; 20 U/mL (Negativo).</li>
+            <li><strong>Artritis Reumatoide:</strong> Títulos elevados (&gt; 50 - 250+ U/mL).</li>
+            <li><strong>Artrosis:</strong> Siempre negativos (&lt; 20 U/mL), al no tener base autoinmune.</li>
+          </ul>
+        </div>
+
+        <!-- Tarjeta 2: Radiografía Ósea y Corteza -->
+        <div class="ref-card">
+          <h4>
+            <span>🦴</span>
+            <strong>Radiografía: Desgaste vs. Erosión y Rotura Cortical</strong>
+          </h4>
+          <p>
+            La imagen ósea refleja los dos mecanismos fisiopatológicos opuestos:
+          </p>
+          <ul class="ref-bullets">
+            <li><strong>Artrosis (Desgaste Mecánico):</strong> Pérdida del cartílago articular, <strong>esclerosis ósea subcondral</strong> (la corteza ósea se engruesa y compacta por la fricción), <strong>osteofitos</strong> ("picos de loro") y pinzamiento articular asimétrico. No hay rotura destructiva.</li>
+            <li><strong>Artritis Reumatoide (Inflamación Activa):</strong> El pannus sinovial destruye la corteza del hueso causando <strong>erosiones marginales</strong> ("mordeduras corticales"), osteopenia yuxtaarticular y articulaciones desestructuradas y desviadas.</li>
+          </ul>
+        </div>
+
+        <!-- Tarjeta 3: Densitometría Ósea (DEXA) y Parámetro -2.5 -->
+        <div class="ref-card">
+          <h4>
+            <span>📉</span>
+            <strong>Densitometría Ósea DEXA: Parámetro T-Score ≤ -2.5</strong>
+          </h4>
+          <p>
+            La densitometría se evalúa principalmente en el <strong>cuello del fémur</strong> y la <strong>columna lumbar (L1-L4)</strong>:
+          </p>
+          <ul class="ref-bullets">
+            <li><strong>Criterio diagnóstico OMS:</strong> Un <strong>T-score ≤ -2.5 Desviaciones Estándar</strong> define formalmente <strong>OSTEOPOROSIS</strong>.</li>
+            <li><strong>Artritis Reumatoide:</strong> Riesgo muy elevado de osteoporosis precoz (T-score típicamente ≤ -2.5) debido a las citoquinas inflamatorias (TNF-α, IL-6) y al uso frecuente de corticoides.</li>
+            <li><strong>Artrosis:</strong> Masa ósea generalmente normal o con osteopenia moderada; en columna lumbar el T-score puede incluso estar falsamente elevado por los osteofitos y la esclerosis ósea.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -57,8 +120,8 @@
         <div class="step-title-area">
           <div class="step-number">1</div>
           <div>
-            <h3>Paso 1: Tu Criterio Médico (10 Pacientes Reales Simulados)</h3>
-            <p class="step-subtitle">Revisa los datos de cada paciente y clasifícalo pulsando si sospechas Artritis Reumatoide (AR) o Artrosis (OA).</p>
+            <h3>Paso 1: Tu Criterio Médico (10 Pacientes con Datos Analíticos y Radiológicos)</h3>
+            <p class="step-subtitle">Revisa los síntomas, la analítica de Anti-CCP, la radiografía ósea y la densitometría de cada paciente para emitir tu diagnóstico.</p>
           </div>
         </div>
 
@@ -97,7 +160,7 @@
           <div class="step-number">2</div>
           <div>
             <h3>Paso 2: ¿Qué Aprendió la IA? Los Centroides Matemáticos</h3>
-            <p class="step-subtitle">La IA promedió tus decisiones en un espacio tridimensional para encontrar el "paciente representativo" (centroide) de cada enfermedad.</p>
+            <p class="step-subtitle">La IA promedió tus decisiones para definir los dos perfiles centroides con todas sus variables analíticas y óseas.</p>
           </div>
         </div>
       </div>
@@ -107,37 +170,49 @@
         <div class="centroids-panel">
           <div class="centroid-card ar-cluster">
             <h4>🔴 Centroide Artritis Reumatoide (μ₁)</h4>
-            <div style="font-size:0.8rem; color:#b91c1c;">Clúster Inflamatorio • <span id="arCount">5 pacientes</span></div>
+            <div style="font-size:0.8rem; color:#b91c1c; font-weight:700;">Clúster Inflamatorio • <span id="arCount">5 pacientes</span></div>
             <div class="centroid-metrics">
               <div>Rigidez Matutina media: <span class="val" id="arRigidez">--</span></div>
-              <div>PCR media: <span class="val" id="arPcr">--</span></div>
+              <div>PCR en sangre media: <span class="val" id="arPcr">--</span></div>
               <div>Articulaciones media: <span class="val" id="arArt">--</span></div>
+              <div>Anti-CCP Citrulina media: <span class="val" id="arAnticcp" style="color:#b91c1c;">--</span></div>
+              <div>DEXA T-score medio: <span class="val" id="arTscore" style="color:#b91c1c;">--</span></div>
+            </div>
+            <div style="font-size:0.75rem; color:#7f1d1d; margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #fca5a5;">
+              <strong>Patrón radiológico asociado:</strong> Erosión cortical marginal activa, osteopenia periarticular y desestructuración articular.
             </div>
           </div>
 
           <div class="centroid-card oa-cluster">
-            <h4>🔵 Centroide Artrosis (μ₂)</h4>
-            <div style="font-size:0.8rem; color:#1d4ed8;">Clúster Mecánico/Degenerativo • <span id="oaCount">5 pacientes</span></div>
+            <h4>🔵 Centroide Artrosis / Osteoartritis (μ₂)</h4>
+            <div style="font-size:0.8rem; color:#1d4ed8; font-weight:700;">Clúster Mecánico/Degenerativo • <span id="oaCount">5 pacientes</span></div>
             <div class="centroid-metrics">
               <div>Rigidez Matutina media: <span class="val" id="oaRigidez">--</span></div>
-              <div>PCR media: <span class="val" id="oaPcr">--</span></div>
+              <div>PCR en sangre media: <span class="val" id="oaPcr">--</span></div>
               <div>Articulaciones media: <span class="val" id="oaArt">--</span></div>
+              <div>Anti-CCP Citrulina media: <span class="val" id="oaAnticcp" style="color:#1d4ed8;">--</span></div>
+              <div>DEXA T-score medio: <span class="val" id="oaTscore" style="color:#1d4ed8;">--</span></div>
+            </div>
+            <div style="font-size:0.75rem; color:#1e3a8a; margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed #93c5fd;">
+              <strong>Patrón radiológico asociado:</strong> Desgaste de cartílago, esclerosis cortical subcondral densa y osteofitos sin osteopenia.
             </div>
           </div>
 
           <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-sm); padding:0.75rem; font-size:0.82rem; color:#475569;">
-            💡 <strong>Principio de K-Means:</strong> Cada nuevo paciente será clasificado midiendo a cuál de estos dos centros está más cerca en el espacio de 3 dimensiones normalizado.
+            💡 <strong>Principio K-Means:</strong> El algoritmo ubica cada centroide en el centro geométrico de los pacientes diagnosticados por María José, midiendo la distancia vectorial a ambos polos.
           </div>
         </div>
 
         <!-- Gráfico de Dispersión Interactivo -->
         <div class="canvas-container">
           <div class="canvas-header">
-            <h4>Visualizador de Dispersión (Proyección 2D del Espacio 3D)</h4>
+            <h4>Proyecciones 2D del Espacio Clínico</h4>
             <div class="axis-selector">
-              <button class="axis-btn active" data-axis="rigidez_pcr" onclick="setProjection('rigidez_pcr')">Rigidez vs PCR</button>
+              <button class="axis-btn active" data-axis="anticcp_pcr" onclick="setProjection('anticcp_pcr')">Anti-CCP vs PCR</button>
+              <button class="axis-btn" data-axis="rigidez_pcr" onclick="setProjection('rigidez_pcr')">Rigidez vs PCR</button>
+              <button class="axis-btn" data-axis="rigidez_anticcp" onclick="setProjection('rigidez_anticcp')">Rigidez vs Anti-CCP</button>
+              <button class="axis-btn" data-axis="tscore_pcr" onclick="setProjection('tscore_pcr')">T-Score vs PCR</button>
               <button class="axis-btn" data-axis="rigidez_art" onclick="setProjection('rigidez_art')">Rigidez vs Artic.</button>
-              <button class="axis-btn" data-axis="pcr_art" onclick="setProjection('pcr_art')">PCR vs Artic.</button>
             </div>
           </div>
 
@@ -153,15 +228,15 @@
     </section>
 
     <!-- ================================================================= -->
-    <!-- PASO 3: ¡LA SORPRESA! PACIENTE NUEVO ALEATORIO -->
+    <!-- PASO 3: ¡LA SORPRESA! PACIENTE NUEVO CON PARÁMETROS COMPLETOS -->
     <!-- ================================================================= -->
     <section class="step-card" id="stepSurprise" style="display: none;">
       <div class="step-header">
         <div class="step-title-area">
           <div class="step-number">3</div>
           <div>
-            <h3>Paso 3: ¡La Sorpresa! Comprueba cómo la IA Replica tu Juicio</h3>
-            <p class="step-subtitle">Introduce un paciente totalmente nuevo con medidas aleatorias y observa cómo la IA diagnostica al instante basándose en lo que le enseñaste.</p>
+            <h3>Paso 3: ¡La Sorpresa! Pon a Prueba a la IA con un Paciente Nuevo</h3>
+            <p class="step-subtitle">Introduce o genera medidas aleatorias (incluyendo Anti-CCP, Radiografía y Densitometría) y observa cómo la IA replica tu juicio clínico.</p>
           </div>
         </div>
       </div>
@@ -171,14 +246,14 @@
           
           <!-- Controles del Paciente Nuevo -->
           <div class="new-patient-input-box">
-            <h4 style="margin-bottom:0.75rem; font-size:1rem; color:#1e293b;">Datos del Paciente Inédito:</h4>
+            <h4 style="margin-bottom:0.75rem; font-size:1rem; color:#1e293b;">Parámetros del Paciente Inédito:</h4>
 
             <div class="input-slider-group">
               <label>
                 <span>Rigidez Matutina:</span>
-                <span class="slider-val" id="valRigidez">80 min</span>
+                <span class="slider-val" id="valRigidez">85 min</span>
               </label>
-              <input type="range" id="sliderRigidez" class="slider-input" min="0" max="150" value="80" step="1">
+              <input type="range" id="sliderRigidez" class="slider-input" min="0" max="150" value="85" step="1">
             </div>
 
             <div class="input-slider-group">
@@ -197,6 +272,37 @@
               <input type="range" id="sliderArt" class="slider-input" min="0" max="20" value="10" step="1">
             </div>
 
+            <!-- Nuevo parámetro: Anti-CCP -->
+            <div class="input-slider-group" style="background:#fff7ed; border:1px solid #ffedd5; padding:0.5rem; border-radius:var(--radius-sm);">
+              <label>
+                <span style="color:#c2410c;">🎯 Ac. Anti-CCP (Citrulina):</span>
+                <span class="slider-val" id="valAnticcp">170 U/mL (Positivo)</span>
+              </label>
+              <input type="range" id="sliderAnticcp" class="slider-input" min="0" max="300" value="170" step="1" style="accent-color:#ea580c;">
+              <div style="font-size:0.7rem; color:#9a3412;">Corte clínico de positividad: ≥ 20 U/mL (específico de AR)</div>
+            </div>
+
+            <!-- Nuevo parámetro: DEXA T-Score -->
+            <div class="input-slider-group" style="background:#f0fdf4; border:1px solid #dcfce7; padding:0.5rem; border-radius:var(--radius-sm); margin-top:0.5rem;">
+              <label>
+                <span style="color:#15803d;">📉 DEXA T-Score (Fémur/Columna):</span>
+                <span class="slider-val" id="valTscore">-2.7 DS (Osteoporosis ≤ -2.5)</span>
+              </label>
+              <input type="range" id="sliderTscore" class="slider-input" min="-4.0" max="1.0" value="-2.7" step="0.1" style="accent-color:#16a34a;">
+              <div style="font-size:0.7rem; color:#166534;">Umbral OMS: T-score ≤ -2.5 DS marca Osteoporosis</div>
+            </div>
+
+            <!-- Nuevo parámetro: Radiografía -->
+            <div class="input-slider-group" style="margin-top:0.6rem;">
+              <label>
+                <span>🦴 Hallazgo Radiográfico:</span>
+              </label>
+              <select id="selectRxFinding" style="width:100%; padding:0.45rem; border-radius:var(--radius-sm); border:1px solid var(--border-color); font-size:0.8rem;">
+                <option value="ar">Erosiones óseas corticales + osteopenia yuxtaarticular (Patrón AR)</option>
+                <option value="oa">Desgaste de cartílago + esclerosis subcondral + osteofitos (Patrón Artrosis)</option>
+              </select>
+            </div>
+
             <div class="new-patient-actions">
               <button class="btn btn-random" onclick="generateRandomPatient()">
                 🎲 Generar Paciente Aleatorio
@@ -210,7 +316,7 @@
           <!-- Veredicto de la IA -->
           <div class="ai-verdict-box">
             <div class="verdict-header">
-              <span class="verdict-label">Diagnóstico de la IA (Vía K-Means):</span>
+              <span class="verdict-label">Diagnóstico de la IA (Vía K-Means Multidimensional):</span>
             </div>
 
             <div class="verdict-badge ar" id="aiVerdictBadge">
@@ -228,19 +334,19 @@
             </div>
 
             <div class="distance-math-box" id="distMathText">
-              <!-- Calculado dinámicamente -->
+              <!-- Calculado dinámicamente con detalles analíticos y óseos -->
             </div>
 
             <div class="surprise-reveal-message">
               🎉 <strong>¡Magia del Aprendizaje Automático para María José!</strong><br>
-              Observa que la IA nunca leyó un tratado de medicina: simplemente calculó la distancia en 3D entre este nuevo paciente y los dos centros geométricos que <em>TÚ creaste con tus 10 decisiones</em>. ¡El algoritmo ha replicado fielmente tu criterio clínico!
+              Observa cómo la combinación de los <strong>Anti-CCP positivos</strong>, el <strong>T-score ≤ -2.5 en fémur/columna</strong> y las <strong>erosiones en la corteza ósea</strong> permitieron a la IA confirmar de forma matemática el patrón inflamatorio que tú misma le enseñaste con tus 10 decisiones.
             </div>
           </div>
 
         </div>
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.25rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.25rem; flex-wrap:wrap; gap:1rem;">
         <a href="../aplicativo/index.html" class="btn btn-outline">
           ⬅️ Volver al Laboratorio de Prompts Clínicos
         </a>
